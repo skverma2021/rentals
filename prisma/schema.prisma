@@ -1,0 +1,121 @@
+generator client {
+  provider = "prisma-client"
+  output   = "../src/generated/client"
+}
+
+datasource db {
+  provider = "sqlite"
+}
+
+model assets {
+  id                    Int                     @id @default(autoincrement())
+  specId                Int
+  acquiredDate          DateTime
+  purchasePrice         Float
+  attachments           assetFile[]
+  createdAt             DateTime                @default(now())
+  assetSpec             assetSpec               @relation(fields: [specId], references: [id])
+  assetCurrentCondition assetCurrentCondition[]
+  assetCurrentValue     assetCurrentValue[]
+  assetWithCustomer     assetWithCustomer[]
+}
+
+model assetCategory {
+  id          Int         @id @default(autoincrement())
+  description String
+  assetSpec   assetSpec[]
+}
+
+model manufacturer {
+  id          Int         @id @default(autoincrement())
+  description String
+  assetSpec   assetSpec[]
+}
+
+model assetSpec {
+  id              Int           @id @default(autoincrement())
+  assetCategoryId Int
+  manufacturerId  Int
+  yearMake        Int
+  model           String
+  description     String
+  assetCategory   assetCategory @relation(fields: [assetCategoryId], references: [id])
+  manufacturer    manufacturer  @relation(fields: [manufacturerId], references: [id])
+  assets          assets[]
+}
+
+model definedCondition {
+  id                    Int                     @id @default(autoincrement())
+  description           String
+  assetCurrentCondition assetCurrentCondition[]
+}
+
+model assetCurrentCondition {
+  id                 Int              @id @default(autoincrement())
+  assetId            Int
+  definedConditionId Int
+  asOnDate           DateTime
+  assets             assets           @relation(fields: [assetId], references: [id])
+  definedCondition   definedCondition @relation(fields: [definedConditionId], references: [id])
+}
+
+model assetCurrentValue {
+  id              Int      @id @default(autoincrement())
+  assetId         Int
+  theCurrentValue Float
+  asOnDate        DateTime
+  assets          assets   @relation(fields: [assetId], references: [id])
+}
+
+model assetWithCustomer {
+  id           Int       @id @default(autoincrement())
+  assetId      Int
+  customerId   Int
+  ratePerMonth Float
+  fromDate     DateTime
+  assets       assets    @relation(fields: [assetId], references: [id])
+  customer     customers @relation(fields: [customerId], references: [id])
+}
+
+model customers {
+  id                Int                 @id @default(autoincrement())
+  company           String?
+  lastName          String
+  firstName         String
+  emailId           String              @unique
+  jobTitle          String?
+  businessPhone     String?
+  homePhone         String?
+  mobilePhone       String              @unique
+  address           String
+  city              String
+  stateProvince     String
+  zipPostalCode     String
+  countryRegion     String
+  webPage           String?
+  attachments       customerFile[]
+  createdAt         DateTime            @default(now())
+  assetWithCustomer assetWithCustomer[]
+}
+
+model customerFile {
+  id         String    @id @default(cuid())
+  customerId Int
+  customer   customers @relation(fields: [customerId], references: [id])
+  fileName   String
+  fileType   String
+  fileSize   Int
+  fileUrl    String
+  createdAt  DateTime  @default(now())
+}
+
+model assetFile {
+  id        String   @id @default(cuid())
+  assetId   Int
+  asset     assets   @relation(fields: [assetId], references: [id])
+  fileName  String
+  fileType  String
+  fileSize  Int
+  fileUrl   String
+  createdAt DateTime @default(now())
+}

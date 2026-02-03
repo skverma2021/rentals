@@ -1,0 +1,28 @@
+{
+  "name": "rentals",
+  "version": "1.0.0",
+  "description": "Asset Rental System",
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@prisma/adapter-better-sqlite3": "^7.3.0",
+    "@prisma/client": "^7.3.0",
+    "next": "^16.1.6",
+    "prisma": "^7.3.0",
+    "react": "^19.2.4",
+    "react-dom": "^19.2.4"
+  },
+  "devDependencies": {
+    "@types/node": "^25.2.0",
+    "@types/react": "^19.2.10",
+    "tsx": "^4.21.0",
+    "typescript": "^5.9.3"
+  }
+}
