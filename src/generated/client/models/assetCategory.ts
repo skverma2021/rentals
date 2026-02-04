@@ -28,24 +28,29 @@ export type AggregateAssetCategory = {
 
 export type AssetCategoryAvgAggregateOutputType = {
   id: number | null
+  agencyId: number | null
 }
 
 export type AssetCategorySumAggregateOutputType = {
   id: number | null
+  agencyId: number | null
 }
 
 export type AssetCategoryMinAggregateOutputType = {
   id: number | null
+  agencyId: number | null
   description: string | null
 }
 
 export type AssetCategoryMaxAggregateOutputType = {
   id: number | null
+  agencyId: number | null
   description: string | null
 }
 
 export type AssetCategoryCountAggregateOutputType = {
   id: number
+  agencyId: number
   description: number
   _all: number
 }
@@ -53,24 +58,29 @@ export type AssetCategoryCountAggregateOutputType = {
 
 export type AssetCategoryAvgAggregateInputType = {
   id?: true
+  agencyId?: true
 }
 
 export type AssetCategorySumAggregateInputType = {
   id?: true
+  agencyId?: true
 }
 
 export type AssetCategoryMinAggregateInputType = {
   id?: true
+  agencyId?: true
   description?: true
 }
 
 export type AssetCategoryMaxAggregateInputType = {
   id?: true
+  agencyId?: true
   description?: true
 }
 
 export type AssetCategoryCountAggregateInputType = {
   id?: true
+  agencyId?: true
   description?: true
   _all?: true
 }
@@ -163,6 +173,7 @@ export type assetCategoryGroupByArgs<ExtArgs extends runtime.Types.Extensions.In
 
 export type AssetCategoryGroupByOutputType = {
   id: number
+  agencyId: number
   description: string
   _count: AssetCategoryCountAggregateOutputType | null
   _avg: AssetCategoryAvgAggregateOutputType | null
@@ -191,27 +202,35 @@ export type assetCategoryWhereInput = {
   OR?: Prisma.assetCategoryWhereInput[]
   NOT?: Prisma.assetCategoryWhereInput | Prisma.assetCategoryWhereInput[]
   id?: Prisma.IntFilter<"assetCategory"> | number
+  agencyId?: Prisma.IntFilter<"assetCategory"> | number
   description?: Prisma.StringFilter<"assetCategory"> | string
+  agency?: Prisma.XOR<Prisma.AgenciesScalarRelationFilter, Prisma.agenciesWhereInput>
   assetSpec?: Prisma.AssetSpecListRelationFilter
 }
 
 export type assetCategoryOrderByWithRelationInput = {
   id?: Prisma.SortOrder
+  agencyId?: Prisma.SortOrder
   description?: Prisma.SortOrder
+  agency?: Prisma.agenciesOrderByWithRelationInput
   assetSpec?: Prisma.assetSpecOrderByRelationAggregateInput
 }
 
 export type assetCategoryWhereUniqueInput = Prisma.AtLeast<{
   id?: number
+  agencyId_description?: Prisma.assetCategoryAgencyIdDescriptionCompoundUniqueInput
   AND?: Prisma.assetCategoryWhereInput | Prisma.assetCategoryWhereInput[]
   OR?: Prisma.assetCategoryWhereInput[]
   NOT?: Prisma.assetCategoryWhereInput | Prisma.assetCategoryWhereInput[]
+  agencyId?: Prisma.IntFilter<"assetCategory"> | number
   description?: Prisma.StringFilter<"assetCategory"> | string
+  agency?: Prisma.XOR<Prisma.AgenciesScalarRelationFilter, Prisma.agenciesWhereInput>
   assetSpec?: Prisma.AssetSpecListRelationFilter
-}, "id">
+}, "id" | "agencyId_description">
 
 export type assetCategoryOrderByWithAggregationInput = {
   id?: Prisma.SortOrder
+  agencyId?: Prisma.SortOrder
   description?: Prisma.SortOrder
   _count?: Prisma.assetCategoryCountOrderByAggregateInput
   _avg?: Prisma.assetCategoryAvgOrderByAggregateInput
@@ -225,33 +244,39 @@ export type assetCategoryScalarWhereWithAggregatesInput = {
   OR?: Prisma.assetCategoryScalarWhereWithAggregatesInput[]
   NOT?: Prisma.assetCategoryScalarWhereWithAggregatesInput | Prisma.assetCategoryScalarWhereWithAggregatesInput[]
   id?: Prisma.IntWithAggregatesFilter<"assetCategory"> | number
+  agencyId?: Prisma.IntWithAggregatesFilter<"assetCategory"> | number
   description?: Prisma.StringWithAggregatesFilter<"assetCategory"> | string
 }
 
 export type assetCategoryCreateInput = {
   description: string
+  agency: Prisma.agenciesCreateNestedOneWithoutAssetCategoryInput
   assetSpec?: Prisma.assetSpecCreateNestedManyWithoutAssetCategoryInput
 }
 
 export type assetCategoryUncheckedCreateInput = {
   id?: number
+  agencyId: number
   description: string
   assetSpec?: Prisma.assetSpecUncheckedCreateNestedManyWithoutAssetCategoryInput
 }
 
 export type assetCategoryUpdateInput = {
   description?: Prisma.StringFieldUpdateOperationsInput | string
+  agency?: Prisma.agenciesUpdateOneRequiredWithoutAssetCategoryNestedInput
   assetSpec?: Prisma.assetSpecUpdateManyWithoutAssetCategoryNestedInput
 }
 
 export type assetCategoryUncheckedUpdateInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
+  agencyId?: Prisma.IntFieldUpdateOperationsInput | number
   description?: Prisma.StringFieldUpdateOperationsInput | string
   assetSpec?: Prisma.assetSpecUncheckedUpdateManyWithoutAssetCategoryNestedInput
 }
 
 export type assetCategoryCreateManyInput = {
   id?: number
+  agencyId: number
   description: string
 }
 
@@ -261,30 +286,51 @@ export type assetCategoryUpdateManyMutationInput = {
 
 export type assetCategoryUncheckedUpdateManyInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
+  agencyId?: Prisma.IntFieldUpdateOperationsInput | number
   description?: Prisma.StringFieldUpdateOperationsInput | string
+}
+
+export type AssetCategoryListRelationFilter = {
+  every?: Prisma.assetCategoryWhereInput
+  some?: Prisma.assetCategoryWhereInput
+  none?: Prisma.assetCategoryWhereInput
+}
+
+export type assetCategoryOrderByRelationAggregateInput = {
+  _count?: Prisma.SortOrder
+}
+
+export type assetCategoryAgencyIdDescriptionCompoundUniqueInput = {
+  agencyId: number
+  description: string
 }
 
 export type assetCategoryCountOrderByAggregateInput = {
   id?: Prisma.SortOrder
+  agencyId?: Prisma.SortOrder
   description?: Prisma.SortOrder
 }
 
 export type assetCategoryAvgOrderByAggregateInput = {
   id?: Prisma.SortOrder
+  agencyId?: Prisma.SortOrder
 }
 
 export type assetCategoryMaxOrderByAggregateInput = {
   id?: Prisma.SortOrder
+  agencyId?: Prisma.SortOrder
   description?: Prisma.SortOrder
 }
 
 export type assetCategoryMinOrderByAggregateInput = {
   id?: Prisma.SortOrder
+  agencyId?: Prisma.SortOrder
   description?: Prisma.SortOrder
 }
 
 export type assetCategorySumOrderByAggregateInput = {
   id?: Prisma.SortOrder
+  agencyId?: Prisma.SortOrder
 }
 
 export type AssetCategoryScalarRelationFilter = {
@@ -292,8 +338,46 @@ export type AssetCategoryScalarRelationFilter = {
   isNot?: Prisma.assetCategoryWhereInput
 }
 
-export type StringFieldUpdateOperationsInput = {
-  set?: string
+export type assetCategoryCreateNestedManyWithoutAgencyInput = {
+  create?: Prisma.XOR<Prisma.assetCategoryCreateWithoutAgencyInput, Prisma.assetCategoryUncheckedCreateWithoutAgencyInput> | Prisma.assetCategoryCreateWithoutAgencyInput[] | Prisma.assetCategoryUncheckedCreateWithoutAgencyInput[]
+  connectOrCreate?: Prisma.assetCategoryCreateOrConnectWithoutAgencyInput | Prisma.assetCategoryCreateOrConnectWithoutAgencyInput[]
+  createMany?: Prisma.assetCategoryCreateManyAgencyInputEnvelope
+  connect?: Prisma.assetCategoryWhereUniqueInput | Prisma.assetCategoryWhereUniqueInput[]
+}
+
+export type assetCategoryUncheckedCreateNestedManyWithoutAgencyInput = {
+  create?: Prisma.XOR<Prisma.assetCategoryCreateWithoutAgencyInput, Prisma.assetCategoryUncheckedCreateWithoutAgencyInput> | Prisma.assetCategoryCreateWithoutAgencyInput[] | Prisma.assetCategoryUncheckedCreateWithoutAgencyInput[]
+  connectOrCreate?: Prisma.assetCategoryCreateOrConnectWithoutAgencyInput | Prisma.assetCategoryCreateOrConnectWithoutAgencyInput[]
+  createMany?: Prisma.assetCategoryCreateManyAgencyInputEnvelope
+  connect?: Prisma.assetCategoryWhereUniqueInput | Prisma.assetCategoryWhereUniqueInput[]
+}
+
+export type assetCategoryUpdateManyWithoutAgencyNestedInput = {
+  create?: Prisma.XOR<Prisma.assetCategoryCreateWithoutAgencyInput, Prisma.assetCategoryUncheckedCreateWithoutAgencyInput> | Prisma.assetCategoryCreateWithoutAgencyInput[] | Prisma.assetCategoryUncheckedCreateWithoutAgencyInput[]
+  connectOrCreate?: Prisma.assetCategoryCreateOrConnectWithoutAgencyInput | Prisma.assetCategoryCreateOrConnectWithoutAgencyInput[]
+  upsert?: Prisma.assetCategoryUpsertWithWhereUniqueWithoutAgencyInput | Prisma.assetCategoryUpsertWithWhereUniqueWithoutAgencyInput[]
+  createMany?: Prisma.assetCategoryCreateManyAgencyInputEnvelope
+  set?: Prisma.assetCategoryWhereUniqueInput | Prisma.assetCategoryWhereUniqueInput[]
+  disconnect?: Prisma.assetCategoryWhereUniqueInput | Prisma.assetCategoryWhereUniqueInput[]
+  delete?: Prisma.assetCategoryWhereUniqueInput | Prisma.assetCategoryWhereUniqueInput[]
+  connect?: Prisma.assetCategoryWhereUniqueInput | Prisma.assetCategoryWhereUniqueInput[]
+  update?: Prisma.assetCategoryUpdateWithWhereUniqueWithoutAgencyInput | Prisma.assetCategoryUpdateWithWhereUniqueWithoutAgencyInput[]
+  updateMany?: Prisma.assetCategoryUpdateManyWithWhereWithoutAgencyInput | Prisma.assetCategoryUpdateManyWithWhereWithoutAgencyInput[]
+  deleteMany?: Prisma.assetCategoryScalarWhereInput | Prisma.assetCategoryScalarWhereInput[]
+}
+
+export type assetCategoryUncheckedUpdateManyWithoutAgencyNestedInput = {
+  create?: Prisma.XOR<Prisma.assetCategoryCreateWithoutAgencyInput, Prisma.assetCategoryUncheckedCreateWithoutAgencyInput> | Prisma.assetCategoryCreateWithoutAgencyInput[] | Prisma.assetCategoryUncheckedCreateWithoutAgencyInput[]
+  connectOrCreate?: Prisma.assetCategoryCreateOrConnectWithoutAgencyInput | Prisma.assetCategoryCreateOrConnectWithoutAgencyInput[]
+  upsert?: Prisma.assetCategoryUpsertWithWhereUniqueWithoutAgencyInput | Prisma.assetCategoryUpsertWithWhereUniqueWithoutAgencyInput[]
+  createMany?: Prisma.assetCategoryCreateManyAgencyInputEnvelope
+  set?: Prisma.assetCategoryWhereUniqueInput | Prisma.assetCategoryWhereUniqueInput[]
+  disconnect?: Prisma.assetCategoryWhereUniqueInput | Prisma.assetCategoryWhereUniqueInput[]
+  delete?: Prisma.assetCategoryWhereUniqueInput | Prisma.assetCategoryWhereUniqueInput[]
+  connect?: Prisma.assetCategoryWhereUniqueInput | Prisma.assetCategoryWhereUniqueInput[]
+  update?: Prisma.assetCategoryUpdateWithWhereUniqueWithoutAgencyInput | Prisma.assetCategoryUpdateWithWhereUniqueWithoutAgencyInput[]
+  updateMany?: Prisma.assetCategoryUpdateManyWithWhereWithoutAgencyInput | Prisma.assetCategoryUpdateManyWithWhereWithoutAgencyInput[]
+  deleteMany?: Prisma.assetCategoryScalarWhereInput | Prisma.assetCategoryScalarWhereInput[]
 }
 
 export type assetCategoryCreateNestedOneWithoutAssetSpecInput = {
@@ -310,12 +394,59 @@ export type assetCategoryUpdateOneRequiredWithoutAssetSpecNestedInput = {
   update?: Prisma.XOR<Prisma.XOR<Prisma.assetCategoryUpdateToOneWithWhereWithoutAssetSpecInput, Prisma.assetCategoryUpdateWithoutAssetSpecInput>, Prisma.assetCategoryUncheckedUpdateWithoutAssetSpecInput>
 }
 
+export type assetCategoryCreateWithoutAgencyInput = {
+  description: string
+  assetSpec?: Prisma.assetSpecCreateNestedManyWithoutAssetCategoryInput
+}
+
+export type assetCategoryUncheckedCreateWithoutAgencyInput = {
+  id?: number
+  description: string
+  assetSpec?: Prisma.assetSpecUncheckedCreateNestedManyWithoutAssetCategoryInput
+}
+
+export type assetCategoryCreateOrConnectWithoutAgencyInput = {
+  where: Prisma.assetCategoryWhereUniqueInput
+  create: Prisma.XOR<Prisma.assetCategoryCreateWithoutAgencyInput, Prisma.assetCategoryUncheckedCreateWithoutAgencyInput>
+}
+
+export type assetCategoryCreateManyAgencyInputEnvelope = {
+  data: Prisma.assetCategoryCreateManyAgencyInput | Prisma.assetCategoryCreateManyAgencyInput[]
+}
+
+export type assetCategoryUpsertWithWhereUniqueWithoutAgencyInput = {
+  where: Prisma.assetCategoryWhereUniqueInput
+  update: Prisma.XOR<Prisma.assetCategoryUpdateWithoutAgencyInput, Prisma.assetCategoryUncheckedUpdateWithoutAgencyInput>
+  create: Prisma.XOR<Prisma.assetCategoryCreateWithoutAgencyInput, Prisma.assetCategoryUncheckedCreateWithoutAgencyInput>
+}
+
+export type assetCategoryUpdateWithWhereUniqueWithoutAgencyInput = {
+  where: Prisma.assetCategoryWhereUniqueInput
+  data: Prisma.XOR<Prisma.assetCategoryUpdateWithoutAgencyInput, Prisma.assetCategoryUncheckedUpdateWithoutAgencyInput>
+}
+
+export type assetCategoryUpdateManyWithWhereWithoutAgencyInput = {
+  where: Prisma.assetCategoryScalarWhereInput
+  data: Prisma.XOR<Prisma.assetCategoryUpdateManyMutationInput, Prisma.assetCategoryUncheckedUpdateManyWithoutAgencyInput>
+}
+
+export type assetCategoryScalarWhereInput = {
+  AND?: Prisma.assetCategoryScalarWhereInput | Prisma.assetCategoryScalarWhereInput[]
+  OR?: Prisma.assetCategoryScalarWhereInput[]
+  NOT?: Prisma.assetCategoryScalarWhereInput | Prisma.assetCategoryScalarWhereInput[]
+  id?: Prisma.IntFilter<"assetCategory"> | number
+  agencyId?: Prisma.IntFilter<"assetCategory"> | number
+  description?: Prisma.StringFilter<"assetCategory"> | string
+}
+
 export type assetCategoryCreateWithoutAssetSpecInput = {
   description: string
+  agency: Prisma.agenciesCreateNestedOneWithoutAssetCategoryInput
 }
 
 export type assetCategoryUncheckedCreateWithoutAssetSpecInput = {
   id?: number
+  agencyId: number
   description: string
 }
 
@@ -337,9 +468,32 @@ export type assetCategoryUpdateToOneWithWhereWithoutAssetSpecInput = {
 
 export type assetCategoryUpdateWithoutAssetSpecInput = {
   description?: Prisma.StringFieldUpdateOperationsInput | string
+  agency?: Prisma.agenciesUpdateOneRequiredWithoutAssetCategoryNestedInput
 }
 
 export type assetCategoryUncheckedUpdateWithoutAssetSpecInput = {
+  id?: Prisma.IntFieldUpdateOperationsInput | number
+  agencyId?: Prisma.IntFieldUpdateOperationsInput | number
+  description?: Prisma.StringFieldUpdateOperationsInput | string
+}
+
+export type assetCategoryCreateManyAgencyInput = {
+  id?: number
+  description: string
+}
+
+export type assetCategoryUpdateWithoutAgencyInput = {
+  description?: Prisma.StringFieldUpdateOperationsInput | string
+  assetSpec?: Prisma.assetSpecUpdateManyWithoutAssetCategoryNestedInput
+}
+
+export type assetCategoryUncheckedUpdateWithoutAgencyInput = {
+  id?: Prisma.IntFieldUpdateOperationsInput | number
+  description?: Prisma.StringFieldUpdateOperationsInput | string
+  assetSpec?: Prisma.assetSpecUncheckedUpdateManyWithoutAssetCategoryNestedInput
+}
+
+export type assetCategoryUncheckedUpdateManyWithoutAgencyInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
   description?: Prisma.StringFieldUpdateOperationsInput | string
 }
@@ -377,41 +531,55 @@ export type AssetCategoryCountOutputTypeCountAssetSpecArgs<ExtArgs extends runti
 
 export type assetCategorySelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
+  agencyId?: boolean
   description?: boolean
+  agency?: boolean | Prisma.agenciesDefaultArgs<ExtArgs>
   assetSpec?: boolean | Prisma.assetCategory$assetSpecArgs<ExtArgs>
   _count?: boolean | Prisma.AssetCategoryCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["assetCategory"]>
 
 export type assetCategorySelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
+  agencyId?: boolean
   description?: boolean
+  agency?: boolean | Prisma.agenciesDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["assetCategory"]>
 
 export type assetCategorySelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
+  agencyId?: boolean
   description?: boolean
+  agency?: boolean | Prisma.agenciesDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["assetCategory"]>
 
 export type assetCategorySelectScalar = {
   id?: boolean
+  agencyId?: boolean
   description?: boolean
 }
 
-export type assetCategoryOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "description", ExtArgs["result"]["assetCategory"]>
+export type assetCategoryOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "agencyId" | "description", ExtArgs["result"]["assetCategory"]>
 export type assetCategoryInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  agency?: boolean | Prisma.agenciesDefaultArgs<ExtArgs>
   assetSpec?: boolean | Prisma.assetCategory$assetSpecArgs<ExtArgs>
   _count?: boolean | Prisma.AssetCategoryCountOutputTypeDefaultArgs<ExtArgs>
 }
-export type assetCategoryIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {}
-export type assetCategoryIncludeUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {}
+export type assetCategoryIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  agency?: boolean | Prisma.agenciesDefaultArgs<ExtArgs>
+}
+export type assetCategoryIncludeUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  agency?: boolean | Prisma.agenciesDefaultArgs<ExtArgs>
+}
 
 export type $assetCategoryPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   name: "assetCategory"
   objects: {
+    agency: Prisma.$agenciesPayload<ExtArgs>
     assetSpec: Prisma.$assetSpecPayload<ExtArgs>[]
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: number
+    agencyId: number
     description: string
   }, ExtArgs["result"]["assetCategory"]>
   composites: {}
@@ -807,6 +975,7 @@ readonly fields: assetCategoryFieldRefs;
  */
 export interface Prisma__assetCategoryClient<T, Null = never, ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
   readonly [Symbol.toStringTag]: "PrismaPromise"
+  agency<T extends Prisma.agenciesDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.agenciesDefaultArgs<ExtArgs>>): Prisma.Prisma__agenciesClient<runtime.Types.Result.GetResult<Prisma.$agenciesPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
   assetSpec<T extends Prisma.assetCategory$assetSpecArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.assetCategory$assetSpecArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$assetSpecPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
@@ -838,6 +1007,7 @@ export interface Prisma__assetCategoryClient<T, Null = never, ExtArgs extends ru
  */
 export interface assetCategoryFieldRefs {
   readonly id: Prisma.FieldRef<"assetCategory", 'Int'>
+  readonly agencyId: Prisma.FieldRef<"assetCategory", 'Int'>
   readonly description: Prisma.FieldRef<"assetCategory", 'String'>
 }
     
@@ -1086,6 +1256,10 @@ export type assetCategoryCreateManyAndReturnArgs<ExtArgs extends runtime.Types.E
    * The data used to create many assetCategories.
    */
   data: Prisma.assetCategoryCreateManyInput | Prisma.assetCategoryCreateManyInput[]
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.assetCategoryIncludeCreateManyAndReturn<ExtArgs> | null
 }
 
 /**
@@ -1156,6 +1330,10 @@ export type assetCategoryUpdateManyAndReturnArgs<ExtArgs extends runtime.Types.E
    * Limit how many assetCategories to update.
    */
   limit?: number
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.assetCategoryIncludeUpdateManyAndReturn<ExtArgs> | null
 }
 
 /**

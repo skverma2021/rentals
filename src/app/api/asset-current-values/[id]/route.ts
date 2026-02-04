@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import prisma from "@/lib/prisma";
+import { auth } from "@/lib/auth";
 
 type RouteContext = {
   params: Promise<{ id: string }>;
@@ -7,11 +8,19 @@ type RouteContext = {
 
 export async function GET(request: NextRequest, context: RouteContext) {
   try {
+    const session = await auth();
+    if (!session?.user?.agencyId) {
+      return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+    }
+
     const { id } = await context.params;
     const valueId = parseInt(id);
 
-    const value = await prisma.assetCurrentValue.findUnique({
-      where: { id: valueId },
+    const value = await prisma.assetCurrentValue.findFirst({
+      where: { 
+        id: valueId,
+        assets: { agencyId: session.user.agencyId },
+      },
       include: {
         assets: {
           include: {
@@ -45,8 +54,22 @@ export async function GET(request: NextRequest, context: RouteContext) {
 
 export async function PUT(request: NextRequest, context: RouteContext) {
   try {
+    const session = await auth();
+    if (!session?.user?.agencyId) {
+      return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+    }
+
     const { id } = await context.params;
     const valueId = parseInt(id);
+
+    // Verify record belongs to agency
+    const existing = await prisma.assetCurrentValue.findFirst({
+      where: { id: valueId, assets: { agencyId: session.user.agencyId } },
+    });
+    if (!existing) {
+      return NextResponse.json({ error: "Not found" }, { status: 404 });
+    }
+
     const body = await request.json();
     const { theCurrentValue, asOnDate } = body;
 
@@ -89,8 +112,21 @@ export async function PUT(request: NextRequest, context: RouteContext) {
 
 export async function DELETE(request: NextRequest, context: RouteContext) {
   try {
+    const session = await auth();
+    if (!session?.user?.agencyId) {
+      return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+    }
+
     const { id } = await context.params;
     const valueId = parseInt(id);
+
+    // Verify record belongs to agency
+    const existing = await prisma.assetCurrentValue.findFirst({
+      where: { id: valueId, assets: { agencyId: session.user.agencyId } },
+    });
+    if (!existing) {
+      return NextResponse.json({ error: "Not found" }, { status: 404 });
+    }
 
     await prisma.assetCurrentValue.delete({
       where: { id: valueId },

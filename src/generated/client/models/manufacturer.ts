@@ -28,24 +28,29 @@ export type AggregateManufacturer = {
 
 export type ManufacturerAvgAggregateOutputType = {
   id: number | null
+  agencyId: number | null
 }
 
 export type ManufacturerSumAggregateOutputType = {
   id: number | null
+  agencyId: number | null
 }
 
 export type ManufacturerMinAggregateOutputType = {
   id: number | null
+  agencyId: number | null
   description: string | null
 }
 
 export type ManufacturerMaxAggregateOutputType = {
   id: number | null
+  agencyId: number | null
   description: string | null
 }
 
 export type ManufacturerCountAggregateOutputType = {
   id: number
+  agencyId: number
   description: number
   _all: number
 }
@@ -53,24 +58,29 @@ export type ManufacturerCountAggregateOutputType = {
 
 export type ManufacturerAvgAggregateInputType = {
   id?: true
+  agencyId?: true
 }
 
 export type ManufacturerSumAggregateInputType = {
   id?: true
+  agencyId?: true
 }
 
 export type ManufacturerMinAggregateInputType = {
   id?: true
+  agencyId?: true
   description?: true
 }
 
 export type ManufacturerMaxAggregateInputType = {
   id?: true
+  agencyId?: true
   description?: true
 }
 
 export type ManufacturerCountAggregateInputType = {
   id?: true
+  agencyId?: true
   description?: true
   _all?: true
 }
@@ -163,6 +173,7 @@ export type manufacturerGroupByArgs<ExtArgs extends runtime.Types.Extensions.Int
 
 export type ManufacturerGroupByOutputType = {
   id: number
+  agencyId: number
   description: string
   _count: ManufacturerCountAggregateOutputType | null
   _avg: ManufacturerAvgAggregateOutputType | null
@@ -191,27 +202,35 @@ export type manufacturerWhereInput = {
   OR?: Prisma.manufacturerWhereInput[]
   NOT?: Prisma.manufacturerWhereInput | Prisma.manufacturerWhereInput[]
   id?: Prisma.IntFilter<"manufacturer"> | number
+  agencyId?: Prisma.IntFilter<"manufacturer"> | number
   description?: Prisma.StringFilter<"manufacturer"> | string
+  agency?: Prisma.XOR<Prisma.AgenciesScalarRelationFilter, Prisma.agenciesWhereInput>
   assetSpec?: Prisma.AssetSpecListRelationFilter
 }
 
 export type manufacturerOrderByWithRelationInput = {
   id?: Prisma.SortOrder
+  agencyId?: Prisma.SortOrder
   description?: Prisma.SortOrder
+  agency?: Prisma.agenciesOrderByWithRelationInput
   assetSpec?: Prisma.assetSpecOrderByRelationAggregateInput
 }
 
 export type manufacturerWhereUniqueInput = Prisma.AtLeast<{
   id?: number
+  agencyId_description?: Prisma.manufacturerAgencyIdDescriptionCompoundUniqueInput
   AND?: Prisma.manufacturerWhereInput | Prisma.manufacturerWhereInput[]
   OR?: Prisma.manufacturerWhereInput[]
   NOT?: Prisma.manufacturerWhereInput | Prisma.manufacturerWhereInput[]
+  agencyId?: Prisma.IntFilter<"manufacturer"> | number
   description?: Prisma.StringFilter<"manufacturer"> | string
+  agency?: Prisma.XOR<Prisma.AgenciesScalarRelationFilter, Prisma.agenciesWhereInput>
   assetSpec?: Prisma.AssetSpecListRelationFilter
-}, "id">
+}, "id" | "agencyId_description">
 
 export type manufacturerOrderByWithAggregationInput = {
   id?: Prisma.SortOrder
+  agencyId?: Prisma.SortOrder
   description?: Prisma.SortOrder
   _count?: Prisma.manufacturerCountOrderByAggregateInput
   _avg?: Prisma.manufacturerAvgOrderByAggregateInput
@@ -225,33 +244,39 @@ export type manufacturerScalarWhereWithAggregatesInput = {
   OR?: Prisma.manufacturerScalarWhereWithAggregatesInput[]
   NOT?: Prisma.manufacturerScalarWhereWithAggregatesInput | Prisma.manufacturerScalarWhereWithAggregatesInput[]
   id?: Prisma.IntWithAggregatesFilter<"manufacturer"> | number
+  agencyId?: Prisma.IntWithAggregatesFilter<"manufacturer"> | number
   description?: Prisma.StringWithAggregatesFilter<"manufacturer"> | string
 }
 
 export type manufacturerCreateInput = {
   description: string
+  agency: Prisma.agenciesCreateNestedOneWithoutManufacturerInput
   assetSpec?: Prisma.assetSpecCreateNestedManyWithoutManufacturerInput
 }
 
 export type manufacturerUncheckedCreateInput = {
   id?: number
+  agencyId: number
   description: string
   assetSpec?: Prisma.assetSpecUncheckedCreateNestedManyWithoutManufacturerInput
 }
 
 export type manufacturerUpdateInput = {
   description?: Prisma.StringFieldUpdateOperationsInput | string
+  agency?: Prisma.agenciesUpdateOneRequiredWithoutManufacturerNestedInput
   assetSpec?: Prisma.assetSpecUpdateManyWithoutManufacturerNestedInput
 }
 
 export type manufacturerUncheckedUpdateInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
+  agencyId?: Prisma.IntFieldUpdateOperationsInput | number
   description?: Prisma.StringFieldUpdateOperationsInput | string
   assetSpec?: Prisma.assetSpecUncheckedUpdateManyWithoutManufacturerNestedInput
 }
 
 export type manufacturerCreateManyInput = {
   id?: number
+  agencyId: number
   description: string
 }
 
@@ -261,35 +286,98 @@ export type manufacturerUpdateManyMutationInput = {
 
 export type manufacturerUncheckedUpdateManyInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
+  agencyId?: Prisma.IntFieldUpdateOperationsInput | number
   description?: Prisma.StringFieldUpdateOperationsInput | string
+}
+
+export type ManufacturerListRelationFilter = {
+  every?: Prisma.manufacturerWhereInput
+  some?: Prisma.manufacturerWhereInput
+  none?: Prisma.manufacturerWhereInput
+}
+
+export type manufacturerOrderByRelationAggregateInput = {
+  _count?: Prisma.SortOrder
+}
+
+export type manufacturerAgencyIdDescriptionCompoundUniqueInput = {
+  agencyId: number
+  description: string
 }
 
 export type manufacturerCountOrderByAggregateInput = {
   id?: Prisma.SortOrder
+  agencyId?: Prisma.SortOrder
   description?: Prisma.SortOrder
 }
 
 export type manufacturerAvgOrderByAggregateInput = {
   id?: Prisma.SortOrder
+  agencyId?: Prisma.SortOrder
 }
 
 export type manufacturerMaxOrderByAggregateInput = {
   id?: Prisma.SortOrder
+  agencyId?: Prisma.SortOrder
   description?: Prisma.SortOrder
 }
 
 export type manufacturerMinOrderByAggregateInput = {
   id?: Prisma.SortOrder
+  agencyId?: Prisma.SortOrder
   description?: Prisma.SortOrder
 }
 
 export type manufacturerSumOrderByAggregateInput = {
   id?: Prisma.SortOrder
+  agencyId?: Prisma.SortOrder
 }
 
 export type ManufacturerScalarRelationFilter = {
   is?: Prisma.manufacturerWhereInput
   isNot?: Prisma.manufacturerWhereInput
+}
+
+export type manufacturerCreateNestedManyWithoutAgencyInput = {
+  create?: Prisma.XOR<Prisma.manufacturerCreateWithoutAgencyInput, Prisma.manufacturerUncheckedCreateWithoutAgencyInput> | Prisma.manufacturerCreateWithoutAgencyInput[] | Prisma.manufacturerUncheckedCreateWithoutAgencyInput[]
+  connectOrCreate?: Prisma.manufacturerCreateOrConnectWithoutAgencyInput | Prisma.manufacturerCreateOrConnectWithoutAgencyInput[]
+  createMany?: Prisma.manufacturerCreateManyAgencyInputEnvelope
+  connect?: Prisma.manufacturerWhereUniqueInput | Prisma.manufacturerWhereUniqueInput[]
+}
+
+export type manufacturerUncheckedCreateNestedManyWithoutAgencyInput = {
+  create?: Prisma.XOR<Prisma.manufacturerCreateWithoutAgencyInput, Prisma.manufacturerUncheckedCreateWithoutAgencyInput> | Prisma.manufacturerCreateWithoutAgencyInput[] | Prisma.manufacturerUncheckedCreateWithoutAgencyInput[]
+  connectOrCreate?: Prisma.manufacturerCreateOrConnectWithoutAgencyInput | Prisma.manufacturerCreateOrConnectWithoutAgencyInput[]
+  createMany?: Prisma.manufacturerCreateManyAgencyInputEnvelope
+  connect?: Prisma.manufacturerWhereUniqueInput | Prisma.manufacturerWhereUniqueInput[]
+}
+
+export type manufacturerUpdateManyWithoutAgencyNestedInput = {
+  create?: Prisma.XOR<Prisma.manufacturerCreateWithoutAgencyInput, Prisma.manufacturerUncheckedCreateWithoutAgencyInput> | Prisma.manufacturerCreateWithoutAgencyInput[] | Prisma.manufacturerUncheckedCreateWithoutAgencyInput[]
+  connectOrCreate?: Prisma.manufacturerCreateOrConnectWithoutAgencyInput | Prisma.manufacturerCreateOrConnectWithoutAgencyInput[]
+  upsert?: Prisma.manufacturerUpsertWithWhereUniqueWithoutAgencyInput | Prisma.manufacturerUpsertWithWhereUniqueWithoutAgencyInput[]
+  createMany?: Prisma.manufacturerCreateManyAgencyInputEnvelope
+  set?: Prisma.manufacturerWhereUniqueInput | Prisma.manufacturerWhereUniqueInput[]
+  disconnect?: Prisma.manufacturerWhereUniqueInput | Prisma.manufacturerWhereUniqueInput[]
+  delete?: Prisma.manufacturerWhereUniqueInput | Prisma.manufacturerWhereUniqueInput[]
+  connect?: Prisma.manufacturerWhereUniqueInput | Prisma.manufacturerWhereUniqueInput[]
+  update?: Prisma.manufacturerUpdateWithWhereUniqueWithoutAgencyInput | Prisma.manufacturerUpdateWithWhereUniqueWithoutAgencyInput[]
+  updateMany?: Prisma.manufacturerUpdateManyWithWhereWithoutAgencyInput | Prisma.manufacturerUpdateManyWithWhereWithoutAgencyInput[]
+  deleteMany?: Prisma.manufacturerScalarWhereInput | Prisma.manufacturerScalarWhereInput[]
+}
+
+export type manufacturerUncheckedUpdateManyWithoutAgencyNestedInput = {
+  create?: Prisma.XOR<Prisma.manufacturerCreateWithoutAgencyInput, Prisma.manufacturerUncheckedCreateWithoutAgencyInput> | Prisma.manufacturerCreateWithoutAgencyInput[] | Prisma.manufacturerUncheckedCreateWithoutAgencyInput[]
+  connectOrCreate?: Prisma.manufacturerCreateOrConnectWithoutAgencyInput | Prisma.manufacturerCreateOrConnectWithoutAgencyInput[]
+  upsert?: Prisma.manufacturerUpsertWithWhereUniqueWithoutAgencyInput | Prisma.manufacturerUpsertWithWhereUniqueWithoutAgencyInput[]
+  createMany?: Prisma.manufacturerCreateManyAgencyInputEnvelope
+  set?: Prisma.manufacturerWhereUniqueInput | Prisma.manufacturerWhereUniqueInput[]
+  disconnect?: Prisma.manufacturerWhereUniqueInput | Prisma.manufacturerWhereUniqueInput[]
+  delete?: Prisma.manufacturerWhereUniqueInput | Prisma.manufacturerWhereUniqueInput[]
+  connect?: Prisma.manufacturerWhereUniqueInput | Prisma.manufacturerWhereUniqueInput[]
+  update?: Prisma.manufacturerUpdateWithWhereUniqueWithoutAgencyInput | Prisma.manufacturerUpdateWithWhereUniqueWithoutAgencyInput[]
+  updateMany?: Prisma.manufacturerUpdateManyWithWhereWithoutAgencyInput | Prisma.manufacturerUpdateManyWithWhereWithoutAgencyInput[]
+  deleteMany?: Prisma.manufacturerScalarWhereInput | Prisma.manufacturerScalarWhereInput[]
 }
 
 export type manufacturerCreateNestedOneWithoutAssetSpecInput = {
@@ -306,12 +394,59 @@ export type manufacturerUpdateOneRequiredWithoutAssetSpecNestedInput = {
   update?: Prisma.XOR<Prisma.XOR<Prisma.manufacturerUpdateToOneWithWhereWithoutAssetSpecInput, Prisma.manufacturerUpdateWithoutAssetSpecInput>, Prisma.manufacturerUncheckedUpdateWithoutAssetSpecInput>
 }
 
+export type manufacturerCreateWithoutAgencyInput = {
+  description: string
+  assetSpec?: Prisma.assetSpecCreateNestedManyWithoutManufacturerInput
+}
+
+export type manufacturerUncheckedCreateWithoutAgencyInput = {
+  id?: number
+  description: string
+  assetSpec?: Prisma.assetSpecUncheckedCreateNestedManyWithoutManufacturerInput
+}
+
+export type manufacturerCreateOrConnectWithoutAgencyInput = {
+  where: Prisma.manufacturerWhereUniqueInput
+  create: Prisma.XOR<Prisma.manufacturerCreateWithoutAgencyInput, Prisma.manufacturerUncheckedCreateWithoutAgencyInput>
+}
+
+export type manufacturerCreateManyAgencyInputEnvelope = {
+  data: Prisma.manufacturerCreateManyAgencyInput | Prisma.manufacturerCreateManyAgencyInput[]
+}
+
+export type manufacturerUpsertWithWhereUniqueWithoutAgencyInput = {
+  where: Prisma.manufacturerWhereUniqueInput
+  update: Prisma.XOR<Prisma.manufacturerUpdateWithoutAgencyInput, Prisma.manufacturerUncheckedUpdateWithoutAgencyInput>
+  create: Prisma.XOR<Prisma.manufacturerCreateWithoutAgencyInput, Prisma.manufacturerUncheckedCreateWithoutAgencyInput>
+}
+
+export type manufacturerUpdateWithWhereUniqueWithoutAgencyInput = {
+  where: Prisma.manufacturerWhereUniqueInput
+  data: Prisma.XOR<Prisma.manufacturerUpdateWithoutAgencyInput, Prisma.manufacturerUncheckedUpdateWithoutAgencyInput>
+}
+
+export type manufacturerUpdateManyWithWhereWithoutAgencyInput = {
+  where: Prisma.manufacturerScalarWhereInput
+  data: Prisma.XOR<Prisma.manufacturerUpdateManyMutationInput, Prisma.manufacturerUncheckedUpdateManyWithoutAgencyInput>
+}
+
+export type manufacturerScalarWhereInput = {
+  AND?: Prisma.manufacturerScalarWhereInput | Prisma.manufacturerScalarWhereInput[]
+  OR?: Prisma.manufacturerScalarWhereInput[]
+  NOT?: Prisma.manufacturerScalarWhereInput | Prisma.manufacturerScalarWhereInput[]
+  id?: Prisma.IntFilter<"manufacturer"> | number
+  agencyId?: Prisma.IntFilter<"manufacturer"> | number
+  description?: Prisma.StringFilter<"manufacturer"> | string
+}
+
 export type manufacturerCreateWithoutAssetSpecInput = {
   description: string
+  agency: Prisma.agenciesCreateNestedOneWithoutManufacturerInput
 }
 
 export type manufacturerUncheckedCreateWithoutAssetSpecInput = {
   id?: number
+  agencyId: number
   description: string
 }
 
@@ -333,9 +468,32 @@ export type manufacturerUpdateToOneWithWhereWithoutAssetSpecInput = {
 
 export type manufacturerUpdateWithoutAssetSpecInput = {
   description?: Prisma.StringFieldUpdateOperationsInput | string
+  agency?: Prisma.agenciesUpdateOneRequiredWithoutManufacturerNestedInput
 }
 
 export type manufacturerUncheckedUpdateWithoutAssetSpecInput = {
+  id?: Prisma.IntFieldUpdateOperationsInput | number
+  agencyId?: Prisma.IntFieldUpdateOperationsInput | number
+  description?: Prisma.StringFieldUpdateOperationsInput | string
+}
+
+export type manufacturerCreateManyAgencyInput = {
+  id?: number
+  description: string
+}
+
+export type manufacturerUpdateWithoutAgencyInput = {
+  description?: Prisma.StringFieldUpdateOperationsInput | string
+  assetSpec?: Prisma.assetSpecUpdateManyWithoutManufacturerNestedInput
+}
+
+export type manufacturerUncheckedUpdateWithoutAgencyInput = {
+  id?: Prisma.IntFieldUpdateOperationsInput | number
+  description?: Prisma.StringFieldUpdateOperationsInput | string
+  assetSpec?: Prisma.assetSpecUncheckedUpdateManyWithoutManufacturerNestedInput
+}
+
+export type manufacturerUncheckedUpdateManyWithoutAgencyInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
   description?: Prisma.StringFieldUpdateOperationsInput | string
 }
@@ -373,41 +531,55 @@ export type ManufacturerCountOutputTypeCountAssetSpecArgs<ExtArgs extends runtim
 
 export type manufacturerSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
+  agencyId?: boolean
   description?: boolean
+  agency?: boolean | Prisma.agenciesDefaultArgs<ExtArgs>
   assetSpec?: boolean | Prisma.manufacturer$assetSpecArgs<ExtArgs>
   _count?: boolean | Prisma.ManufacturerCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["manufacturer"]>
 
 export type manufacturerSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
+  agencyId?: boolean
   description?: boolean
+  agency?: boolean | Prisma.agenciesDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["manufacturer"]>
 
 export type manufacturerSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
+  agencyId?: boolean
   description?: boolean
+  agency?: boolean | Prisma.agenciesDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["manufacturer"]>
 
 export type manufacturerSelectScalar = {
   id?: boolean
+  agencyId?: boolean
   description?: boolean
 }
 
-export type manufacturerOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "description", ExtArgs["result"]["manufacturer"]>
+export type manufacturerOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "agencyId" | "description", ExtArgs["result"]["manufacturer"]>
 export type manufacturerInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  agency?: boolean | Prisma.agenciesDefaultArgs<ExtArgs>
   assetSpec?: boolean | Prisma.manufacturer$assetSpecArgs<ExtArgs>
   _count?: boolean | Prisma.ManufacturerCountOutputTypeDefaultArgs<ExtArgs>
 }
-export type manufacturerIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {}
-export type manufacturerIncludeUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {}
+export type manufacturerIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  agency?: boolean | Prisma.agenciesDefaultArgs<ExtArgs>
+}
+export type manufacturerIncludeUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  agency?: boolean | Prisma.agenciesDefaultArgs<ExtArgs>
+}
 
 export type $manufacturerPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   name: "manufacturer"
   objects: {
+    agency: Prisma.$agenciesPayload<ExtArgs>
     assetSpec: Prisma.$assetSpecPayload<ExtArgs>[]
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: number
+    agencyId: number
     description: string
   }, ExtArgs["result"]["manufacturer"]>
   composites: {}
@@ -803,6 +975,7 @@ readonly fields: manufacturerFieldRefs;
  */
 export interface Prisma__manufacturerClient<T, Null = never, ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
   readonly [Symbol.toStringTag]: "PrismaPromise"
+  agency<T extends Prisma.agenciesDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.agenciesDefaultArgs<ExtArgs>>): Prisma.Prisma__agenciesClient<runtime.Types.Result.GetResult<Prisma.$agenciesPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
   assetSpec<T extends Prisma.manufacturer$assetSpecArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.manufacturer$assetSpecArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$assetSpecPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
@@ -834,6 +1007,7 @@ export interface Prisma__manufacturerClient<T, Null = never, ExtArgs extends run
  */
 export interface manufacturerFieldRefs {
   readonly id: Prisma.FieldRef<"manufacturer", 'Int'>
+  readonly agencyId: Prisma.FieldRef<"manufacturer", 'Int'>
   readonly description: Prisma.FieldRef<"manufacturer", 'String'>
 }
     
@@ -1082,6 +1256,10 @@ export type manufacturerCreateManyAndReturnArgs<ExtArgs extends runtime.Types.Ex
    * The data used to create many manufacturers.
    */
   data: Prisma.manufacturerCreateManyInput | Prisma.manufacturerCreateManyInput[]
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.manufacturerIncludeCreateManyAndReturn<ExtArgs> | null
 }
 
 /**
@@ -1152,6 +1330,10 @@ export type manufacturerUpdateManyAndReturnArgs<ExtArgs extends runtime.Types.Ex
    * Limit how many manufacturers to update.
    */
   limit?: number
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.manufacturerIncludeUpdateManyAndReturn<ExtArgs> | null
 }
 
 /**

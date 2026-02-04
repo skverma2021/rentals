@@ -3,20 +3,27 @@ import prisma from "@/lib/prisma";
 import { unlink } from "fs/promises";
 import path from "path";
 import { existsSync } from "fs";
+import { auth } from "@/lib/auth";
 
 export async function DELETE(
   request: NextRequest,
   { params }: { params: Promise<{ id: string }> }
 ) {
   try {
+    const session = await auth();
+    if (!session?.user?.agencyId) {
+      return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+    }
+
     const { id } = await params;
 
-    // Find the file record
+    // Find the file record with asset to check ownership
     const assetFile = await prisma.assetFile.findUnique({
       where: { id },
+      include: { assets: true },
     });
 
-    if (!assetFile) {
+    if (!assetFile || assetFile.assets.agencyId !== session.user.agencyId) {
       return NextResponse.json(
         { error: "File not found" },
         { status: 404 }

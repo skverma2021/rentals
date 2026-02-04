@@ -2,9 +2,15 @@ import { NextRequest, NextResponse } from "next/server";
 import prisma from "@/lib/prisma";
 import { writeFile, mkdir } from "fs/promises";
 import path from "path";
+import { auth } from "@/lib/auth";
 
 export async function GET(request: NextRequest) {
   try {
+    const session = await auth();
+    if (!session?.user?.agencyId) {
+      return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+    }
+
     const { searchParams } = new URL(request.url);
     const customerId = searchParams.get("customerId");
 
@@ -13,6 +19,14 @@ export async function GET(request: NextRequest) {
         { error: "Customer ID is required" },
         { status: 400 }
       );
+    }
+
+    // Verify customer belongs to this agency
+    const customer = await prisma.customers.findFirst({
+      where: { id: parseInt(customerId), agencyId: session.user.agencyId },
+    });
+    if (!customer) {
+      return NextResponse.json({ error: "Customer not found" }, { status: 404 });
     }
 
     const files = await prisma.customerFile.findMany({
@@ -32,6 +46,11 @@ export async function GET(request: NextRequest) {
 
 export async function POST(request: NextRequest) {
   try {
+    const session = await auth();
+    if (!session?.user?.agencyId) {
+      return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+    }
+
     const formData = await request.formData();
     const file = formData.get("file") as File;
     const customerId = formData.get("customerId") as string;
@@ -41,6 +60,14 @@ export async function POST(request: NextRequest) {
         { error: "File and customer ID are required" },
         { status: 400 }
       );
+    }
+
+    // Verify customer belongs to this agency
+    const customer = await prisma.customers.findFirst({
+      where: { id: parseInt(customerId), agencyId: session.user.agencyId },
+    });
+    if (!customer) {
+      return NextResponse.json({ error: "Customer not found" }, { status: 404 });
     }
 
     // Create uploads directory if it doesn't exist

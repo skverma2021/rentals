@@ -1,9 +1,18 @@
 import { NextRequest, NextResponse } from "next/server";
 import prisma from "@/lib/prisma";
+import { auth } from "@/lib/auth";
 
 export async function GET() {
   try {
+    const session = await auth();
+    if (!session?.user?.agencyId) {
+      return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+    }
+
     const assetSpecs = await prisma.assetSpec.findMany({
+      where: {
+        agencyId: session.user.agencyId,
+      },
       include: {
         manufacturer: true,
         assetCategory: true,
@@ -25,6 +34,11 @@ export async function GET() {
 
 export async function POST(request: NextRequest) {
   try {
+    const session = await auth();
+    if (!session?.user?.agencyId) {
+      return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+    }
+
     const body = await request.json();
     const { assetCategoryId, manufacturerId, yearMake, model, description } = body;
 
@@ -38,6 +52,7 @@ export async function POST(request: NextRequest) {
 
     const assetSpec = await prisma.assetSpec.create({
       data: {
+        agencyId: session.user.agencyId,
         assetCategoryId: parseInt(assetCategoryId),
         manufacturerId: parseInt(manufacturerId),
         yearMake: parseInt(yearMake),

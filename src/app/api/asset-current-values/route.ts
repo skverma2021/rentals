@@ -1,12 +1,21 @@
 import { NextRequest, NextResponse } from "next/server";
 import prisma from "@/lib/prisma";
+import { auth } from "@/lib/auth";
 
 export async function GET(request: NextRequest) {
   try {
+    const session = await auth();
+    if (!session?.user?.agencyId) {
+      return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+    }
+
     const { searchParams } = new URL(request.url);
     const assetId = searchParams.get("assetId");
 
-    const whereClause = assetId ? { assetId: parseInt(assetId) } : {};
+    const whereClause: Record<string, unknown> = {
+      assets: { agencyId: session.user.agencyId },
+    };
+    if (assetId) whereClause.assetId = parseInt(assetId);
 
     const values = await prisma.assetCurrentValue.findMany({
       where: whereClause,
@@ -39,6 +48,11 @@ export async function GET(request: NextRequest) {
 
 export async function POST(request: NextRequest) {
   try {
+    const session = await auth();
+    if (!session?.user?.agencyId) {
+      return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+    }
+
     const body = await request.json();
     const { assetId, theCurrentValue, asOnDate } = body;
 

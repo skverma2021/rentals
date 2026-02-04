@@ -7,8 +7,74 @@ datasource db {
   provider = "sqlite"
 }
 
+// ============================================
+// AUTHENTICATION & MULTI-TENANCY MODELS
+// ============================================
+
+model agencies {
+  id            Int       @id @default(autoincrement())
+  name          String    @unique
+  contactEmail  String    @unique
+  contactPhone  String?
+  address       String?
+  city          String?
+  stateProvince String?
+  zipPostalCode String?
+  countryRegion String?
+  isActive      Boolean   @default(true)
+  createdAt     DateTime  @default(now())
+  updatedAt     DateTime  @updatedAt
+
+  // Relations - Agency owns all data
+  authUsers        authUsers[]
+  assets           assets[]
+  customers        customers[]
+  assetCategory    assetCategory[]
+  manufacturer     manufacturer[]
+  assetSpec        assetSpec[]
+  definedCondition definedCondition[]
+}
+
+model authUsers {
+  id            Int      @id @default(autoincrement())
+  agencyId      Int
+  agency        agencies @relation(fields: [agencyId], references: [id])
+
+  // User Profile
+  firstName     String
+  lastName      String
+  email         String   @unique
+  address       String?
+  city          String?
+  stateProvince String?
+  zipPostalCode String?
+  countryRegion String?
+
+  // OAuth Provider Info
+  provider   String  // "github" | "google"
+  providerId String  // OAuth provider's user ID
+  avatarUrl  String?
+
+  // Access Control
+  role        String   @default("user") // "admin" | "manager" | "user"
+  isActive    Boolean  @default(true)
+  lastLoginAt DateTime?
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@unique([provider, providerId])
+  @@index([agencyId])
+}
+
+// ============================================
+// MODIFIED EXISTING MODELS (with agencyId)
+// ============================================
+
 model assets {
   id                    Int                     @id @default(autoincrement())
+  agencyId              Int
+  agency                agencies                @relation(fields: [agencyId], references: [id])
   specId                Int
   acquiredDate          DateTime
   purchasePrice         Float
@@ -18,22 +84,36 @@ model assets {
   assetCurrentCondition assetCurrentCondition[]
   assetCurrentValue     assetCurrentValue[]
   assetWithCustomer     assetWithCustomer[]
+
+  @@index([agencyId])
 }
 
 model assetCategory {
   id          Int         @id @default(autoincrement())
+  agencyId    Int
+  agency      agencies    @relation(fields: [agencyId], references: [id])
   description String
   assetSpec   assetSpec[]
+
+  @@unique([agencyId, description])
+  @@index([agencyId])
 }
 
 model manufacturer {
   id          Int         @id @default(autoincrement())
+  agencyId    Int
+  agency      agencies    @relation(fields: [agencyId], references: [id])
   description String
   assetSpec   assetSpec[]
+
+  @@unique([agencyId, description])
+  @@index([agencyId])
 }
 
 model assetSpec {
   id              Int           @id @default(autoincrement())
+  agencyId        Int
+  agency          agencies      @relation(fields: [agencyId], references: [id])
   assetCategoryId Int
   manufacturerId  Int
   yearMake        Int
@@ -42,13 +122,24 @@ model assetSpec {
   assetCategory   assetCategory @relation(fields: [assetCategoryId], references: [id])
   manufacturer    manufacturer  @relation(fields: [manufacturerId], references: [id])
   assets          assets[]
+
+  @@index([agencyId])
 }
 
 model definedCondition {
   id                    Int                     @id @default(autoincrement())
+  agencyId              Int
+  agency                agencies                @relation(fields: [agencyId], references: [id])
   description           String
   assetCurrentCondition assetCurrentCondition[]
+
+  @@unique([agencyId, description])
+  @@index([agencyId])
 }
+
+// ============================================
+// UNCHANGED STRUCTURE (inherit agency via parent)
+// ============================================
 
 model assetCurrentCondition {
   id                 Int              @id @default(autoincrement())
@@ -79,14 +170,16 @@ model assetWithCustomer {
 
 model customers {
   id                Int                 @id @default(autoincrement())
+  agencyId          Int
+  agency            agencies            @relation(fields: [agencyId], references: [id])
   company           String?
   lastName          String
   firstName         String
-  emailId           String              @unique
+  emailId           String
   jobTitle          String?
   businessPhone     String?
   homePhone         String?
-  mobilePhone       String              @unique
+  mobilePhone       String
   address           String
   city              String
   stateProvince     String
@@ -96,6 +189,10 @@ model customers {
   attachments       customerFile[]
   createdAt         DateTime            @default(now())
   assetWithCustomer assetWithCustomer[]
+
+  @@unique([agencyId, emailId])
+  @@unique([agencyId, mobilePhone])
+  @@index([agencyId])
 }
 
 model customerFile {

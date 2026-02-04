@@ -3,6 +3,7 @@ import prisma from "@/lib/prisma";
 import { writeFile, mkdir } from "fs/promises";
 import path from "path";
 import { existsSync } from "fs";
+import { auth } from "@/lib/auth";
 
 // Ensure uploads directory exists
 const uploadsDir = path.join(process.cwd(), "public", "uploads", "assets");
@@ -15,6 +16,11 @@ async function ensureUploadsDir() {
 
 export async function GET(request: NextRequest) {
   try {
+    const session = await auth();
+    if (!session?.user?.agencyId) {
+      return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+    }
+
     const { searchParams } = new URL(request.url);
     const assetId = searchParams.get("assetId");
 
@@ -23,6 +29,14 @@ export async function GET(request: NextRequest) {
         { error: "assetId is required" },
         { status: 400 }
       );
+    }
+
+    // Verify asset belongs to this agency
+    const asset = await prisma.assets.findFirst({
+      where: { id: parseInt(assetId), agencyId: session.user.agencyId },
+    });
+    if (!asset) {
+      return NextResponse.json({ error: "Asset not found" }, { status: 404 });
     }
 
     const files = await prisma.assetFile.findMany({
@@ -46,6 +60,11 @@ export async function GET(request: NextRequest) {
 
 export async function POST(request: NextRequest) {
   try {
+    const session = await auth();
+    if (!session?.user?.agencyId) {
+      return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+    }
+
     await ensureUploadsDir();
 
     const formData = await request.formData();
@@ -66,9 +85,9 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    // Verify asset exists
-    const asset = await prisma.assets.findUnique({
-      where: { id: parseInt(assetId) },
+    // Verify asset exists and belongs to this agency
+    const asset = await prisma.assets.findFirst({
+      where: { id: parseInt(assetId), agencyId: session.user.agencyId },
     });
 
     if (!asset) {

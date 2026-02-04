@@ -1,9 +1,18 @@
 import { NextRequest, NextResponse } from "next/server";
 import prisma from "@/lib/prisma";
+import { auth } from "@/lib/auth";
 
 export async function GET() {
   try {
+    const session = await auth();
+    if (!session?.user?.agencyId) {
+      return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+    }
+
     const assets = await prisma.assets.findMany({
+      where: {
+        agencyId: session.user.agencyId,
+      },
       include: {
         assetSpec: {
           include: {
@@ -30,6 +39,11 @@ export async function GET() {
 
 export async function POST(request: NextRequest) {
   try {
+    const session = await auth();
+    if (!session?.user?.agencyId) {
+      return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+    }
+
     const body = await request.json();
     const { specId, acquiredDate, purchasePrice } = body;
 
@@ -43,6 +57,7 @@ export async function POST(request: NextRequest) {
 
     const asset = await prisma.assets.create({
       data: {
+        agencyId: session.user.agencyId,
         specId: parseInt(specId),
         acquiredDate: new Date(acquiredDate),
         purchasePrice: parseFloat(purchasePrice),

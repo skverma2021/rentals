@@ -29,8 +29,8 @@ export * from "./enums"
  * @example
  * ```
  * const prisma = new PrismaClient()
- * // Fetch zero or more Assets
- * const assets = await prisma.assets.findMany()
+ * // Fetch zero or more Agencies
+ * const agencies = await prisma.agencies.findMany()
  * ```
  * 
  * Read more in our [docs](https://pris.ly/d/client).
@@ -39,6 +39,16 @@ export const PrismaClient = $Class.getPrismaClientClass()
 export type PrismaClient<LogOpts extends Prisma.LogLevel = never, OmitOpts extends Prisma.PrismaClientOptions["omit"] = Prisma.PrismaClientOptions["omit"], ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = $Class.PrismaClient<LogOpts, OmitOpts, ExtArgs>
 export { Prisma }
 
+/**
+ * Model agencies
+ * 
+ */
+export type agencies = Prisma.agenciesModel
+/**
+ * Model authUsers
+ * 
+ */
+export type authUsers = Prisma.authUsersModel
 /**
  * Model assets
  * 

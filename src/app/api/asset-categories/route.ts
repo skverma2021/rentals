@@ -1,9 +1,18 @@
 import { NextRequest, NextResponse } from "next/server";
 import prisma from "@/lib/prisma";
+import { auth } from "@/lib/auth";
 
 export async function GET() {
   try {
+    const session = await auth();
+    if (!session?.user?.agencyId) {
+      return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+    }
+
     const categories = await prisma.assetCategory.findMany({
+      where: {
+        agencyId: session.user.agencyId,
+      },
       orderBy: {
         description: "asc",
       },
@@ -21,6 +30,11 @@ export async function GET() {
 
 export async function POST(request: NextRequest) {
   try {
+    const session = await auth();
+    if (!session?.user?.agencyId) {
+      return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+    }
+
     const body = await request.json();
     const { description } = body;
 
@@ -33,6 +47,7 @@ export async function POST(request: NextRequest) {
 
     const category = await prisma.assetCategory.create({
       data: {
+        agencyId: session.user.agencyId,
         description: description.trim(),
       },
     });

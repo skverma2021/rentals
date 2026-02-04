@@ -51,6 +51,8 @@ export const AnyNull = runtime.AnyNull
 
 
 export const ModelName = {
+  agencies: 'agencies',
+  authUsers: 'authUsers',
   assets: 'assets',
   assetCategory: 'assetCategory',
   manufacturer: 'manufacturer',
@@ -77,8 +79,51 @@ export const TransactionIsolationLevel = runtime.makeStrictEnum({
 export type TransactionIsolationLevel = (typeof TransactionIsolationLevel)[keyof typeof TransactionIsolationLevel]
 
 
+export const AgenciesScalarFieldEnum = {
+  id: 'id',
+  name: 'name',
+  contactEmail: 'contactEmail',
+  contactPhone: 'contactPhone',
+  address: 'address',
+  city: 'city',
+  stateProvince: 'stateProvince',
+  zipPostalCode: 'zipPostalCode',
+  countryRegion: 'countryRegion',
+  isActive: 'isActive',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type AgenciesScalarFieldEnum = (typeof AgenciesScalarFieldEnum)[keyof typeof AgenciesScalarFieldEnum]
+
+
+export const AuthUsersScalarFieldEnum = {
+  id: 'id',
+  agencyId: 'agencyId',
+  firstName: 'firstName',
+  lastName: 'lastName',
+  email: 'email',
+  address: 'address',
+  city: 'city',
+  stateProvince: 'stateProvince',
+  zipPostalCode: 'zipPostalCode',
+  countryRegion: 'countryRegion',
+  provider: 'provider',
+  providerId: 'providerId',
+  avatarUrl: 'avatarUrl',
+  role: 'role',
+  isActive: 'isActive',
+  lastLoginAt: 'lastLoginAt',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type AuthUsersScalarFieldEnum = (typeof AuthUsersScalarFieldEnum)[keyof typeof AuthUsersScalarFieldEnum]
+
+
 export const AssetsScalarFieldEnum = {
   id: 'id',
+  agencyId: 'agencyId',
   specId: 'specId',
   acquiredDate: 'acquiredDate',
   purchasePrice: 'purchasePrice',
@@ -90,6 +135,7 @@ export type AssetsScalarFieldEnum = (typeof AssetsScalarFieldEnum)[keyof typeof 
 
 export const AssetCategoryScalarFieldEnum = {
   id: 'id',
+  agencyId: 'agencyId',
   description: 'description'
 } as const
 
@@ -98,6 +144,7 @@ export type AssetCategoryScalarFieldEnum = (typeof AssetCategoryScalarFieldEnum)
 
 export const ManufacturerScalarFieldEnum = {
   id: 'id',
+  agencyId: 'agencyId',
   description: 'description'
 } as const
 
@@ -106,6 +153,7 @@ export type ManufacturerScalarFieldEnum = (typeof ManufacturerScalarFieldEnum)[k
 
 export const AssetSpecScalarFieldEnum = {
   id: 'id',
+  agencyId: 'agencyId',
   assetCategoryId: 'assetCategoryId',
   manufacturerId: 'manufacturerId',
   yearMake: 'yearMake',
@@ -118,6 +166,7 @@ export type AssetSpecScalarFieldEnum = (typeof AssetSpecScalarFieldEnum)[keyof t
 
 export const DefinedConditionScalarFieldEnum = {
   id: 'id',
+  agencyId: 'agencyId',
   description: 'description'
 } as const
 
@@ -157,6 +206,7 @@ export type AssetWithCustomerScalarFieldEnum = (typeof AssetWithCustomerScalarFi
 
 export const CustomersScalarFieldEnum = {
   id: 'id',
+  agencyId: 'agencyId',
   company: 'company',
   lastName: 'lastName',
   firstName: 'firstName',

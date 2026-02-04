@@ -1,13 +1,21 @@
 import { NextRequest, NextResponse } from "next/server";
 import prisma from "@/lib/prisma";
+import { auth } from "@/lib/auth";
 
 export async function GET(request: NextRequest) {
   try {
+    const session = await auth();
+    if (!session?.user?.agencyId) {
+      return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+    }
+
     const { searchParams } = new URL(request.url);
     const customerId = searchParams.get("customerId");
     const assetId = searchParams.get("assetId");
 
-    const whereClause: Record<string, number> = {};
+    const whereClause: Record<string, unknown> = {
+      customer: { agencyId: session.user.agencyId },
+    };
     if (customerId) whereClause.customerId = parseInt(customerId);
     if (assetId) whereClause.assetId = parseInt(assetId);
 
@@ -43,6 +51,11 @@ export async function GET(request: NextRequest) {
 
 export async function POST(request: NextRequest) {
   try {
+    const session = await auth();
+    if (!session?.user?.agencyId) {
+      return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+    }
+
     const body = await request.json();
     const { assetId, customerId, ratePerMonth, fromDate } = body;
 

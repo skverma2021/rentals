@@ -8,6 +8,8 @@
  *
  * 🟢 You can import this file directly.
  */
+export type * from './models/agencies'
+export type * from './models/authUsers'
 export type * from './models/assets'
 export type * from './models/assetCategory'
 export type * from './models/manufacturer'

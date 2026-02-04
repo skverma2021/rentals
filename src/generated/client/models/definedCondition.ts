@@ -28,24 +28,29 @@ export type AggregateDefinedCondition = {
 
 export type DefinedConditionAvgAggregateOutputType = {
   id: number | null
+  agencyId: number | null
 }
 
 export type DefinedConditionSumAggregateOutputType = {
   id: number | null
+  agencyId: number | null
 }
 
 export type DefinedConditionMinAggregateOutputType = {
   id: number | null
+  agencyId: number | null
   description: string | null
 }
 
 export type DefinedConditionMaxAggregateOutputType = {
   id: number | null
+  agencyId: number | null
   description: string | null
 }
 
 export type DefinedConditionCountAggregateOutputType = {
   id: number
+  agencyId: number
   description: number
   _all: number
 }
@@ -53,24 +58,29 @@ export type DefinedConditionCountAggregateOutputType = {
 
 export type DefinedConditionAvgAggregateInputType = {
   id?: true
+  agencyId?: true
 }
 
 export type DefinedConditionSumAggregateInputType = {
   id?: true
+  agencyId?: true
 }
 
 export type DefinedConditionMinAggregateInputType = {
   id?: true
+  agencyId?: true
   description?: true
 }
 
 export type DefinedConditionMaxAggregateInputType = {
   id?: true
+  agencyId?: true
   description?: true
 }
 
 export type DefinedConditionCountAggregateInputType = {
   id?: true
+  agencyId?: true
   description?: true
   _all?: true
 }
@@ -163,6 +173,7 @@ export type definedConditionGroupByArgs<ExtArgs extends runtime.Types.Extensions
 
 export type DefinedConditionGroupByOutputType = {
   id: number
+  agencyId: number
   description: string
   _count: DefinedConditionCountAggregateOutputType | null
   _avg: DefinedConditionAvgAggregateOutputType | null
@@ -191,27 +202,35 @@ export type definedConditionWhereInput = {
   OR?: Prisma.definedConditionWhereInput[]
   NOT?: Prisma.definedConditionWhereInput | Prisma.definedConditionWhereInput[]
   id?: Prisma.IntFilter<"definedCondition"> | number
+  agencyId?: Prisma.IntFilter<"definedCondition"> | number
   description?: Prisma.StringFilter<"definedCondition"> | string
+  agency?: Prisma.XOR<Prisma.AgenciesScalarRelationFilter, Prisma.agenciesWhereInput>
   assetCurrentCondition?: Prisma.AssetCurrentConditionListRelationFilter
 }
 
 export type definedConditionOrderByWithRelationInput = {
   id?: Prisma.SortOrder
+  agencyId?: Prisma.SortOrder
   description?: Prisma.SortOrder
+  agency?: Prisma.agenciesOrderByWithRelationInput
   assetCurrentCondition?: Prisma.assetCurrentConditionOrderByRelationAggregateInput
 }
 
 export type definedConditionWhereUniqueInput = Prisma.AtLeast<{
   id?: number
+  agencyId_description?: Prisma.definedConditionAgencyIdDescriptionCompoundUniqueInput
   AND?: Prisma.definedConditionWhereInput | Prisma.definedConditionWhereInput[]
   OR?: Prisma.definedConditionWhereInput[]
   NOT?: Prisma.definedConditionWhereInput | Prisma.definedConditionWhereInput[]
+  agencyId?: Prisma.IntFilter<"definedCondition"> | number
   description?: Prisma.StringFilter<"definedCondition"> | string
+  agency?: Prisma.XOR<Prisma.AgenciesScalarRelationFilter, Prisma.agenciesWhereInput>
   assetCurrentCondition?: Prisma.AssetCurrentConditionListRelationFilter
-}, "id">
+}, "id" | "agencyId_description">
 
 export type definedConditionOrderByWithAggregationInput = {
   id?: Prisma.SortOrder
+  agencyId?: Prisma.SortOrder
   description?: Prisma.SortOrder
   _count?: Prisma.definedConditionCountOrderByAggregateInput
   _avg?: Prisma.definedConditionAvgOrderByAggregateInput
@@ -225,33 +244,39 @@ export type definedConditionScalarWhereWithAggregatesInput = {
   OR?: Prisma.definedConditionScalarWhereWithAggregatesInput[]
   NOT?: Prisma.definedConditionScalarWhereWithAggregatesInput | Prisma.definedConditionScalarWhereWithAggregatesInput[]
   id?: Prisma.IntWithAggregatesFilter<"definedCondition"> | number
+  agencyId?: Prisma.IntWithAggregatesFilter<"definedCondition"> | number
   description?: Prisma.StringWithAggregatesFilter<"definedCondition"> | string
 }
 
 export type definedConditionCreateInput = {
   description: string
+  agency: Prisma.agenciesCreateNestedOneWithoutDefinedConditionInput
   assetCurrentCondition?: Prisma.assetCurrentConditionCreateNestedManyWithoutDefinedConditionInput
 }
 
 export type definedConditionUncheckedCreateInput = {
   id?: number
+  agencyId: number
   description: string
   assetCurrentCondition?: Prisma.assetCurrentConditionUncheckedCreateNestedManyWithoutDefinedConditionInput
 }
 
 export type definedConditionUpdateInput = {
   description?: Prisma.StringFieldUpdateOperationsInput | string
+  agency?: Prisma.agenciesUpdateOneRequiredWithoutDefinedConditionNestedInput
   assetCurrentCondition?: Prisma.assetCurrentConditionUpdateManyWithoutDefinedConditionNestedInput
 }
 
 export type definedConditionUncheckedUpdateInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
+  agencyId?: Prisma.IntFieldUpdateOperationsInput | number
   description?: Prisma.StringFieldUpdateOperationsInput | string
   assetCurrentCondition?: Prisma.assetCurrentConditionUncheckedUpdateManyWithoutDefinedConditionNestedInput
 }
 
 export type definedConditionCreateManyInput = {
   id?: number
+  agencyId: number
   description: string
 }
 
@@ -261,35 +286,98 @@ export type definedConditionUpdateManyMutationInput = {
 
 export type definedConditionUncheckedUpdateManyInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
+  agencyId?: Prisma.IntFieldUpdateOperationsInput | number
   description?: Prisma.StringFieldUpdateOperationsInput | string
+}
+
+export type DefinedConditionListRelationFilter = {
+  every?: Prisma.definedConditionWhereInput
+  some?: Prisma.definedConditionWhereInput
+  none?: Prisma.definedConditionWhereInput
+}
+
+export type definedConditionOrderByRelationAggregateInput = {
+  _count?: Prisma.SortOrder
+}
+
+export type definedConditionAgencyIdDescriptionCompoundUniqueInput = {
+  agencyId: number
+  description: string
 }
 
 export type definedConditionCountOrderByAggregateInput = {
   id?: Prisma.SortOrder
+  agencyId?: Prisma.SortOrder
   description?: Prisma.SortOrder
 }
 
 export type definedConditionAvgOrderByAggregateInput = {
   id?: Prisma.SortOrder
+  agencyId?: Prisma.SortOrder
 }
 
 export type definedConditionMaxOrderByAggregateInput = {
   id?: Prisma.SortOrder
+  agencyId?: Prisma.SortOrder
   description?: Prisma.SortOrder
 }
 
 export type definedConditionMinOrderByAggregateInput = {
   id?: Prisma.SortOrder
+  agencyId?: Prisma.SortOrder
   description?: Prisma.SortOrder
 }
 
 export type definedConditionSumOrderByAggregateInput = {
   id?: Prisma.SortOrder
+  agencyId?: Prisma.SortOrder
 }
 
 export type DefinedConditionScalarRelationFilter = {
   is?: Prisma.definedConditionWhereInput
   isNot?: Prisma.definedConditionWhereInput
+}
+
+export type definedConditionCreateNestedManyWithoutAgencyInput = {
+  create?: Prisma.XOR<Prisma.definedConditionCreateWithoutAgencyInput, Prisma.definedConditionUncheckedCreateWithoutAgencyInput> | Prisma.definedConditionCreateWithoutAgencyInput[] | Prisma.definedConditionUncheckedCreateWithoutAgencyInput[]
+  connectOrCreate?: Prisma.definedConditionCreateOrConnectWithoutAgencyInput | Prisma.definedConditionCreateOrConnectWithoutAgencyInput[]
+  createMany?: Prisma.definedConditionCreateManyAgencyInputEnvelope
+  connect?: Prisma.definedConditionWhereUniqueInput | Prisma.definedConditionWhereUniqueInput[]
+}
+
+export type definedConditionUncheckedCreateNestedManyWithoutAgencyInput = {
+  create?: Prisma.XOR<Prisma.definedConditionCreateWithoutAgencyInput, Prisma.definedConditionUncheckedCreateWithoutAgencyInput> | Prisma.definedConditionCreateWithoutAgencyInput[] | Prisma.definedConditionUncheckedCreateWithoutAgencyInput[]
+  connectOrCreate?: Prisma.definedConditionCreateOrConnectWithoutAgencyInput | Prisma.definedConditionCreateOrConnectWithoutAgencyInput[]
+  createMany?: Prisma.definedConditionCreateManyAgencyInputEnvelope
+  connect?: Prisma.definedConditionWhereUniqueInput | Prisma.definedConditionWhereUniqueInput[]
+}
+
+export type definedConditionUpdateManyWithoutAgencyNestedInput = {
+  create?: Prisma.XOR<Prisma.definedConditionCreateWithoutAgencyInput, Prisma.definedConditionUncheckedCreateWithoutAgencyInput> | Prisma.definedConditionCreateWithoutAgencyInput[] | Prisma.definedConditionUncheckedCreateWithoutAgencyInput[]
+  connectOrCreate?: Prisma.definedConditionCreateOrConnectWithoutAgencyInput | Prisma.definedConditionCreateOrConnectWithoutAgencyInput[]
+  upsert?: Prisma.definedConditionUpsertWithWhereUniqueWithoutAgencyInput | Prisma.definedConditionUpsertWithWhereUniqueWithoutAgencyInput[]
+  createMany?: Prisma.definedConditionCreateManyAgencyInputEnvelope
+  set?: Prisma.definedConditionWhereUniqueInput | Prisma.definedConditionWhereUniqueInput[]
+  disconnect?: Prisma.definedConditionWhereUniqueInput | Prisma.definedConditionWhereUniqueInput[]
+  delete?: Prisma.definedConditionWhereUniqueInput | Prisma.definedConditionWhereUniqueInput[]
+  connect?: Prisma.definedConditionWhereUniqueInput | Prisma.definedConditionWhereUniqueInput[]
+  update?: Prisma.definedConditionUpdateWithWhereUniqueWithoutAgencyInput | Prisma.definedConditionUpdateWithWhereUniqueWithoutAgencyInput[]
+  updateMany?: Prisma.definedConditionUpdateManyWithWhereWithoutAgencyInput | Prisma.definedConditionUpdateManyWithWhereWithoutAgencyInput[]
+  deleteMany?: Prisma.definedConditionScalarWhereInput | Prisma.definedConditionScalarWhereInput[]
+}
+
+export type definedConditionUncheckedUpdateManyWithoutAgencyNestedInput = {
+  create?: Prisma.XOR<Prisma.definedConditionCreateWithoutAgencyInput, Prisma.definedConditionUncheckedCreateWithoutAgencyInput> | Prisma.definedConditionCreateWithoutAgencyInput[] | Prisma.definedConditionUncheckedCreateWithoutAgencyInput[]
+  connectOrCreate?: Prisma.definedConditionCreateOrConnectWithoutAgencyInput | Prisma.definedConditionCreateOrConnectWithoutAgencyInput[]
+  upsert?: Prisma.definedConditionUpsertWithWhereUniqueWithoutAgencyInput | Prisma.definedConditionUpsertWithWhereUniqueWithoutAgencyInput[]
+  createMany?: Prisma.definedConditionCreateManyAgencyInputEnvelope
+  set?: Prisma.definedConditionWhereUniqueInput | Prisma.definedConditionWhereUniqueInput[]
+  disconnect?: Prisma.definedConditionWhereUniqueInput | Prisma.definedConditionWhereUniqueInput[]
+  delete?: Prisma.definedConditionWhereUniqueInput | Prisma.definedConditionWhereUniqueInput[]
+  connect?: Prisma.definedConditionWhereUniqueInput | Prisma.definedConditionWhereUniqueInput[]
+  update?: Prisma.definedConditionUpdateWithWhereUniqueWithoutAgencyInput | Prisma.definedConditionUpdateWithWhereUniqueWithoutAgencyInput[]
+  updateMany?: Prisma.definedConditionUpdateManyWithWhereWithoutAgencyInput | Prisma.definedConditionUpdateManyWithWhereWithoutAgencyInput[]
+  deleteMany?: Prisma.definedConditionScalarWhereInput | Prisma.definedConditionScalarWhereInput[]
 }
 
 export type definedConditionCreateNestedOneWithoutAssetCurrentConditionInput = {
@@ -306,12 +394,59 @@ export type definedConditionUpdateOneRequiredWithoutAssetCurrentConditionNestedI
   update?: Prisma.XOR<Prisma.XOR<Prisma.definedConditionUpdateToOneWithWhereWithoutAssetCurrentConditionInput, Prisma.definedConditionUpdateWithoutAssetCurrentConditionInput>, Prisma.definedConditionUncheckedUpdateWithoutAssetCurrentConditionInput>
 }
 
+export type definedConditionCreateWithoutAgencyInput = {
+  description: string
+  assetCurrentCondition?: Prisma.assetCurrentConditionCreateNestedManyWithoutDefinedConditionInput
+}
+
+export type definedConditionUncheckedCreateWithoutAgencyInput = {
+  id?: number
+  description: string
+  assetCurrentCondition?: Prisma.assetCurrentConditionUncheckedCreateNestedManyWithoutDefinedConditionInput
+}
+
+export type definedConditionCreateOrConnectWithoutAgencyInput = {
+  where: Prisma.definedConditionWhereUniqueInput
+  create: Prisma.XOR<Prisma.definedConditionCreateWithoutAgencyInput, Prisma.definedConditionUncheckedCreateWithoutAgencyInput>
+}
+
+export type definedConditionCreateManyAgencyInputEnvelope = {
+  data: Prisma.definedConditionCreateManyAgencyInput | Prisma.definedConditionCreateManyAgencyInput[]
+}
+
+export type definedConditionUpsertWithWhereUniqueWithoutAgencyInput = {
+  where: Prisma.definedConditionWhereUniqueInput
+  update: Prisma.XOR<Prisma.definedConditionUpdateWithoutAgencyInput, Prisma.definedConditionUncheckedUpdateWithoutAgencyInput>
+  create: Prisma.XOR<Prisma.definedConditionCreateWithoutAgencyInput, Prisma.definedConditionUncheckedCreateWithoutAgencyInput>
+}
+
+export type definedConditionUpdateWithWhereUniqueWithoutAgencyInput = {
+  where: Prisma.definedConditionWhereUniqueInput
+  data: Prisma.XOR<Prisma.definedConditionUpdateWithoutAgencyInput, Prisma.definedConditionUncheckedUpdateWithoutAgencyInput>
+}
+
+export type definedConditionUpdateManyWithWhereWithoutAgencyInput = {
+  where: Prisma.definedConditionScalarWhereInput
+  data: Prisma.XOR<Prisma.definedConditionUpdateManyMutationInput, Prisma.definedConditionUncheckedUpdateManyWithoutAgencyInput>
+}
+
+export type definedConditionScalarWhereInput = {
+  AND?: Prisma.definedConditionScalarWhereInput | Prisma.definedConditionScalarWhereInput[]
+  OR?: Prisma.definedConditionScalarWhereInput[]
+  NOT?: Prisma.definedConditionScalarWhereInput | Prisma.definedConditionScalarWhereInput[]
+  id?: Prisma.IntFilter<"definedCondition"> | number
+  agencyId?: Prisma.IntFilter<"definedCondition"> | number
+  description?: Prisma.StringFilter<"definedCondition"> | string
+}
+
 export type definedConditionCreateWithoutAssetCurrentConditionInput = {
   description: string
+  agency: Prisma.agenciesCreateNestedOneWithoutDefinedConditionInput
 }
 
 export type definedConditionUncheckedCreateWithoutAssetCurrentConditionInput = {
   id?: number
+  agencyId: number
   description: string
 }
 
@@ -333,9 +468,32 @@ export type definedConditionUpdateToOneWithWhereWithoutAssetCurrentConditionInpu
 
 export type definedConditionUpdateWithoutAssetCurrentConditionInput = {
   description?: Prisma.StringFieldUpdateOperationsInput | string
+  agency?: Prisma.agenciesUpdateOneRequiredWithoutDefinedConditionNestedInput
 }
 
 export type definedConditionUncheckedUpdateWithoutAssetCurrentConditionInput = {
+  id?: Prisma.IntFieldUpdateOperationsInput | number
+  agencyId?: Prisma.IntFieldUpdateOperationsInput | number
+  description?: Prisma.StringFieldUpdateOperationsInput | string
+}
+
+export type definedConditionCreateManyAgencyInput = {
+  id?: number
+  description: string
+}
+
+export type definedConditionUpdateWithoutAgencyInput = {
+  description?: Prisma.StringFieldUpdateOperationsInput | string
+  assetCurrentCondition?: Prisma.assetCurrentConditionUpdateManyWithoutDefinedConditionNestedInput
+}
+
+export type definedConditionUncheckedUpdateWithoutAgencyInput = {
+  id?: Prisma.IntFieldUpdateOperationsInput | number
+  description?: Prisma.StringFieldUpdateOperationsInput | string
+  assetCurrentCondition?: Prisma.assetCurrentConditionUncheckedUpdateManyWithoutDefinedConditionNestedInput
+}
+
+export type definedConditionUncheckedUpdateManyWithoutAgencyInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
   description?: Prisma.StringFieldUpdateOperationsInput | string
 }
@@ -373,41 +531,55 @@ export type DefinedConditionCountOutputTypeCountAssetCurrentConditionArgs<ExtArg
 
 export type definedConditionSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
+  agencyId?: boolean
   description?: boolean
+  agency?: boolean | Prisma.agenciesDefaultArgs<ExtArgs>
   assetCurrentCondition?: boolean | Prisma.definedCondition$assetCurrentConditionArgs<ExtArgs>
   _count?: boolean | Prisma.DefinedConditionCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["definedCondition"]>
 
 export type definedConditionSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
+  agencyId?: boolean
   description?: boolean
+  agency?: boolean | Prisma.agenciesDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["definedCondition"]>
 
 export type definedConditionSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
+  agencyId?: boolean
   description?: boolean
+  agency?: boolean | Prisma.agenciesDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["definedCondition"]>
 
 export type definedConditionSelectScalar = {
   id?: boolean
+  agencyId?: boolean
   description?: boolean
 }
 
-export type definedConditionOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "description", ExtArgs["result"]["definedCondition"]>
+export type definedConditionOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "agencyId" | "description", ExtArgs["result"]["definedCondition"]>
 export type definedConditionInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  agency?: boolean | Prisma.agenciesDefaultArgs<ExtArgs>
   assetCurrentCondition?: boolean | Prisma.definedCondition$assetCurrentConditionArgs<ExtArgs>
   _count?: boolean | Prisma.DefinedConditionCountOutputTypeDefaultArgs<ExtArgs>
 }
-export type definedConditionIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {}
-export type definedConditionIncludeUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {}
+export type definedConditionIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  agency?: boolean | Prisma.agenciesDefaultArgs<ExtArgs>
+}
+export type definedConditionIncludeUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  agency?: boolean | Prisma.agenciesDefaultArgs<ExtArgs>
+}
 
 export type $definedConditionPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   name: "definedCondition"
   objects: {
+    agency: Prisma.$agenciesPayload<ExtArgs>
     assetCurrentCondition: Prisma.$assetCurrentConditionPayload<ExtArgs>[]
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: number
+    agencyId: number
     description: string
   }, ExtArgs["result"]["definedCondition"]>
   composites: {}
@@ -803,6 +975,7 @@ readonly fields: definedConditionFieldRefs;
  */
 export interface Prisma__definedConditionClient<T, Null = never, ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
   readonly [Symbol.toStringTag]: "PrismaPromise"
+  agency<T extends Prisma.agenciesDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.agenciesDefaultArgs<ExtArgs>>): Prisma.Prisma__agenciesClient<runtime.Types.Result.GetResult<Prisma.$agenciesPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
   assetCurrentCondition<T extends Prisma.definedCondition$assetCurrentConditionArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.definedCondition$assetCurrentConditionArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$assetCurrentConditionPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
@@ -834,6 +1007,7 @@ export interface Prisma__definedConditionClient<T, Null = never, ExtArgs extends
  */
 export interface definedConditionFieldRefs {
   readonly id: Prisma.FieldRef<"definedCondition", 'Int'>
+  readonly agencyId: Prisma.FieldRef<"definedCondition", 'Int'>
   readonly description: Prisma.FieldRef<"definedCondition", 'String'>
 }
     
@@ -1082,6 +1256,10 @@ export type definedConditionCreateManyAndReturnArgs<ExtArgs extends runtime.Type
    * The data used to create many definedConditions.
    */
   data: Prisma.definedConditionCreateManyInput | Prisma.definedConditionCreateManyInput[]
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.definedConditionIncludeCreateManyAndReturn<ExtArgs> | null
 }
 
 /**
@@ -1152,6 +1330,10 @@ export type definedConditionUpdateManyAndReturnArgs<ExtArgs extends runtime.Type
    * Limit how many definedConditions to update.
    */
   limit?: number
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.definedConditionIncludeUpdateManyAndReturn<ExtArgs> | null
 }
 
 /**

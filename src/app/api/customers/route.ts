@@ -1,9 +1,19 @@
 import { NextRequest, NextResponse } from "next/server";
 import prisma from "@/lib/prisma";
+import { auth } from "@/lib/auth";
 
 export async function GET() {
   try {
+    // Get current user's session
+    const session = await auth();
+    if (!session?.user?.agencyId) {
+      return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+    }
+
     const customers = await prisma.customers.findMany({
+      where: {
+        agencyId: session.user.agencyId, // Filter by agency
+      },
       include: {
         attachments: true,
         assetWithCustomer: {
@@ -38,6 +48,12 @@ export async function GET() {
 
 export async function POST(request: NextRequest) {
   try {
+    // Get current user's session
+    const session = await auth();
+    if (!session?.user?.agencyId) {
+      return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+    }
+
     const body = await request.json();
     const {
       company,
@@ -66,6 +82,7 @@ export async function POST(request: NextRequest) {
 
     const customer = await prisma.customers.create({
       data: {
+        agencyId: session.user.agencyId, // Set agency from session
         company: company || null,
         lastName,
         firstName,

@@ -1,15 +1,14 @@
 import { PrismaBetterSqlite3 } from "@prisma/adapter-better-sqlite3";
 import { PrismaClient } from "../generated/client/client";
-import path from "path";
 
 const globalForPrisma = globalThis as unknown as {
   prisma: PrismaClient | undefined;
 };
 
 // In Prisma 7, SQLite requires a driver adapter
-const dbPath = path.join(process.cwd(), "prisma", "dev.db");
+// Use relative path from project root (works without path module)
 const adapter = new PrismaBetterSqlite3({
-  url: `file:${dbPath}`,
+  url: `file:./prisma/dev.db`,
 });
 
 export const prisma = globalForPrisma.prisma ?? new PrismaClient({ adapter });

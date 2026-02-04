@@ -28,6 +28,7 @@ export type AggregateAssetSpec = {
 
 export type AssetSpecAvgAggregateOutputType = {
   id: number | null
+  agencyId: number | null
   assetCategoryId: number | null
   manufacturerId: number | null
   yearMake: number | null
@@ -35,6 +36,7 @@ export type AssetSpecAvgAggregateOutputType = {
 
 export type AssetSpecSumAggregateOutputType = {
   id: number | null
+  agencyId: number | null
   assetCategoryId: number | null
   manufacturerId: number | null
   yearMake: number | null
@@ -42,6 +44,7 @@ export type AssetSpecSumAggregateOutputType = {
 
 export type AssetSpecMinAggregateOutputType = {
   id: number | null
+  agencyId: number | null
   assetCategoryId: number | null
   manufacturerId: number | null
   yearMake: number | null
@@ -51,6 +54,7 @@ export type AssetSpecMinAggregateOutputType = {
 
 export type AssetSpecMaxAggregateOutputType = {
   id: number | null
+  agencyId: number | null
   assetCategoryId: number | null
   manufacturerId: number | null
   yearMake: number | null
@@ -60,6 +64,7 @@ export type AssetSpecMaxAggregateOutputType = {
 
 export type AssetSpecCountAggregateOutputType = {
   id: number
+  agencyId: number
   assetCategoryId: number
   manufacturerId: number
   yearMake: number
@@ -71,6 +76,7 @@ export type AssetSpecCountAggregateOutputType = {
 
 export type AssetSpecAvgAggregateInputType = {
   id?: true
+  agencyId?: true
   assetCategoryId?: true
   manufacturerId?: true
   yearMake?: true
@@ -78,6 +84,7 @@ export type AssetSpecAvgAggregateInputType = {
 
 export type AssetSpecSumAggregateInputType = {
   id?: true
+  agencyId?: true
   assetCategoryId?: true
   manufacturerId?: true
   yearMake?: true
@@ -85,6 +92,7 @@ export type AssetSpecSumAggregateInputType = {
 
 export type AssetSpecMinAggregateInputType = {
   id?: true
+  agencyId?: true
   assetCategoryId?: true
   manufacturerId?: true
   yearMake?: true
@@ -94,6 +102,7 @@ export type AssetSpecMinAggregateInputType = {
 
 export type AssetSpecMaxAggregateInputType = {
   id?: true
+  agencyId?: true
   assetCategoryId?: true
   manufacturerId?: true
   yearMake?: true
@@ -103,6 +112,7 @@ export type AssetSpecMaxAggregateInputType = {
 
 export type AssetSpecCountAggregateInputType = {
   id?: true
+  agencyId?: true
   assetCategoryId?: true
   manufacturerId?: true
   yearMake?: true
@@ -199,6 +209,7 @@ export type assetSpecGroupByArgs<ExtArgs extends runtime.Types.Extensions.Intern
 
 export type AssetSpecGroupByOutputType = {
   id: number
+  agencyId: number
   assetCategoryId: number
   manufacturerId: number
   yearMake: number
@@ -231,11 +242,13 @@ export type assetSpecWhereInput = {
   OR?: Prisma.assetSpecWhereInput[]
   NOT?: Prisma.assetSpecWhereInput | Prisma.assetSpecWhereInput[]
   id?: Prisma.IntFilter<"assetSpec"> | number
+  agencyId?: Prisma.IntFilter<"assetSpec"> | number
   assetCategoryId?: Prisma.IntFilter<"assetSpec"> | number
   manufacturerId?: Prisma.IntFilter<"assetSpec"> | number
   yearMake?: Prisma.IntFilter<"assetSpec"> | number
   model?: Prisma.StringFilter<"assetSpec"> | string
   description?: Prisma.StringFilter<"assetSpec"> | string
+  agency?: Prisma.XOR<Prisma.AgenciesScalarRelationFilter, Prisma.agenciesWhereInput>
   assetCategory?: Prisma.XOR<Prisma.AssetCategoryScalarRelationFilter, Prisma.assetCategoryWhereInput>
   manufacturer?: Prisma.XOR<Prisma.ManufacturerScalarRelationFilter, Prisma.manufacturerWhereInput>
   assets?: Prisma.AssetsListRelationFilter
@@ -243,11 +256,13 @@ export type assetSpecWhereInput = {
 
 export type assetSpecOrderByWithRelationInput = {
   id?: Prisma.SortOrder
+  agencyId?: Prisma.SortOrder
   assetCategoryId?: Prisma.SortOrder
   manufacturerId?: Prisma.SortOrder
   yearMake?: Prisma.SortOrder
   model?: Prisma.SortOrder
   description?: Prisma.SortOrder
+  agency?: Prisma.agenciesOrderByWithRelationInput
   assetCategory?: Prisma.assetCategoryOrderByWithRelationInput
   manufacturer?: Prisma.manufacturerOrderByWithRelationInput
   assets?: Prisma.assetsOrderByRelationAggregateInput
@@ -258,11 +273,13 @@ export type assetSpecWhereUniqueInput = Prisma.AtLeast<{
   AND?: Prisma.assetSpecWhereInput | Prisma.assetSpecWhereInput[]
   OR?: Prisma.assetSpecWhereInput[]
   NOT?: Prisma.assetSpecWhereInput | Prisma.assetSpecWhereInput[]
+  agencyId?: Prisma.IntFilter<"assetSpec"> | number
   assetCategoryId?: Prisma.IntFilter<"assetSpec"> | number
   manufacturerId?: Prisma.IntFilter<"assetSpec"> | number
   yearMake?: Prisma.IntFilter<"assetSpec"> | number
   model?: Prisma.StringFilter<"assetSpec"> | string
   description?: Prisma.StringFilter<"assetSpec"> | string
+  agency?: Prisma.XOR<Prisma.AgenciesScalarRelationFilter, Prisma.agenciesWhereInput>
   assetCategory?: Prisma.XOR<Prisma.AssetCategoryScalarRelationFilter, Prisma.assetCategoryWhereInput>
   manufacturer?: Prisma.XOR<Prisma.ManufacturerScalarRelationFilter, Prisma.manufacturerWhereInput>
   assets?: Prisma.AssetsListRelationFilter
@@ -270,6 +287,7 @@ export type assetSpecWhereUniqueInput = Prisma.AtLeast<{
 
 export type assetSpecOrderByWithAggregationInput = {
   id?: Prisma.SortOrder
+  agencyId?: Prisma.SortOrder
   assetCategoryId?: Prisma.SortOrder
   manufacturerId?: Prisma.SortOrder
   yearMake?: Prisma.SortOrder
@@ -287,6 +305,7 @@ export type assetSpecScalarWhereWithAggregatesInput = {
   OR?: Prisma.assetSpecScalarWhereWithAggregatesInput[]
   NOT?: Prisma.assetSpecScalarWhereWithAggregatesInput | Prisma.assetSpecScalarWhereWithAggregatesInput[]
   id?: Prisma.IntWithAggregatesFilter<"assetSpec"> | number
+  agencyId?: Prisma.IntWithAggregatesFilter<"assetSpec"> | number
   assetCategoryId?: Prisma.IntWithAggregatesFilter<"assetSpec"> | number
   manufacturerId?: Prisma.IntWithAggregatesFilter<"assetSpec"> | number
   yearMake?: Prisma.IntWithAggregatesFilter<"assetSpec"> | number
@@ -298,6 +317,7 @@ export type assetSpecCreateInput = {
   yearMake: number
   model: string
   description: string
+  agency: Prisma.agenciesCreateNestedOneWithoutAssetSpecInput
   assetCategory: Prisma.assetCategoryCreateNestedOneWithoutAssetSpecInput
   manufacturer: Prisma.manufacturerCreateNestedOneWithoutAssetSpecInput
   assets?: Prisma.assetsCreateNestedManyWithoutAssetSpecInput
@@ -305,6 +325,7 @@ export type assetSpecCreateInput = {
 
 export type assetSpecUncheckedCreateInput = {
   id?: number
+  agencyId: number
   assetCategoryId: number
   manufacturerId: number
   yearMake: number
@@ -317,6 +338,7 @@ export type assetSpecUpdateInput = {
   yearMake?: Prisma.IntFieldUpdateOperationsInput | number
   model?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.StringFieldUpdateOperationsInput | string
+  agency?: Prisma.agenciesUpdateOneRequiredWithoutAssetSpecNestedInput
   assetCategory?: Prisma.assetCategoryUpdateOneRequiredWithoutAssetSpecNestedInput
   manufacturer?: Prisma.manufacturerUpdateOneRequiredWithoutAssetSpecNestedInput
   assets?: Prisma.assetsUpdateManyWithoutAssetSpecNestedInput
@@ -324,6 +346,7 @@ export type assetSpecUpdateInput = {
 
 export type assetSpecUncheckedUpdateInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
+  agencyId?: Prisma.IntFieldUpdateOperationsInput | number
   assetCategoryId?: Prisma.IntFieldUpdateOperationsInput | number
   manufacturerId?: Prisma.IntFieldUpdateOperationsInput | number
   yearMake?: Prisma.IntFieldUpdateOperationsInput | number
@@ -334,6 +357,7 @@ export type assetSpecUncheckedUpdateInput = {
 
 export type assetSpecCreateManyInput = {
   id?: number
+  agencyId: number
   assetCategoryId: number
   manufacturerId: number
   yearMake: number
@@ -349,16 +373,12 @@ export type assetSpecUpdateManyMutationInput = {
 
 export type assetSpecUncheckedUpdateManyInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
+  agencyId?: Prisma.IntFieldUpdateOperationsInput | number
   assetCategoryId?: Prisma.IntFieldUpdateOperationsInput | number
   manufacturerId?: Prisma.IntFieldUpdateOperationsInput | number
   yearMake?: Prisma.IntFieldUpdateOperationsInput | number
   model?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.StringFieldUpdateOperationsInput | string
-}
-
-export type AssetSpecScalarRelationFilter = {
-  is?: Prisma.assetSpecWhereInput
-  isNot?: Prisma.assetSpecWhereInput
 }
 
 export type AssetSpecListRelationFilter = {
@@ -371,8 +391,14 @@ export type assetSpecOrderByRelationAggregateInput = {
   _count?: Prisma.SortOrder
 }
 
+export type AssetSpecScalarRelationFilter = {
+  is?: Prisma.assetSpecWhereInput
+  isNot?: Prisma.assetSpecWhereInput
+}
+
 export type assetSpecCountOrderByAggregateInput = {
   id?: Prisma.SortOrder
+  agencyId?: Prisma.SortOrder
   assetCategoryId?: Prisma.SortOrder
   manufacturerId?: Prisma.SortOrder
   yearMake?: Prisma.SortOrder
@@ -382,6 +408,7 @@ export type assetSpecCountOrderByAggregateInput = {
 
 export type assetSpecAvgOrderByAggregateInput = {
   id?: Prisma.SortOrder
+  agencyId?: Prisma.SortOrder
   assetCategoryId?: Prisma.SortOrder
   manufacturerId?: Prisma.SortOrder
   yearMake?: Prisma.SortOrder
@@ -389,6 +416,7 @@ export type assetSpecAvgOrderByAggregateInput = {
 
 export type assetSpecMaxOrderByAggregateInput = {
   id?: Prisma.SortOrder
+  agencyId?: Prisma.SortOrder
   assetCategoryId?: Prisma.SortOrder
   manufacturerId?: Prisma.SortOrder
   yearMake?: Prisma.SortOrder
@@ -398,6 +426,7 @@ export type assetSpecMaxOrderByAggregateInput = {
 
 export type assetSpecMinOrderByAggregateInput = {
   id?: Prisma.SortOrder
+  agencyId?: Prisma.SortOrder
   assetCategoryId?: Prisma.SortOrder
   manufacturerId?: Prisma.SortOrder
   yearMake?: Prisma.SortOrder
@@ -407,9 +436,52 @@ export type assetSpecMinOrderByAggregateInput = {
 
 export type assetSpecSumOrderByAggregateInput = {
   id?: Prisma.SortOrder
+  agencyId?: Prisma.SortOrder
   assetCategoryId?: Prisma.SortOrder
   manufacturerId?: Prisma.SortOrder
   yearMake?: Prisma.SortOrder
+}
+
+export type assetSpecCreateNestedManyWithoutAgencyInput = {
+  create?: Prisma.XOR<Prisma.assetSpecCreateWithoutAgencyInput, Prisma.assetSpecUncheckedCreateWithoutAgencyInput> | Prisma.assetSpecCreateWithoutAgencyInput[] | Prisma.assetSpecUncheckedCreateWithoutAgencyInput[]
+  connectOrCreate?: Prisma.assetSpecCreateOrConnectWithoutAgencyInput | Prisma.assetSpecCreateOrConnectWithoutAgencyInput[]
+  createMany?: Prisma.assetSpecCreateManyAgencyInputEnvelope
+  connect?: Prisma.assetSpecWhereUniqueInput | Prisma.assetSpecWhereUniqueInput[]
+}
+
+export type assetSpecUncheckedCreateNestedManyWithoutAgencyInput = {
+  create?: Prisma.XOR<Prisma.assetSpecCreateWithoutAgencyInput, Prisma.assetSpecUncheckedCreateWithoutAgencyInput> | Prisma.assetSpecCreateWithoutAgencyInput[] | Prisma.assetSpecUncheckedCreateWithoutAgencyInput[]
+  connectOrCreate?: Prisma.assetSpecCreateOrConnectWithoutAgencyInput | Prisma.assetSpecCreateOrConnectWithoutAgencyInput[]
+  createMany?: Prisma.assetSpecCreateManyAgencyInputEnvelope
+  connect?: Prisma.assetSpecWhereUniqueInput | Prisma.assetSpecWhereUniqueInput[]
+}
+
+export type assetSpecUpdateManyWithoutAgencyNestedInput = {
+  create?: Prisma.XOR<Prisma.assetSpecCreateWithoutAgencyInput, Prisma.assetSpecUncheckedCreateWithoutAgencyInput> | Prisma.assetSpecCreateWithoutAgencyInput[] | Prisma.assetSpecUncheckedCreateWithoutAgencyInput[]
+  connectOrCreate?: Prisma.assetSpecCreateOrConnectWithoutAgencyInput | Prisma.assetSpecCreateOrConnectWithoutAgencyInput[]
+  upsert?: Prisma.assetSpecUpsertWithWhereUniqueWithoutAgencyInput | Prisma.assetSpecUpsertWithWhereUniqueWithoutAgencyInput[]
+  createMany?: Prisma.assetSpecCreateManyAgencyInputEnvelope
+  set?: Prisma.assetSpecWhereUniqueInput | Prisma.assetSpecWhereUniqueInput[]
+  disconnect?: Prisma.assetSpecWhereUniqueInput | Prisma.assetSpecWhereUniqueInput[]
+  delete?: Prisma.assetSpecWhereUniqueInput | Prisma.assetSpecWhereUniqueInput[]
+  connect?: Prisma.assetSpecWhereUniqueInput | Prisma.assetSpecWhereUniqueInput[]
+  update?: Prisma.assetSpecUpdateWithWhereUniqueWithoutAgencyInput | Prisma.assetSpecUpdateWithWhereUniqueWithoutAgencyInput[]
+  updateMany?: Prisma.assetSpecUpdateManyWithWhereWithoutAgencyInput | Prisma.assetSpecUpdateManyWithWhereWithoutAgencyInput[]
+  deleteMany?: Prisma.assetSpecScalarWhereInput | Prisma.assetSpecScalarWhereInput[]
+}
+
+export type assetSpecUncheckedUpdateManyWithoutAgencyNestedInput = {
+  create?: Prisma.XOR<Prisma.assetSpecCreateWithoutAgencyInput, Prisma.assetSpecUncheckedCreateWithoutAgencyInput> | Prisma.assetSpecCreateWithoutAgencyInput[] | Prisma.assetSpecUncheckedCreateWithoutAgencyInput[]
+  connectOrCreate?: Prisma.assetSpecCreateOrConnectWithoutAgencyInput | Prisma.assetSpecCreateOrConnectWithoutAgencyInput[]
+  upsert?: Prisma.assetSpecUpsertWithWhereUniqueWithoutAgencyInput | Prisma.assetSpecUpsertWithWhereUniqueWithoutAgencyInput[]
+  createMany?: Prisma.assetSpecCreateManyAgencyInputEnvelope
+  set?: Prisma.assetSpecWhereUniqueInput | Prisma.assetSpecWhereUniqueInput[]
+  disconnect?: Prisma.assetSpecWhereUniqueInput | Prisma.assetSpecWhereUniqueInput[]
+  delete?: Prisma.assetSpecWhereUniqueInput | Prisma.assetSpecWhereUniqueInput[]
+  connect?: Prisma.assetSpecWhereUniqueInput | Prisma.assetSpecWhereUniqueInput[]
+  update?: Prisma.assetSpecUpdateWithWhereUniqueWithoutAgencyInput | Prisma.assetSpecUpdateWithWhereUniqueWithoutAgencyInput[]
+  updateMany?: Prisma.assetSpecUpdateManyWithWhereWithoutAgencyInput | Prisma.assetSpecUpdateManyWithWhereWithoutAgencyInput[]
+  deleteMany?: Prisma.assetSpecScalarWhereInput | Prisma.assetSpecScalarWhereInput[]
 }
 
 export type assetSpecCreateNestedOneWithoutAssetsInput = {
@@ -510,16 +582,75 @@ export type assetSpecUncheckedUpdateManyWithoutManufacturerNestedInput = {
   deleteMany?: Prisma.assetSpecScalarWhereInput | Prisma.assetSpecScalarWhereInput[]
 }
 
+export type assetSpecCreateWithoutAgencyInput = {
+  yearMake: number
+  model: string
+  description: string
+  assetCategory: Prisma.assetCategoryCreateNestedOneWithoutAssetSpecInput
+  manufacturer: Prisma.manufacturerCreateNestedOneWithoutAssetSpecInput
+  assets?: Prisma.assetsCreateNestedManyWithoutAssetSpecInput
+}
+
+export type assetSpecUncheckedCreateWithoutAgencyInput = {
+  id?: number
+  assetCategoryId: number
+  manufacturerId: number
+  yearMake: number
+  model: string
+  description: string
+  assets?: Prisma.assetsUncheckedCreateNestedManyWithoutAssetSpecInput
+}
+
+export type assetSpecCreateOrConnectWithoutAgencyInput = {
+  where: Prisma.assetSpecWhereUniqueInput
+  create: Prisma.XOR<Prisma.assetSpecCreateWithoutAgencyInput, Prisma.assetSpecUncheckedCreateWithoutAgencyInput>
+}
+
+export type assetSpecCreateManyAgencyInputEnvelope = {
+  data: Prisma.assetSpecCreateManyAgencyInput | Prisma.assetSpecCreateManyAgencyInput[]
+}
+
+export type assetSpecUpsertWithWhereUniqueWithoutAgencyInput = {
+  where: Prisma.assetSpecWhereUniqueInput
+  update: Prisma.XOR<Prisma.assetSpecUpdateWithoutAgencyInput, Prisma.assetSpecUncheckedUpdateWithoutAgencyInput>
+  create: Prisma.XOR<Prisma.assetSpecCreateWithoutAgencyInput, Prisma.assetSpecUncheckedCreateWithoutAgencyInput>
+}
+
+export type assetSpecUpdateWithWhereUniqueWithoutAgencyInput = {
+  where: Prisma.assetSpecWhereUniqueInput
+  data: Prisma.XOR<Prisma.assetSpecUpdateWithoutAgencyInput, Prisma.assetSpecUncheckedUpdateWithoutAgencyInput>
+}
+
+export type assetSpecUpdateManyWithWhereWithoutAgencyInput = {
+  where: Prisma.assetSpecScalarWhereInput
+  data: Prisma.XOR<Prisma.assetSpecUpdateManyMutationInput, Prisma.assetSpecUncheckedUpdateManyWithoutAgencyInput>
+}
+
+export type assetSpecScalarWhereInput = {
+  AND?: Prisma.assetSpecScalarWhereInput | Prisma.assetSpecScalarWhereInput[]
+  OR?: Prisma.assetSpecScalarWhereInput[]
+  NOT?: Prisma.assetSpecScalarWhereInput | Prisma.assetSpecScalarWhereInput[]
+  id?: Prisma.IntFilter<"assetSpec"> | number
+  agencyId?: Prisma.IntFilter<"assetSpec"> | number
+  assetCategoryId?: Prisma.IntFilter<"assetSpec"> | number
+  manufacturerId?: Prisma.IntFilter<"assetSpec"> | number
+  yearMake?: Prisma.IntFilter<"assetSpec"> | number
+  model?: Prisma.StringFilter<"assetSpec"> | string
+  description?: Prisma.StringFilter<"assetSpec"> | string
+}
+
 export type assetSpecCreateWithoutAssetsInput = {
   yearMake: number
   model: string
   description: string
+  agency: Prisma.agenciesCreateNestedOneWithoutAssetSpecInput
   assetCategory: Prisma.assetCategoryCreateNestedOneWithoutAssetSpecInput
   manufacturer: Prisma.manufacturerCreateNestedOneWithoutAssetSpecInput
 }
 
 export type assetSpecUncheckedCreateWithoutAssetsInput = {
   id?: number
+  agencyId: number
   assetCategoryId: number
   manufacturerId: number
   yearMake: number
@@ -547,12 +678,14 @@ export type assetSpecUpdateWithoutAssetsInput = {
   yearMake?: Prisma.IntFieldUpdateOperationsInput | number
   model?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.StringFieldUpdateOperationsInput | string
+  agency?: Prisma.agenciesUpdateOneRequiredWithoutAssetSpecNestedInput
   assetCategory?: Prisma.assetCategoryUpdateOneRequiredWithoutAssetSpecNestedInput
   manufacturer?: Prisma.manufacturerUpdateOneRequiredWithoutAssetSpecNestedInput
 }
 
 export type assetSpecUncheckedUpdateWithoutAssetsInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
+  agencyId?: Prisma.IntFieldUpdateOperationsInput | number
   assetCategoryId?: Prisma.IntFieldUpdateOperationsInput | number
   manufacturerId?: Prisma.IntFieldUpdateOperationsInput | number
   yearMake?: Prisma.IntFieldUpdateOperationsInput | number
@@ -564,12 +697,14 @@ export type assetSpecCreateWithoutAssetCategoryInput = {
   yearMake: number
   model: string
   description: string
+  agency: Prisma.agenciesCreateNestedOneWithoutAssetSpecInput
   manufacturer: Prisma.manufacturerCreateNestedOneWithoutAssetSpecInput
   assets?: Prisma.assetsCreateNestedManyWithoutAssetSpecInput
 }
 
 export type assetSpecUncheckedCreateWithoutAssetCategoryInput = {
   id?: number
+  agencyId: number
   manufacturerId: number
   yearMake: number
   model: string
@@ -602,28 +737,18 @@ export type assetSpecUpdateManyWithWhereWithoutAssetCategoryInput = {
   data: Prisma.XOR<Prisma.assetSpecUpdateManyMutationInput, Prisma.assetSpecUncheckedUpdateManyWithoutAssetCategoryInput>
 }
 
-export type assetSpecScalarWhereInput = {
-  AND?: Prisma.assetSpecScalarWhereInput | Prisma.assetSpecScalarWhereInput[]
-  OR?: Prisma.assetSpecScalarWhereInput[]
-  NOT?: Prisma.assetSpecScalarWhereInput | Prisma.assetSpecScalarWhereInput[]
-  id?: Prisma.IntFilter<"assetSpec"> | number
-  assetCategoryId?: Prisma.IntFilter<"assetSpec"> | number
-  manufacturerId?: Prisma.IntFilter<"assetSpec"> | number
-  yearMake?: Prisma.IntFilter<"assetSpec"> | number
-  model?: Prisma.StringFilter<"assetSpec"> | string
-  description?: Prisma.StringFilter<"assetSpec"> | string
-}
-
 export type assetSpecCreateWithoutManufacturerInput = {
   yearMake: number
   model: string
   description: string
+  agency: Prisma.agenciesCreateNestedOneWithoutAssetSpecInput
   assetCategory: Prisma.assetCategoryCreateNestedOneWithoutAssetSpecInput
   assets?: Prisma.assetsCreateNestedManyWithoutAssetSpecInput
 }
 
 export type assetSpecUncheckedCreateWithoutManufacturerInput = {
   id?: number
+  agencyId: number
   assetCategoryId: number
   yearMake: number
   model: string
@@ -656,8 +781,46 @@ export type assetSpecUpdateManyWithWhereWithoutManufacturerInput = {
   data: Prisma.XOR<Prisma.assetSpecUpdateManyMutationInput, Prisma.assetSpecUncheckedUpdateManyWithoutManufacturerInput>
 }
 
+export type assetSpecCreateManyAgencyInput = {
+  id?: number
+  assetCategoryId: number
+  manufacturerId: number
+  yearMake: number
+  model: string
+  description: string
+}
+
+export type assetSpecUpdateWithoutAgencyInput = {
+  yearMake?: Prisma.IntFieldUpdateOperationsInput | number
+  model?: Prisma.StringFieldUpdateOperationsInput | string
+  description?: Prisma.StringFieldUpdateOperationsInput | string
+  assetCategory?: Prisma.assetCategoryUpdateOneRequiredWithoutAssetSpecNestedInput
+  manufacturer?: Prisma.manufacturerUpdateOneRequiredWithoutAssetSpecNestedInput
+  assets?: Prisma.assetsUpdateManyWithoutAssetSpecNestedInput
+}
+
+export type assetSpecUncheckedUpdateWithoutAgencyInput = {
+  id?: Prisma.IntFieldUpdateOperationsInput | number
+  assetCategoryId?: Prisma.IntFieldUpdateOperationsInput | number
+  manufacturerId?: Prisma.IntFieldUpdateOperationsInput | number
+  yearMake?: Prisma.IntFieldUpdateOperationsInput | number
+  model?: Prisma.StringFieldUpdateOperationsInput | string
+  description?: Prisma.StringFieldUpdateOperationsInput | string
+  assets?: Prisma.assetsUncheckedUpdateManyWithoutAssetSpecNestedInput
+}
+
+export type assetSpecUncheckedUpdateManyWithoutAgencyInput = {
+  id?: Prisma.IntFieldUpdateOperationsInput | number
+  assetCategoryId?: Prisma.IntFieldUpdateOperationsInput | number
+  manufacturerId?: Prisma.IntFieldUpdateOperationsInput | number
+  yearMake?: Prisma.IntFieldUpdateOperationsInput | number
+  model?: Prisma.StringFieldUpdateOperationsInput | string
+  description?: Prisma.StringFieldUpdateOperationsInput | string
+}
+
 export type assetSpecCreateManyAssetCategoryInput = {
   id?: number
+  agencyId: number
   manufacturerId: number
   yearMake: number
   model: string
@@ -668,12 +831,14 @@ export type assetSpecUpdateWithoutAssetCategoryInput = {
   yearMake?: Prisma.IntFieldUpdateOperationsInput | number
   model?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.StringFieldUpdateOperationsInput | string
+  agency?: Prisma.agenciesUpdateOneRequiredWithoutAssetSpecNestedInput
   manufacturer?: Prisma.manufacturerUpdateOneRequiredWithoutAssetSpecNestedInput
   assets?: Prisma.assetsUpdateManyWithoutAssetSpecNestedInput
 }
 
 export type assetSpecUncheckedUpdateWithoutAssetCategoryInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
+  agencyId?: Prisma.IntFieldUpdateOperationsInput | number
   manufacturerId?: Prisma.IntFieldUpdateOperationsInput | number
   yearMake?: Prisma.IntFieldUpdateOperationsInput | number
   model?: Prisma.StringFieldUpdateOperationsInput | string
@@ -683,6 +848,7 @@ export type assetSpecUncheckedUpdateWithoutAssetCategoryInput = {
 
 export type assetSpecUncheckedUpdateManyWithoutAssetCategoryInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
+  agencyId?: Prisma.IntFieldUpdateOperationsInput | number
   manufacturerId?: Prisma.IntFieldUpdateOperationsInput | number
   yearMake?: Prisma.IntFieldUpdateOperationsInput | number
   model?: Prisma.StringFieldUpdateOperationsInput | string
@@ -691,6 +857,7 @@ export type assetSpecUncheckedUpdateManyWithoutAssetCategoryInput = {
 
 export type assetSpecCreateManyManufacturerInput = {
   id?: number
+  agencyId: number
   assetCategoryId: number
   yearMake: number
   model: string
@@ -701,12 +868,14 @@ export type assetSpecUpdateWithoutManufacturerInput = {
   yearMake?: Prisma.IntFieldUpdateOperationsInput | number
   model?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.StringFieldUpdateOperationsInput | string
+  agency?: Prisma.agenciesUpdateOneRequiredWithoutAssetSpecNestedInput
   assetCategory?: Prisma.assetCategoryUpdateOneRequiredWithoutAssetSpecNestedInput
   assets?: Prisma.assetsUpdateManyWithoutAssetSpecNestedInput
 }
 
 export type assetSpecUncheckedUpdateWithoutManufacturerInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
+  agencyId?: Prisma.IntFieldUpdateOperationsInput | number
   assetCategoryId?: Prisma.IntFieldUpdateOperationsInput | number
   yearMake?: Prisma.IntFieldUpdateOperationsInput | number
   model?: Prisma.StringFieldUpdateOperationsInput | string
@@ -716,6 +885,7 @@ export type assetSpecUncheckedUpdateWithoutManufacturerInput = {
 
 export type assetSpecUncheckedUpdateManyWithoutManufacturerInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
+  agencyId?: Prisma.IntFieldUpdateOperationsInput | number
   assetCategoryId?: Prisma.IntFieldUpdateOperationsInput | number
   yearMake?: Prisma.IntFieldUpdateOperationsInput | number
   model?: Prisma.StringFieldUpdateOperationsInput | string
@@ -755,11 +925,13 @@ export type AssetSpecCountOutputTypeCountAssetsArgs<ExtArgs extends runtime.Type
 
 export type assetSpecSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
+  agencyId?: boolean
   assetCategoryId?: boolean
   manufacturerId?: boolean
   yearMake?: boolean
   model?: boolean
   description?: boolean
+  agency?: boolean | Prisma.agenciesDefaultArgs<ExtArgs>
   assetCategory?: boolean | Prisma.assetCategoryDefaultArgs<ExtArgs>
   manufacturer?: boolean | Prisma.manufacturerDefaultArgs<ExtArgs>
   assets?: boolean | Prisma.assetSpec$assetsArgs<ExtArgs>
@@ -768,28 +940,33 @@ export type assetSpecSelect<ExtArgs extends runtime.Types.Extensions.InternalArg
 
 export type assetSpecSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
+  agencyId?: boolean
   assetCategoryId?: boolean
   manufacturerId?: boolean
   yearMake?: boolean
   model?: boolean
   description?: boolean
+  agency?: boolean | Prisma.agenciesDefaultArgs<ExtArgs>
   assetCategory?: boolean | Prisma.assetCategoryDefaultArgs<ExtArgs>
   manufacturer?: boolean | Prisma.manufacturerDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["assetSpec"]>
 
 export type assetSpecSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
+  agencyId?: boolean
   assetCategoryId?: boolean
   manufacturerId?: boolean
   yearMake?: boolean
   model?: boolean
   description?: boolean
+  agency?: boolean | Prisma.agenciesDefaultArgs<ExtArgs>
   assetCategory?: boolean | Prisma.assetCategoryDefaultArgs<ExtArgs>
   manufacturer?: boolean | Prisma.manufacturerDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["assetSpec"]>
 
 export type assetSpecSelectScalar = {
   id?: boolean
+  agencyId?: boolean
   assetCategoryId?: boolean
   manufacturerId?: boolean
   yearMake?: boolean
@@ -797,18 +974,21 @@ export type assetSpecSelectScalar = {
   description?: boolean
 }
 
-export type assetSpecOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "assetCategoryId" | "manufacturerId" | "yearMake" | "model" | "description", ExtArgs["result"]["assetSpec"]>
+export type assetSpecOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "agencyId" | "assetCategoryId" | "manufacturerId" | "yearMake" | "model" | "description", ExtArgs["result"]["assetSpec"]>
 export type assetSpecInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  agency?: boolean | Prisma.agenciesDefaultArgs<ExtArgs>
   assetCategory?: boolean | Prisma.assetCategoryDefaultArgs<ExtArgs>
   manufacturer?: boolean | Prisma.manufacturerDefaultArgs<ExtArgs>
   assets?: boolean | Prisma.assetSpec$assetsArgs<ExtArgs>
   _count?: boolean | Prisma.AssetSpecCountOutputTypeDefaultArgs<ExtArgs>
 }
 export type assetSpecIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  agency?: boolean | Prisma.agenciesDefaultArgs<ExtArgs>
   assetCategory?: boolean | Prisma.assetCategoryDefaultArgs<ExtArgs>
   manufacturer?: boolean | Prisma.manufacturerDefaultArgs<ExtArgs>
 }
 export type assetSpecIncludeUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  agency?: boolean | Prisma.agenciesDefaultArgs<ExtArgs>
   assetCategory?: boolean | Prisma.assetCategoryDefaultArgs<ExtArgs>
   manufacturer?: boolean | Prisma.manufacturerDefaultArgs<ExtArgs>
 }
@@ -816,12 +996,14 @@ export type assetSpecIncludeUpdateManyAndReturn<ExtArgs extends runtime.Types.Ex
 export type $assetSpecPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   name: "assetSpec"
   objects: {
+    agency: Prisma.$agenciesPayload<ExtArgs>
     assetCategory: Prisma.$assetCategoryPayload<ExtArgs>
     manufacturer: Prisma.$manufacturerPayload<ExtArgs>
     assets: Prisma.$assetsPayload<ExtArgs>[]
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: number
+    agencyId: number
     assetCategoryId: number
     manufacturerId: number
     yearMake: number
@@ -1221,6 +1403,7 @@ readonly fields: assetSpecFieldRefs;
  */
 export interface Prisma__assetSpecClient<T, Null = never, ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
   readonly [Symbol.toStringTag]: "PrismaPromise"
+  agency<T extends Prisma.agenciesDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.agenciesDefaultArgs<ExtArgs>>): Prisma.Prisma__agenciesClient<runtime.Types.Result.GetResult<Prisma.$agenciesPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
   assetCategory<T extends Prisma.assetCategoryDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.assetCategoryDefaultArgs<ExtArgs>>): Prisma.Prisma__assetCategoryClient<runtime.Types.Result.GetResult<Prisma.$assetCategoryPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
   manufacturer<T extends Prisma.manufacturerDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.manufacturerDefaultArgs<ExtArgs>>): Prisma.Prisma__manufacturerClient<runtime.Types.Result.GetResult<Prisma.$manufacturerPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
   assets<T extends Prisma.assetSpec$assetsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.assetSpec$assetsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$assetsPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
@@ -1254,6 +1437,7 @@ export interface Prisma__assetSpecClient<T, Null = never, ExtArgs extends runtim
  */
 export interface assetSpecFieldRefs {
   readonly id: Prisma.FieldRef<"assetSpec", 'Int'>
+  readonly agencyId: Prisma.FieldRef<"assetSpec", 'Int'>
   readonly assetCategoryId: Prisma.FieldRef<"assetSpec", 'Int'>
   readonly manufacturerId: Prisma.FieldRef<"assetSpec", 'Int'>
   readonly yearMake: Prisma.FieldRef<"assetSpec", 'Int'>

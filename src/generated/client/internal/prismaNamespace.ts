@@ -384,6 +384,8 @@ type FieldRefInputType<Model, FieldType> = Model extends never ? never : FieldRe
 
 
 export const ModelName = {
+  agencies: 'agencies',
+  authUsers: 'authUsers',
   assets: 'assets',
   assetCategory: 'assetCategory',
   manufacturer: 'manufacturer',
@@ -410,10 +412,158 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
     omit: GlobalOmitOptions
   }
   meta: {
-    modelProps: "assets" | "assetCategory" | "manufacturer" | "assetSpec" | "definedCondition" | "assetCurrentCondition" | "assetCurrentValue" | "assetWithCustomer" | "customers" | "customerFile" | "assetFile"
+    modelProps: "agencies" | "authUsers" | "assets" | "assetCategory" | "manufacturer" | "assetSpec" | "definedCondition" | "assetCurrentCondition" | "assetCurrentValue" | "assetWithCustomer" | "customers" | "customerFile" | "assetFile"
     txIsolationLevel: TransactionIsolationLevel
   }
   model: {
+    agencies: {
+      payload: Prisma.$agenciesPayload<ExtArgs>
+      fields: Prisma.agenciesFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.agenciesFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$agenciesPayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.agenciesFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$agenciesPayload>
+        }
+        findFirst: {
+          args: Prisma.agenciesFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$agenciesPayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.agenciesFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$agenciesPayload>
+        }
+        findMany: {
+          args: Prisma.agenciesFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$agenciesPayload>[]
+        }
+        create: {
+          args: Prisma.agenciesCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$agenciesPayload>
+        }
+        createMany: {
+          args: Prisma.agenciesCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.agenciesCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$agenciesPayload>[]
+        }
+        delete: {
+          args: Prisma.agenciesDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$agenciesPayload>
+        }
+        update: {
+          args: Prisma.agenciesUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$agenciesPayload>
+        }
+        deleteMany: {
+          args: Prisma.agenciesDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.agenciesUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.agenciesUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$agenciesPayload>[]
+        }
+        upsert: {
+          args: Prisma.agenciesUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$agenciesPayload>
+        }
+        aggregate: {
+          args: Prisma.AgenciesAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateAgencies>
+        }
+        groupBy: {
+          args: Prisma.agenciesGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AgenciesGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.agenciesCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AgenciesCountAggregateOutputType> | number
+        }
+      }
+    }
+    authUsers: {
+      payload: Prisma.$authUsersPayload<ExtArgs>
+      fields: Prisma.authUsersFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.authUsersFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$authUsersPayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.authUsersFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$authUsersPayload>
+        }
+        findFirst: {
+          args: Prisma.authUsersFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$authUsersPayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.authUsersFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$authUsersPayload>
+        }
+        findMany: {
+          args: Prisma.authUsersFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$authUsersPayload>[]
+        }
+        create: {
+          args: Prisma.authUsersCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$authUsersPayload>
+        }
+        createMany: {
+          args: Prisma.authUsersCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.authUsersCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$authUsersPayload>[]
+        }
+        delete: {
+          args: Prisma.authUsersDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$authUsersPayload>
+        }
+        update: {
+          args: Prisma.authUsersUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$authUsersPayload>
+        }
+        deleteMany: {
+          args: Prisma.authUsersDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.authUsersUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.authUsersUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$authUsersPayload>[]
+        }
+        upsert: {
+          args: Prisma.authUsersUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$authUsersPayload>
+        }
+        aggregate: {
+          args: Prisma.AuthUsersAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateAuthUsers>
+        }
+        groupBy: {
+          args: Prisma.authUsersGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AuthUsersGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.authUsersCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AuthUsersCountAggregateOutputType> | number
+        }
+      }
+    }
     assets: {
       payload: Prisma.$assetsPayload<ExtArgs>
       fields: Prisma.assetsFieldRefs
@@ -1264,8 +1414,51 @@ export const TransactionIsolationLevel = runtime.makeStrictEnum({
 export type TransactionIsolationLevel = (typeof TransactionIsolationLevel)[keyof typeof TransactionIsolationLevel]
 
 
+export const AgenciesScalarFieldEnum = {
+  id: 'id',
+  name: 'name',
+  contactEmail: 'contactEmail',
+  contactPhone: 'contactPhone',
+  address: 'address',
+  city: 'city',
+  stateProvince: 'stateProvince',
+  zipPostalCode: 'zipPostalCode',
+  countryRegion: 'countryRegion',
+  isActive: 'isActive',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type AgenciesScalarFieldEnum = (typeof AgenciesScalarFieldEnum)[keyof typeof AgenciesScalarFieldEnum]
+
+
+export const AuthUsersScalarFieldEnum = {
+  id: 'id',
+  agencyId: 'agencyId',
+  firstName: 'firstName',
+  lastName: 'lastName',
+  email: 'email',
+  address: 'address',
+  city: 'city',
+  stateProvince: 'stateProvince',
+  zipPostalCode: 'zipPostalCode',
+  countryRegion: 'countryRegion',
+  provider: 'provider',
+  providerId: 'providerId',
+  avatarUrl: 'avatarUrl',
+  role: 'role',
+  isActive: 'isActive',
+  lastLoginAt: 'lastLoginAt',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type AuthUsersScalarFieldEnum = (typeof AuthUsersScalarFieldEnum)[keyof typeof AuthUsersScalarFieldEnum]
+
+
 export const AssetsScalarFieldEnum = {
   id: 'id',
+  agencyId: 'agencyId',
   specId: 'specId',
   acquiredDate: 'acquiredDate',
   purchasePrice: 'purchasePrice',
@@ -1277,6 +1470,7 @@ export type AssetsScalarFieldEnum = (typeof AssetsScalarFieldEnum)[keyof typeof 
 
 export const AssetCategoryScalarFieldEnum = {
   id: 'id',
+  agencyId: 'agencyId',
   description: 'description'
 } as const
 
@@ -1285,6 +1479,7 @@ export type AssetCategoryScalarFieldEnum = (typeof AssetCategoryScalarFieldEnum)
 
 export const ManufacturerScalarFieldEnum = {
   id: 'id',
+  agencyId: 'agencyId',
   description: 'description'
 } as const
 
@@ -1293,6 +1488,7 @@ export type ManufacturerScalarFieldEnum = (typeof ManufacturerScalarFieldEnum)[k
 
 export const AssetSpecScalarFieldEnum = {
   id: 'id',
+  agencyId: 'agencyId',
   assetCategoryId: 'assetCategoryId',
   manufacturerId: 'manufacturerId',
   yearMake: 'yearMake',
@@ -1305,6 +1501,7 @@ export type AssetSpecScalarFieldEnum = (typeof AssetSpecScalarFieldEnum)[keyof t
 
 export const DefinedConditionScalarFieldEnum = {
   id: 'id',
+  agencyId: 'agencyId',
   description: 'description'
 } as const
 
@@ -1344,6 +1541,7 @@ export type AssetWithCustomerScalarFieldEnum = (typeof AssetWithCustomerScalarFi
 
 export const CustomersScalarFieldEnum = {
   id: 'id',
+  agencyId: 'agencyId',
   company: 'company',
   lastName: 'lastName',
   firstName: 'firstName',
@@ -1420,6 +1618,20 @@ export type IntFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'In
 
 
 /**
+ * Reference to a field of type 'String'
+ */
+export type StringFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'String'>
+    
+
+
+/**
+ * Reference to a field of type 'Boolean'
+ */
+export type BooleanFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Boolean'>
+    
+
+
+/**
  * Reference to a field of type 'DateTime'
  */
 export type DateTimeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'DateTime'>
@@ -1430,13 +1642,6 @@ export type DateTimeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel
  * Reference to a field of type 'Float'
  */
 export type FloatFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Float'>
-    
-
-
-/**
- * Reference to a field of type 'String'
- */
-export type StringFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'String'>
     
 
 /**
@@ -1534,6 +1739,8 @@ export type PrismaClientOptions = ({
   comments?: runtime.SqlCommenterPlugin[]
 }
 export type GlobalOmitConfig = {
+  agencies?: Prisma.agenciesOmit
+  authUsers?: Prisma.authUsersOmit
   assets?: Prisma.assetsOmit
   assetCategory?: Prisma.assetCategoryOmit
   manufacturer?: Prisma.manufacturerOmit

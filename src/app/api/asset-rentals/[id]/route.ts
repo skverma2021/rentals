@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import prisma from "@/lib/prisma";
+import { auth } from "@/lib/auth";
 
 type RouteContext = {
   params: Promise<{ id: string }>;
@@ -7,11 +8,19 @@ type RouteContext = {
 
 export async function GET(request: NextRequest, context: RouteContext) {
   try {
+    const session = await auth();
+    if (!session?.user?.agencyId) {
+      return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+    }
+
     const { id } = await context.params;
     const rentalId = parseInt(id);
 
-    const rental = await prisma.assetWithCustomer.findUnique({
-      where: { id: rentalId },
+    const rental = await prisma.assetWithCustomer.findFirst({
+      where: { 
+        id: rentalId,
+        customer: { agencyId: session.user.agencyId },
+      },
       include: {
         assets: {
           include: {
@@ -46,8 +55,22 @@ export async function GET(request: NextRequest, context: RouteContext) {
 
 export async function PUT(request: NextRequest, context: RouteContext) {
   try {
+    const session = await auth();
+    if (!session?.user?.agencyId) {
+      return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+    }
+
     const { id } = await context.params;
     const rentalId = parseInt(id);
+
+    // Verify rental belongs to agency
+    const existing = await prisma.assetWithCustomer.findFirst({
+      where: { id: rentalId, customer: { agencyId: session.user.agencyId } },
+    });
+    if (!existing) {
+      return NextResponse.json({ error: "Rental not found" }, { status: 404 });
+    }
+
     const body = await request.json();
     const { ratePerMonth, fromDate } = body;
 
@@ -84,8 +107,21 @@ export async function PUT(request: NextRequest, context: RouteContext) {
 
 export async function DELETE(request: NextRequest, context: RouteContext) {
   try {
+    const session = await auth();
+    if (!session?.user?.agencyId) {
+      return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+    }
+
     const { id } = await context.params;
     const rentalId = parseInt(id);
+
+    // Verify rental belongs to agency
+    const existing = await prisma.assetWithCustomer.findFirst({
+      where: { id: rentalId, customer: { agencyId: session.user.agencyId } },
+    });
+    if (!existing) {
+      return NextResponse.json({ error: "Rental not found" }, { status: 404 });
+    }
 
     await prisma.assetWithCustomer.delete({
       where: { id: rentalId },

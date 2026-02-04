@@ -28,18 +28,21 @@ export type AggregateAssets = {
 
 export type AssetsAvgAggregateOutputType = {
   id: number | null
+  agencyId: number | null
   specId: number | null
   purchasePrice: number | null
 }
 
 export type AssetsSumAggregateOutputType = {
   id: number | null
+  agencyId: number | null
   specId: number | null
   purchasePrice: number | null
 }
 
 export type AssetsMinAggregateOutputType = {
   id: number | null
+  agencyId: number | null
   specId: number | null
   acquiredDate: Date | null
   purchasePrice: number | null
@@ -48,6 +51,7 @@ export type AssetsMinAggregateOutputType = {
 
 export type AssetsMaxAggregateOutputType = {
   id: number | null
+  agencyId: number | null
   specId: number | null
   acquiredDate: Date | null
   purchasePrice: number | null
@@ -56,6 +60,7 @@ export type AssetsMaxAggregateOutputType = {
 
 export type AssetsCountAggregateOutputType = {
   id: number
+  agencyId: number
   specId: number
   acquiredDate: number
   purchasePrice: number
@@ -66,18 +71,21 @@ export type AssetsCountAggregateOutputType = {
 
 export type AssetsAvgAggregateInputType = {
   id?: true
+  agencyId?: true
   specId?: true
   purchasePrice?: true
 }
 
 export type AssetsSumAggregateInputType = {
   id?: true
+  agencyId?: true
   specId?: true
   purchasePrice?: true
 }
 
 export type AssetsMinAggregateInputType = {
   id?: true
+  agencyId?: true
   specId?: true
   acquiredDate?: true
   purchasePrice?: true
@@ -86,6 +94,7 @@ export type AssetsMinAggregateInputType = {
 
 export type AssetsMaxAggregateInputType = {
   id?: true
+  agencyId?: true
   specId?: true
   acquiredDate?: true
   purchasePrice?: true
@@ -94,6 +103,7 @@ export type AssetsMaxAggregateInputType = {
 
 export type AssetsCountAggregateInputType = {
   id?: true
+  agencyId?: true
   specId?: true
   acquiredDate?: true
   purchasePrice?: true
@@ -189,6 +199,7 @@ export type assetsGroupByArgs<ExtArgs extends runtime.Types.Extensions.InternalA
 
 export type AssetsGroupByOutputType = {
   id: number
+  agencyId: number
   specId: number
   acquiredDate: Date
   purchasePrice: number
@@ -220,10 +231,12 @@ export type assetsWhereInput = {
   OR?: Prisma.assetsWhereInput[]
   NOT?: Prisma.assetsWhereInput | Prisma.assetsWhereInput[]
   id?: Prisma.IntFilter<"assets"> | number
+  agencyId?: Prisma.IntFilter<"assets"> | number
   specId?: Prisma.IntFilter<"assets"> | number
   acquiredDate?: Prisma.DateTimeFilter<"assets"> | Date | string
   purchasePrice?: Prisma.FloatFilter<"assets"> | number
   createdAt?: Prisma.DateTimeFilter<"assets"> | Date | string
+  agency?: Prisma.XOR<Prisma.AgenciesScalarRelationFilter, Prisma.agenciesWhereInput>
   attachments?: Prisma.AssetFileListRelationFilter
   assetSpec?: Prisma.XOR<Prisma.AssetSpecScalarRelationFilter, Prisma.assetSpecWhereInput>
   assetCurrentCondition?: Prisma.AssetCurrentConditionListRelationFilter
@@ -233,10 +246,12 @@ export type assetsWhereInput = {
 
 export type assetsOrderByWithRelationInput = {
   id?: Prisma.SortOrder
+  agencyId?: Prisma.SortOrder
   specId?: Prisma.SortOrder
   acquiredDate?: Prisma.SortOrder
   purchasePrice?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
+  agency?: Prisma.agenciesOrderByWithRelationInput
   attachments?: Prisma.assetFileOrderByRelationAggregateInput
   assetSpec?: Prisma.assetSpecOrderByWithRelationInput
   assetCurrentCondition?: Prisma.assetCurrentConditionOrderByRelationAggregateInput
@@ -249,10 +264,12 @@ export type assetsWhereUniqueInput = Prisma.AtLeast<{
   AND?: Prisma.assetsWhereInput | Prisma.assetsWhereInput[]
   OR?: Prisma.assetsWhereInput[]
   NOT?: Prisma.assetsWhereInput | Prisma.assetsWhereInput[]
+  agencyId?: Prisma.IntFilter<"assets"> | number
   specId?: Prisma.IntFilter<"assets"> | number
   acquiredDate?: Prisma.DateTimeFilter<"assets"> | Date | string
   purchasePrice?: Prisma.FloatFilter<"assets"> | number
   createdAt?: Prisma.DateTimeFilter<"assets"> | Date | string
+  agency?: Prisma.XOR<Prisma.AgenciesScalarRelationFilter, Prisma.agenciesWhereInput>
   attachments?: Prisma.AssetFileListRelationFilter
   assetSpec?: Prisma.XOR<Prisma.AssetSpecScalarRelationFilter, Prisma.assetSpecWhereInput>
   assetCurrentCondition?: Prisma.AssetCurrentConditionListRelationFilter
@@ -262,6 +279,7 @@ export type assetsWhereUniqueInput = Prisma.AtLeast<{
 
 export type assetsOrderByWithAggregationInput = {
   id?: Prisma.SortOrder
+  agencyId?: Prisma.SortOrder
   specId?: Prisma.SortOrder
   acquiredDate?: Prisma.SortOrder
   purchasePrice?: Prisma.SortOrder
@@ -278,6 +296,7 @@ export type assetsScalarWhereWithAggregatesInput = {
   OR?: Prisma.assetsScalarWhereWithAggregatesInput[]
   NOT?: Prisma.assetsScalarWhereWithAggregatesInput | Prisma.assetsScalarWhereWithAggregatesInput[]
   id?: Prisma.IntWithAggregatesFilter<"assets"> | number
+  agencyId?: Prisma.IntWithAggregatesFilter<"assets"> | number
   specId?: Prisma.IntWithAggregatesFilter<"assets"> | number
   acquiredDate?: Prisma.DateTimeWithAggregatesFilter<"assets"> | Date | string
   purchasePrice?: Prisma.FloatWithAggregatesFilter<"assets"> | number
@@ -288,6 +307,7 @@ export type assetsCreateInput = {
   acquiredDate: Date | string
   purchasePrice: number
   createdAt?: Date | string
+  agency: Prisma.agenciesCreateNestedOneWithoutAssetsInput
   attachments?: Prisma.assetFileCreateNestedManyWithoutAssetInput
   assetSpec: Prisma.assetSpecCreateNestedOneWithoutAssetsInput
   assetCurrentCondition?: Prisma.assetCurrentConditionCreateNestedManyWithoutAssetsInput
@@ -297,6 +317,7 @@ export type assetsCreateInput = {
 
 export type assetsUncheckedCreateInput = {
   id?: number
+  agencyId: number
   specId: number
   acquiredDate: Date | string
   purchasePrice: number
@@ -311,6 +332,7 @@ export type assetsUpdateInput = {
   acquiredDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   purchasePrice?: Prisma.FloatFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  agency?: Prisma.agenciesUpdateOneRequiredWithoutAssetsNestedInput
   attachments?: Prisma.assetFileUpdateManyWithoutAssetNestedInput
   assetSpec?: Prisma.assetSpecUpdateOneRequiredWithoutAssetsNestedInput
   assetCurrentCondition?: Prisma.assetCurrentConditionUpdateManyWithoutAssetsNestedInput
@@ -320,6 +342,7 @@ export type assetsUpdateInput = {
 
 export type assetsUncheckedUpdateInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
+  agencyId?: Prisma.IntFieldUpdateOperationsInput | number
   specId?: Prisma.IntFieldUpdateOperationsInput | number
   acquiredDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   purchasePrice?: Prisma.FloatFieldUpdateOperationsInput | number
@@ -332,6 +355,7 @@ export type assetsUncheckedUpdateInput = {
 
 export type assetsCreateManyInput = {
   id?: number
+  agencyId: number
   specId: number
   acquiredDate: Date | string
   purchasePrice: number
@@ -346,46 +370,11 @@ export type assetsUpdateManyMutationInput = {
 
 export type assetsUncheckedUpdateManyInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
+  agencyId?: Prisma.IntFieldUpdateOperationsInput | number
   specId?: Prisma.IntFieldUpdateOperationsInput | number
   acquiredDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   purchasePrice?: Prisma.FloatFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-}
-
-export type assetsCountOrderByAggregateInput = {
-  id?: Prisma.SortOrder
-  specId?: Prisma.SortOrder
-  acquiredDate?: Prisma.SortOrder
-  purchasePrice?: Prisma.SortOrder
-  createdAt?: Prisma.SortOrder
-}
-
-export type assetsAvgOrderByAggregateInput = {
-  id?: Prisma.SortOrder
-  specId?: Prisma.SortOrder
-  purchasePrice?: Prisma.SortOrder
-}
-
-export type assetsMaxOrderByAggregateInput = {
-  id?: Prisma.SortOrder
-  specId?: Prisma.SortOrder
-  acquiredDate?: Prisma.SortOrder
-  purchasePrice?: Prisma.SortOrder
-  createdAt?: Prisma.SortOrder
-}
-
-export type assetsMinOrderByAggregateInput = {
-  id?: Prisma.SortOrder
-  specId?: Prisma.SortOrder
-  acquiredDate?: Prisma.SortOrder
-  purchasePrice?: Prisma.SortOrder
-  createdAt?: Prisma.SortOrder
-}
-
-export type assetsSumOrderByAggregateInput = {
-  id?: Prisma.SortOrder
-  specId?: Prisma.SortOrder
-  purchasePrice?: Prisma.SortOrder
 }
 
 export type AssetsListRelationFilter = {
@@ -398,24 +387,95 @@ export type assetsOrderByRelationAggregateInput = {
   _count?: Prisma.SortOrder
 }
 
+export type assetsCountOrderByAggregateInput = {
+  id?: Prisma.SortOrder
+  agencyId?: Prisma.SortOrder
+  specId?: Prisma.SortOrder
+  acquiredDate?: Prisma.SortOrder
+  purchasePrice?: Prisma.SortOrder
+  createdAt?: Prisma.SortOrder
+}
+
+export type assetsAvgOrderByAggregateInput = {
+  id?: Prisma.SortOrder
+  agencyId?: Prisma.SortOrder
+  specId?: Prisma.SortOrder
+  purchasePrice?: Prisma.SortOrder
+}
+
+export type assetsMaxOrderByAggregateInput = {
+  id?: Prisma.SortOrder
+  agencyId?: Prisma.SortOrder
+  specId?: Prisma.SortOrder
+  acquiredDate?: Prisma.SortOrder
+  purchasePrice?: Prisma.SortOrder
+  createdAt?: Prisma.SortOrder
+}
+
+export type assetsMinOrderByAggregateInput = {
+  id?: Prisma.SortOrder
+  agencyId?: Prisma.SortOrder
+  specId?: Prisma.SortOrder
+  acquiredDate?: Prisma.SortOrder
+  purchasePrice?: Prisma.SortOrder
+  createdAt?: Prisma.SortOrder
+}
+
+export type assetsSumOrderByAggregateInput = {
+  id?: Prisma.SortOrder
+  agencyId?: Prisma.SortOrder
+  specId?: Prisma.SortOrder
+  purchasePrice?: Prisma.SortOrder
+}
+
 export type AssetsScalarRelationFilter = {
   is?: Prisma.assetsWhereInput
   isNot?: Prisma.assetsWhereInput
 }
 
-export type DateTimeFieldUpdateOperationsInput = {
-  set?: Date | string
+export type assetsCreateNestedManyWithoutAgencyInput = {
+  create?: Prisma.XOR<Prisma.assetsCreateWithoutAgencyInput, Prisma.assetsUncheckedCreateWithoutAgencyInput> | Prisma.assetsCreateWithoutAgencyInput[] | Prisma.assetsUncheckedCreateWithoutAgencyInput[]
+  connectOrCreate?: Prisma.assetsCreateOrConnectWithoutAgencyInput | Prisma.assetsCreateOrConnectWithoutAgencyInput[]
+  createMany?: Prisma.assetsCreateManyAgencyInputEnvelope
+  connect?: Prisma.assetsWhereUniqueInput | Prisma.assetsWhereUniqueInput[]
+}
+
+export type assetsUncheckedCreateNestedManyWithoutAgencyInput = {
+  create?: Prisma.XOR<Prisma.assetsCreateWithoutAgencyInput, Prisma.assetsUncheckedCreateWithoutAgencyInput> | Prisma.assetsCreateWithoutAgencyInput[] | Prisma.assetsUncheckedCreateWithoutAgencyInput[]
+  connectOrCreate?: Prisma.assetsCreateOrConnectWithoutAgencyInput | Prisma.assetsCreateOrConnectWithoutAgencyInput[]
+  createMany?: Prisma.assetsCreateManyAgencyInputEnvelope
+  connect?: Prisma.assetsWhereUniqueInput | Prisma.assetsWhereUniqueInput[]
+}
+
+export type assetsUpdateManyWithoutAgencyNestedInput = {
+  create?: Prisma.XOR<Prisma.assetsCreateWithoutAgencyInput, Prisma.assetsUncheckedCreateWithoutAgencyInput> | Prisma.assetsCreateWithoutAgencyInput[] | Prisma.assetsUncheckedCreateWithoutAgencyInput[]
+  connectOrCreate?: Prisma.assetsCreateOrConnectWithoutAgencyInput | Prisma.assetsCreateOrConnectWithoutAgencyInput[]
+  upsert?: Prisma.assetsUpsertWithWhereUniqueWithoutAgencyInput | Prisma.assetsUpsertWithWhereUniqueWithoutAgencyInput[]
+  createMany?: Prisma.assetsCreateManyAgencyInputEnvelope
+  set?: Prisma.assetsWhereUniqueInput | Prisma.assetsWhereUniqueInput[]
+  disconnect?: Prisma.assetsWhereUniqueInput | Prisma.assetsWhereUniqueInput[]
+  delete?: Prisma.assetsWhereUniqueInput | Prisma.assetsWhereUniqueInput[]
+  connect?: Prisma.assetsWhereUniqueInput | Prisma.assetsWhereUniqueInput[]
+  update?: Prisma.assetsUpdateWithWhereUniqueWithoutAgencyInput | Prisma.assetsUpdateWithWhereUniqueWithoutAgencyInput[]
+  updateMany?: Prisma.assetsUpdateManyWithWhereWithoutAgencyInput | Prisma.assetsUpdateManyWithWhereWithoutAgencyInput[]
+  deleteMany?: Prisma.assetsScalarWhereInput | Prisma.assetsScalarWhereInput[]
+}
+
+export type assetsUncheckedUpdateManyWithoutAgencyNestedInput = {
+  create?: Prisma.XOR<Prisma.assetsCreateWithoutAgencyInput, Prisma.assetsUncheckedCreateWithoutAgencyInput> | Prisma.assetsCreateWithoutAgencyInput[] | Prisma.assetsUncheckedCreateWithoutAgencyInput[]
+  connectOrCreate?: Prisma.assetsCreateOrConnectWithoutAgencyInput | Prisma.assetsCreateOrConnectWithoutAgencyInput[]
+  upsert?: Prisma.assetsUpsertWithWhereUniqueWithoutAgencyInput | Prisma.assetsUpsertWithWhereUniqueWithoutAgencyInput[]
+  createMany?: Prisma.assetsCreateManyAgencyInputEnvelope
+  set?: Prisma.assetsWhereUniqueInput | Prisma.assetsWhereUniqueInput[]
+  disconnect?: Prisma.assetsWhereUniqueInput | Prisma.assetsWhereUniqueInput[]
+  delete?: Prisma.assetsWhereUniqueInput | Prisma.assetsWhereUniqueInput[]
+  connect?: Prisma.assetsWhereUniqueInput | Prisma.assetsWhereUniqueInput[]
+  update?: Prisma.assetsUpdateWithWhereUniqueWithoutAgencyInput | Prisma.assetsUpdateWithWhereUniqueWithoutAgencyInput[]
+  updateMany?: Prisma.assetsUpdateManyWithWhereWithoutAgencyInput | Prisma.assetsUpdateManyWithWhereWithoutAgencyInput[]
+  deleteMany?: Prisma.assetsScalarWhereInput | Prisma.assetsScalarWhereInput[]
 }
 
 export type FloatFieldUpdateOperationsInput = {
-  set?: number
-  increment?: number
-  decrement?: number
-  multiply?: number
-  divide?: number
-}
-
-export type IntFieldUpdateOperationsInput = {
   set?: number
   increment?: number
   decrement?: number
@@ -521,10 +581,71 @@ export type assetsUpdateOneRequiredWithoutAttachmentsNestedInput = {
   update?: Prisma.XOR<Prisma.XOR<Prisma.assetsUpdateToOneWithWhereWithoutAttachmentsInput, Prisma.assetsUpdateWithoutAttachmentsInput>, Prisma.assetsUncheckedUpdateWithoutAttachmentsInput>
 }
 
+export type assetsCreateWithoutAgencyInput = {
+  acquiredDate: Date | string
+  purchasePrice: number
+  createdAt?: Date | string
+  attachments?: Prisma.assetFileCreateNestedManyWithoutAssetInput
+  assetSpec: Prisma.assetSpecCreateNestedOneWithoutAssetsInput
+  assetCurrentCondition?: Prisma.assetCurrentConditionCreateNestedManyWithoutAssetsInput
+  assetCurrentValue?: Prisma.assetCurrentValueCreateNestedManyWithoutAssetsInput
+  assetWithCustomer?: Prisma.assetWithCustomerCreateNestedManyWithoutAssetsInput
+}
+
+export type assetsUncheckedCreateWithoutAgencyInput = {
+  id?: number
+  specId: number
+  acquiredDate: Date | string
+  purchasePrice: number
+  createdAt?: Date | string
+  attachments?: Prisma.assetFileUncheckedCreateNestedManyWithoutAssetInput
+  assetCurrentCondition?: Prisma.assetCurrentConditionUncheckedCreateNestedManyWithoutAssetsInput
+  assetCurrentValue?: Prisma.assetCurrentValueUncheckedCreateNestedManyWithoutAssetsInput
+  assetWithCustomer?: Prisma.assetWithCustomerUncheckedCreateNestedManyWithoutAssetsInput
+}
+
+export type assetsCreateOrConnectWithoutAgencyInput = {
+  where: Prisma.assetsWhereUniqueInput
+  create: Prisma.XOR<Prisma.assetsCreateWithoutAgencyInput, Prisma.assetsUncheckedCreateWithoutAgencyInput>
+}
+
+export type assetsCreateManyAgencyInputEnvelope = {
+  data: Prisma.assetsCreateManyAgencyInput | Prisma.assetsCreateManyAgencyInput[]
+}
+
+export type assetsUpsertWithWhereUniqueWithoutAgencyInput = {
+  where: Prisma.assetsWhereUniqueInput
+  update: Prisma.XOR<Prisma.assetsUpdateWithoutAgencyInput, Prisma.assetsUncheckedUpdateWithoutAgencyInput>
+  create: Prisma.XOR<Prisma.assetsCreateWithoutAgencyInput, Prisma.assetsUncheckedCreateWithoutAgencyInput>
+}
+
+export type assetsUpdateWithWhereUniqueWithoutAgencyInput = {
+  where: Prisma.assetsWhereUniqueInput
+  data: Prisma.XOR<Prisma.assetsUpdateWithoutAgencyInput, Prisma.assetsUncheckedUpdateWithoutAgencyInput>
+}
+
+export type assetsUpdateManyWithWhereWithoutAgencyInput = {
+  where: Prisma.assetsScalarWhereInput
+  data: Prisma.XOR<Prisma.assetsUpdateManyMutationInput, Prisma.assetsUncheckedUpdateManyWithoutAgencyInput>
+}
+
+export type assetsScalarWhereInput = {
+  AND?: Prisma.assetsScalarWhereInput | Prisma.assetsScalarWhereInput[]
+  OR?: Prisma.assetsScalarWhereInput[]
+  NOT?: Prisma.assetsScalarWhereInput | Prisma.assetsScalarWhereInput[]
+  id?: Prisma.IntFilter<"assets"> | number
+  agencyId?: Prisma.IntFilter<"assets"> | number
+  specId?: Prisma.IntFilter<"assets"> | number
+  acquiredDate?: Prisma.DateTimeFilter<"assets"> | Date | string
+  purchasePrice?: Prisma.FloatFilter<"assets"> | number
+  createdAt?: Prisma.DateTimeFilter<"assets"> | Date | string
+}
+
 export type assetsCreateWithoutAssetSpecInput = {
   acquiredDate: Date | string
   purchasePrice: number
   createdAt?: Date | string
+  agency: Prisma.agenciesCreateNestedOneWithoutAssetsInput
   attachments?: Prisma.assetFileCreateNestedManyWithoutAssetInput
   assetCurrentCondition?: Prisma.assetCurrentConditionCreateNestedManyWithoutAssetsInput
   assetCurrentValue?: Prisma.assetCurrentValueCreateNestedManyWithoutAssetsInput
@@ -533,6 +654,7 @@ export type assetsCreateWithoutAssetSpecInput = {
 
 export type assetsUncheckedCreateWithoutAssetSpecInput = {
   id?: number
+  agencyId: number
   acquiredDate: Date | string
   purchasePrice: number
   createdAt?: Date | string
@@ -567,21 +689,11 @@ export type assetsUpdateManyWithWhereWithoutAssetSpecInput = {
   data: Prisma.XOR<Prisma.assetsUpdateManyMutationInput, Prisma.assetsUncheckedUpdateManyWithoutAssetSpecInput>
 }
 
-export type assetsScalarWhereInput = {
-  AND?: Prisma.assetsScalarWhereInput | Prisma.assetsScalarWhereInput[]
-  OR?: Prisma.assetsScalarWhereInput[]
-  NOT?: Prisma.assetsScalarWhereInput | Prisma.assetsScalarWhereInput[]
-  id?: Prisma.IntFilter<"assets"> | number
-  specId?: Prisma.IntFilter<"assets"> | number
-  acquiredDate?: Prisma.DateTimeFilter<"assets"> | Date | string
-  purchasePrice?: Prisma.FloatFilter<"assets"> | number
-  createdAt?: Prisma.DateTimeFilter<"assets"> | Date | string
-}
-
 export type assetsCreateWithoutAssetCurrentConditionInput = {
   acquiredDate: Date | string
   purchasePrice: number
   createdAt?: Date | string
+  agency: Prisma.agenciesCreateNestedOneWithoutAssetsInput
   attachments?: Prisma.assetFileCreateNestedManyWithoutAssetInput
   assetSpec: Prisma.assetSpecCreateNestedOneWithoutAssetsInput
   assetCurrentValue?: Prisma.assetCurrentValueCreateNestedManyWithoutAssetsInput
@@ -590,6 +702,7 @@ export type assetsCreateWithoutAssetCurrentConditionInput = {
 
 export type assetsUncheckedCreateWithoutAssetCurrentConditionInput = {
   id?: number
+  agencyId: number
   specId: number
   acquiredDate: Date | string
   purchasePrice: number
@@ -619,6 +732,7 @@ export type assetsUpdateWithoutAssetCurrentConditionInput = {
   acquiredDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   purchasePrice?: Prisma.FloatFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  agency?: Prisma.agenciesUpdateOneRequiredWithoutAssetsNestedInput
   attachments?: Prisma.assetFileUpdateManyWithoutAssetNestedInput
   assetSpec?: Prisma.assetSpecUpdateOneRequiredWithoutAssetsNestedInput
   assetCurrentValue?: Prisma.assetCurrentValueUpdateManyWithoutAssetsNestedInput
@@ -627,6 +741,7 @@ export type assetsUpdateWithoutAssetCurrentConditionInput = {
 
 export type assetsUncheckedUpdateWithoutAssetCurrentConditionInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
+  agencyId?: Prisma.IntFieldUpdateOperationsInput | number
   specId?: Prisma.IntFieldUpdateOperationsInput | number
   acquiredDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   purchasePrice?: Prisma.FloatFieldUpdateOperationsInput | number
@@ -640,6 +755,7 @@ export type assetsCreateWithoutAssetCurrentValueInput = {
   acquiredDate: Date | string
   purchasePrice: number
   createdAt?: Date | string
+  agency: Prisma.agenciesCreateNestedOneWithoutAssetsInput
   attachments?: Prisma.assetFileCreateNestedManyWithoutAssetInput
   assetSpec: Prisma.assetSpecCreateNestedOneWithoutAssetsInput
   assetCurrentCondition?: Prisma.assetCurrentConditionCreateNestedManyWithoutAssetsInput
@@ -648,6 +764,7 @@ export type assetsCreateWithoutAssetCurrentValueInput = {
 
 export type assetsUncheckedCreateWithoutAssetCurrentValueInput = {
   id?: number
+  agencyId: number
   specId: number
   acquiredDate: Date | string
   purchasePrice: number
@@ -677,6 +794,7 @@ export type assetsUpdateWithoutAssetCurrentValueInput = {
   acquiredDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   purchasePrice?: Prisma.FloatFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  agency?: Prisma.agenciesUpdateOneRequiredWithoutAssetsNestedInput
   attachments?: Prisma.assetFileUpdateManyWithoutAssetNestedInput
   assetSpec?: Prisma.assetSpecUpdateOneRequiredWithoutAssetsNestedInput
   assetCurrentCondition?: Prisma.assetCurrentConditionUpdateManyWithoutAssetsNestedInput
@@ -685,6 +803,7 @@ export type assetsUpdateWithoutAssetCurrentValueInput = {
 
 export type assetsUncheckedUpdateWithoutAssetCurrentValueInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
+  agencyId?: Prisma.IntFieldUpdateOperationsInput | number
   specId?: Prisma.IntFieldUpdateOperationsInput | number
   acquiredDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   purchasePrice?: Prisma.FloatFieldUpdateOperationsInput | number
@@ -698,6 +817,7 @@ export type assetsCreateWithoutAssetWithCustomerInput = {
   acquiredDate: Date | string
   purchasePrice: number
   createdAt?: Date | string
+  agency: Prisma.agenciesCreateNestedOneWithoutAssetsInput
   attachments?: Prisma.assetFileCreateNestedManyWithoutAssetInput
   assetSpec: Prisma.assetSpecCreateNestedOneWithoutAssetsInput
   assetCurrentCondition?: Prisma.assetCurrentConditionCreateNestedManyWithoutAssetsInput
@@ -706,6 +826,7 @@ export type assetsCreateWithoutAssetWithCustomerInput = {
 
 export type assetsUncheckedCreateWithoutAssetWithCustomerInput = {
   id?: number
+  agencyId: number
   specId: number
   acquiredDate: Date | string
   purchasePrice: number
@@ -735,6 +856,7 @@ export type assetsUpdateWithoutAssetWithCustomerInput = {
   acquiredDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   purchasePrice?: Prisma.FloatFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  agency?: Prisma.agenciesUpdateOneRequiredWithoutAssetsNestedInput
   attachments?: Prisma.assetFileUpdateManyWithoutAssetNestedInput
   assetSpec?: Prisma.assetSpecUpdateOneRequiredWithoutAssetsNestedInput
   assetCurrentCondition?: Prisma.assetCurrentConditionUpdateManyWithoutAssetsNestedInput
@@ -743,6 +865,7 @@ export type assetsUpdateWithoutAssetWithCustomerInput = {
 
 export type assetsUncheckedUpdateWithoutAssetWithCustomerInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
+  agencyId?: Prisma.IntFieldUpdateOperationsInput | number
   specId?: Prisma.IntFieldUpdateOperationsInput | number
   acquiredDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   purchasePrice?: Prisma.FloatFieldUpdateOperationsInput | number
@@ -756,6 +879,7 @@ export type assetsCreateWithoutAttachmentsInput = {
   acquiredDate: Date | string
   purchasePrice: number
   createdAt?: Date | string
+  agency: Prisma.agenciesCreateNestedOneWithoutAssetsInput
   assetSpec: Prisma.assetSpecCreateNestedOneWithoutAssetsInput
   assetCurrentCondition?: Prisma.assetCurrentConditionCreateNestedManyWithoutAssetsInput
   assetCurrentValue?: Prisma.assetCurrentValueCreateNestedManyWithoutAssetsInput
@@ -764,6 +888,7 @@ export type assetsCreateWithoutAttachmentsInput = {
 
 export type assetsUncheckedCreateWithoutAttachmentsInput = {
   id?: number
+  agencyId: number
   specId: number
   acquiredDate: Date | string
   purchasePrice: number
@@ -793,6 +918,7 @@ export type assetsUpdateWithoutAttachmentsInput = {
   acquiredDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   purchasePrice?: Prisma.FloatFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  agency?: Prisma.agenciesUpdateOneRequiredWithoutAssetsNestedInput
   assetSpec?: Prisma.assetSpecUpdateOneRequiredWithoutAssetsNestedInput
   assetCurrentCondition?: Prisma.assetCurrentConditionUpdateManyWithoutAssetsNestedInput
   assetCurrentValue?: Prisma.assetCurrentValueUpdateManyWithoutAssetsNestedInput
@@ -801,6 +927,7 @@ export type assetsUpdateWithoutAttachmentsInput = {
 
 export type assetsUncheckedUpdateWithoutAttachmentsInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
+  agencyId?: Prisma.IntFieldUpdateOperationsInput | number
   specId?: Prisma.IntFieldUpdateOperationsInput | number
   acquiredDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   purchasePrice?: Prisma.FloatFieldUpdateOperationsInput | number
@@ -810,8 +937,48 @@ export type assetsUncheckedUpdateWithoutAttachmentsInput = {
   assetWithCustomer?: Prisma.assetWithCustomerUncheckedUpdateManyWithoutAssetsNestedInput
 }
 
+export type assetsCreateManyAgencyInput = {
+  id?: number
+  specId: number
+  acquiredDate: Date | string
+  purchasePrice: number
+  createdAt?: Date | string
+}
+
+export type assetsUpdateWithoutAgencyInput = {
+  acquiredDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  purchasePrice?: Prisma.FloatFieldUpdateOperationsInput | number
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  attachments?: Prisma.assetFileUpdateManyWithoutAssetNestedInput
+  assetSpec?: Prisma.assetSpecUpdateOneRequiredWithoutAssetsNestedInput
+  assetCurrentCondition?: Prisma.assetCurrentConditionUpdateManyWithoutAssetsNestedInput
+  assetCurrentValue?: Prisma.assetCurrentValueUpdateManyWithoutAssetsNestedInput
+  assetWithCustomer?: Prisma.assetWithCustomerUpdateManyWithoutAssetsNestedInput
+}
+
+export type assetsUncheckedUpdateWithoutAgencyInput = {
+  id?: Prisma.IntFieldUpdateOperationsInput | number
+  specId?: Prisma.IntFieldUpdateOperationsInput | number
+  acquiredDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  purchasePrice?: Prisma.FloatFieldUpdateOperationsInput | number
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  attachments?: Prisma.assetFileUncheckedUpdateManyWithoutAssetNestedInput
+  assetCurrentCondition?: Prisma.assetCurrentConditionUncheckedUpdateManyWithoutAssetsNestedInput
+  assetCurrentValue?: Prisma.assetCurrentValueUncheckedUpdateManyWithoutAssetsNestedInput
+  assetWithCustomer?: Prisma.assetWithCustomerUncheckedUpdateManyWithoutAssetsNestedInput
+}
+
+export type assetsUncheckedUpdateManyWithoutAgencyInput = {
+  id?: Prisma.IntFieldUpdateOperationsInput | number
+  specId?: Prisma.IntFieldUpdateOperationsInput | number
+  acquiredDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  purchasePrice?: Prisma.FloatFieldUpdateOperationsInput | number
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+}
+
 export type assetsCreateManyAssetSpecInput = {
   id?: number
+  agencyId: number
   acquiredDate: Date | string
   purchasePrice: number
   createdAt?: Date | string
@@ -821,6 +988,7 @@ export type assetsUpdateWithoutAssetSpecInput = {
   acquiredDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   purchasePrice?: Prisma.FloatFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  agency?: Prisma.agenciesUpdateOneRequiredWithoutAssetsNestedInput
   attachments?: Prisma.assetFileUpdateManyWithoutAssetNestedInput
   assetCurrentCondition?: Prisma.assetCurrentConditionUpdateManyWithoutAssetsNestedInput
   assetCurrentValue?: Prisma.assetCurrentValueUpdateManyWithoutAssetsNestedInput
@@ -829,6 +997,7 @@ export type assetsUpdateWithoutAssetSpecInput = {
 
 export type assetsUncheckedUpdateWithoutAssetSpecInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
+  agencyId?: Prisma.IntFieldUpdateOperationsInput | number
   acquiredDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   purchasePrice?: Prisma.FloatFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -840,6 +1009,7 @@ export type assetsUncheckedUpdateWithoutAssetSpecInput = {
 
 export type assetsUncheckedUpdateManyWithoutAssetSpecInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
+  agencyId?: Prisma.IntFieldUpdateOperationsInput | number
   acquiredDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   purchasePrice?: Prisma.FloatFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -905,10 +1075,12 @@ export type AssetsCountOutputTypeCountAssetWithCustomerArgs<ExtArgs extends runt
 
 export type assetsSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
+  agencyId?: boolean
   specId?: boolean
   acquiredDate?: boolean
   purchasePrice?: boolean
   createdAt?: boolean
+  agency?: boolean | Prisma.agenciesDefaultArgs<ExtArgs>
   attachments?: boolean | Prisma.assets$attachmentsArgs<ExtArgs>
   assetSpec?: boolean | Prisma.assetSpecDefaultArgs<ExtArgs>
   assetCurrentCondition?: boolean | Prisma.assets$assetCurrentConditionArgs<ExtArgs>
@@ -919,32 +1091,38 @@ export type assetsSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs =
 
 export type assetsSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
+  agencyId?: boolean
   specId?: boolean
   acquiredDate?: boolean
   purchasePrice?: boolean
   createdAt?: boolean
+  agency?: boolean | Prisma.agenciesDefaultArgs<ExtArgs>
   assetSpec?: boolean | Prisma.assetSpecDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["assets"]>
 
 export type assetsSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
+  agencyId?: boolean
   specId?: boolean
   acquiredDate?: boolean
   purchasePrice?: boolean
   createdAt?: boolean
+  agency?: boolean | Prisma.agenciesDefaultArgs<ExtArgs>
   assetSpec?: boolean | Prisma.assetSpecDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["assets"]>
 
 export type assetsSelectScalar = {
   id?: boolean
+  agencyId?: boolean
   specId?: boolean
   acquiredDate?: boolean
   purchasePrice?: boolean
   createdAt?: boolean
 }
 
-export type assetsOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "specId" | "acquiredDate" | "purchasePrice" | "createdAt", ExtArgs["result"]["assets"]>
+export type assetsOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "agencyId" | "specId" | "acquiredDate" | "purchasePrice" | "createdAt", ExtArgs["result"]["assets"]>
 export type assetsInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  agency?: boolean | Prisma.agenciesDefaultArgs<ExtArgs>
   attachments?: boolean | Prisma.assets$attachmentsArgs<ExtArgs>
   assetSpec?: boolean | Prisma.assetSpecDefaultArgs<ExtArgs>
   assetCurrentCondition?: boolean | Prisma.assets$assetCurrentConditionArgs<ExtArgs>
@@ -953,15 +1131,18 @@ export type assetsInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs 
   _count?: boolean | Prisma.AssetsCountOutputTypeDefaultArgs<ExtArgs>
 }
 export type assetsIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  agency?: boolean | Prisma.agenciesDefaultArgs<ExtArgs>
   assetSpec?: boolean | Prisma.assetSpecDefaultArgs<ExtArgs>
 }
 export type assetsIncludeUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  agency?: boolean | Prisma.agenciesDefaultArgs<ExtArgs>
   assetSpec?: boolean | Prisma.assetSpecDefaultArgs<ExtArgs>
 }
 
 export type $assetsPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   name: "assets"
   objects: {
+    agency: Prisma.$agenciesPayload<ExtArgs>
     attachments: Prisma.$assetFilePayload<ExtArgs>[]
     assetSpec: Prisma.$assetSpecPayload<ExtArgs>
     assetCurrentCondition: Prisma.$assetCurrentConditionPayload<ExtArgs>[]
@@ -970,6 +1151,7 @@ export type $assetsPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: number
+    agencyId: number
     specId: number
     acquiredDate: Date
     purchasePrice: number
@@ -1368,6 +1550,7 @@ readonly fields: assetsFieldRefs;
  */
 export interface Prisma__assetsClient<T, Null = never, ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
   readonly [Symbol.toStringTag]: "PrismaPromise"
+  agency<T extends Prisma.agenciesDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.agenciesDefaultArgs<ExtArgs>>): Prisma.Prisma__agenciesClient<runtime.Types.Result.GetResult<Prisma.$agenciesPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
   attachments<T extends Prisma.assets$attachmentsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.assets$attachmentsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$assetFilePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   assetSpec<T extends Prisma.assetSpecDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.assetSpecDefaultArgs<ExtArgs>>): Prisma.Prisma__assetSpecClient<runtime.Types.Result.GetResult<Prisma.$assetSpecPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
   assetCurrentCondition<T extends Prisma.assets$assetCurrentConditionArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.assets$assetCurrentConditionArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$assetCurrentConditionPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
@@ -1403,6 +1586,7 @@ export interface Prisma__assetsClient<T, Null = never, ExtArgs extends runtime.T
  */
 export interface assetsFieldRefs {
   readonly id: Prisma.FieldRef<"assets", 'Int'>
+  readonly agencyId: Prisma.FieldRef<"assets", 'Int'>
   readonly specId: Prisma.FieldRef<"assets", 'Int'>
   readonly acquiredDate: Prisma.FieldRef<"assets", 'DateTime'>
   readonly purchasePrice: Prisma.FieldRef<"assets", 'Float'>

@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import { useSession, signOut } from "next-auth/react";
 
 const navItems = [
   { href: "/", label: "Home", icon: "🏠" },
@@ -13,6 +14,12 @@ const navItems = [
 
 export default function Navbar() {
   const pathname = usePathname();
+  const { data: session, status } = useSession();
+
+  // Don't show navbar on auth pages
+  if (pathname.startsWith("/auth")) {
+    return null;
+  }
 
   return (
     <nav className="navbar">
@@ -30,6 +37,23 @@ export default function Navbar() {
             <span className="nav-label">{item.label}</span>
           </Link>
         ))}
+      </div>
+      <div className="nav-user">
+        {status === "loading" ? (
+          <span className="loading">Loading...</span>
+        ) : session?.user ? (
+          <>
+            <div className="user-info">
+              <span className="user-name">{session.user.firstName} {session.user.lastName}</span>
+              <span className="agency-name">{session.user.agencyName}</span>
+            </div>
+            <button onClick={() => signOut({ callbackUrl: "/auth/signin" })} className="logout-btn">
+              Sign Out
+            </button>
+          </>
+        ) : (
+          <Link href="/auth/signin" className="login-btn">Sign In</Link>
+        )}
       </div>
 
       <style jsx>{`
@@ -86,6 +110,50 @@ export default function Navbar() {
           font-size: 1.1rem;
         }
 
+        .nav-user {
+          display: flex;
+          align-items: center;
+          gap: 1rem;
+        }
+
+        .user-info {
+          display: flex;
+          flex-direction: column;
+          align-items: flex-end;
+          color: #ffffff;
+        }
+
+        .user-name {
+          font-size: 0.9rem;
+          font-weight: 600;
+        }
+
+        .agency-name {
+          font-size: 0.75rem;
+          opacity: 0.85;
+        }
+
+        .logout-btn, .login-btn {
+          background: rgba(255, 255, 255, 0.2);
+          color: #ffffff;
+          border: 1px solid rgba(255, 255, 255, 0.3);
+          padding: 0.5rem 1rem;
+          border-radius: 6px;
+          font-size: 0.85rem;
+          cursor: pointer;
+          text-decoration: none;
+          transition: all 0.2s;
+        }
+
+        .logout-btn:hover, .login-btn:hover {
+          background: rgba(255, 255, 255, 0.3);
+        }
+
+        .loading {
+          color: rgba(255, 255, 255, 0.7);
+          font-size: 0.85rem;
+        }
+
         @media (max-width: 768px) {
           .navbar {
             padding: 0 1rem;
@@ -98,6 +166,9 @@ export default function Navbar() {
           }
           .nav-icon {
             font-size: 1.3rem;
+          }
+          .user-info {
+            display: none;
           }
         }
       `}</style>
