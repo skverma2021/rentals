@@ -1,5 +1,6 @@
 import Navbar from "@/components/Navbar";
 import AuthProvider from "@/components/AuthProvider";
+import "./globals.css";
 
 export default function RootLayout({
   children,
@@ -8,10 +9,10 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body style={{ margin: 0, fontFamily: 'system-ui, -apple-system, sans-serif', backgroundColor: '#f5f5f5', minHeight: '100vh' }}>
+      <body>
         <AuthProvider>
           <Navbar />
-          <main style={{ minHeight: 'calc(100vh - 60px)' }}>
+          <main className="min-h-[calc(100vh-60px)]">
             {children}
           </main>
         </AuthProvider>
