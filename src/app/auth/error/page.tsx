@@ -3,6 +3,9 @@
 import Link from "next/link";
 import { useSearchParams } from "next/navigation";
 import { Suspense } from "react";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Button } from "@/components/ui/button";
+import { AlertTriangle, ArrowLeft, Loader2 } from "lucide-react";
 
 function ErrorContent() {
   const searchParams = useSearchParams();
@@ -18,69 +21,37 @@ function ErrorContent() {
   const message = errorMessages[error || "Default"] || errorMessages.Default;
 
   return (
-    <div className="error-page">
-      <div className="error-card">
-        <div className="icon">⚠️</div>
-        <h1>Authentication Error</h1>
-        <p className="message">{message}</p>
-        <Link href="/auth/signin" className="back-btn">
-          Try Again
-        </Link>
-      </div>
-
-      <style jsx>{`
-        .error-page {
-          min-height: 100vh;
-          display: flex;
-          align-items: center;
-          justify-content: center;
-          background: linear-gradient(135deg, #dc2626 0%, #ef4444 100%);
-          padding: 1rem;
-        }
-        .error-card {
-          background: white;
-          border-radius: 16px;
-          padding: 3rem;
-          max-width: 400px;
-          width: 100%;
-          text-align: center;
-          box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
-        }
-        .icon {
-          font-size: 4rem;
-          margin-bottom: 1rem;
-        }
-        h1 {
-          font-size: 1.5rem;
-          color: #1e293b;
-          margin: 0 0 1rem 0;
-        }
-        .message {
-          color: #64748b;
-          margin: 0 0 2rem 0;
-          line-height: 1.6;
-        }
-        .back-btn {
-          display: inline-block;
-          background: #3b82f6;
-          color: white;
-          text-decoration: none;
-          padding: 0.875rem 2rem;
-          border-radius: 8px;
-          font-weight: 500;
-          transition: background 0.2s;
-        }
-        .back-btn:hover {
-          background: #2563eb;
-        }
-      `}</style>
+    <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-red-700 to-red-500 p-4">
+      <Card className="w-full max-w-md shadow-2xl">
+        <CardHeader className="text-center space-y-2">
+          <div className="flex justify-center mb-2">
+            <div className="p-4 bg-red-100 rounded-full">
+              <AlertTriangle className="h-12 w-12 text-red-600" />
+            </div>
+          </div>
+          <CardTitle className="text-2xl">Authentication Error</CardTitle>
+        </CardHeader>
+        <CardContent className="space-y-6 text-center">
+          <p className="text-muted-foreground">{message}</p>
+          <Button asChild size="lg">
+            <Link href="/auth/signin">
+              <ArrowLeft className="h-4 w-4 mr-2" />
+              Try Again
+            </Link>
+          </Button>
+        </CardContent>
+      </Card>
     </div>
   );
 }
 
 export default function ErrorPage() {
   return (
-    <Suspense fallback={<div>Loading...</div>}>
+    <Suspense fallback={
+      <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-red-700 to-red-500">
+        <Loader2 className="h-8 w-8 animate-spin text-white" />
+      </div>
+    }>
       <ErrorContent />
     </Suspense>
   );

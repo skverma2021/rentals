@@ -3,175 +3,95 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useSession, signOut } from "next-auth/react";
+import { Button } from "@/components/ui/button";
+import { Badge } from "@/components/ui/badge";
+import { 
+  Home, 
+  Package, 
+  Users, 
+  BarChart3, 
+  Settings, 
+  LogOut, 
+  LogIn,
+  Building2
+} from "lucide-react";
 
 const navItems = [
-  { href: "/", label: "Home", icon: "🏠" },
-  { href: "/assets", label: "Assets", icon: "📦" },
-  { href: "/customers", label: "Customers", icon: "👥" },
-  { href: "/asset-conditions", label: "Conditions & Values", icon: "📊" },
-  { href: "/setup", label: "Setup", icon: "⚙️" },
+  { href: "/", label: "Home", icon: Home },
+  { href: "/assets", label: "Assets", icon: Package },
+  { href: "/customers", label: "Customers", icon: Users },
+  { href: "/asset-conditions", label: "Conditions", icon: BarChart3 },
+  { href: "/setup", label: "Setup", icon: Settings },
 ];
 
 export default function Navbar() {
   const pathname = usePathname();
   const { data: session, status } = useSession();
 
-  // Don't show navbar on auth pages
   if (pathname.startsWith("/auth")) {
     return null;
   }
 
   return (
-    <nav className="navbar">
-      <div className="nav-brand">
-        <Link href="/">🏢 Asset Rental System</Link>
+    <nav className="flex items-center justify-between px-6 h-14 bg-gradient-to-r from-slate-900 to-slate-800 shadow-lg">
+      <Link href="/" className="flex items-center gap-2 text-white font-bold text-lg">
+        <Building2 className="h-6 w-6" />
+        <span className="hidden sm:inline">Asset Rental</span>
+      </Link>
+
+      <div className="flex items-center gap-1">
+        {navItems.map((item) => {
+          const Icon = item.icon;
+          const isActive = pathname === item.href;
+          return (
+            <Link
+              key={item.href}
+              href={item.href}
+              className={`flex items-center gap-2 px-3 py-2 rounded-md text-sm transition-all ${
+                isActive
+                  ? "bg-white/20 text-white font-medium"
+                  : "text-white/80 hover:bg-white/10 hover:text-white"
+              }`}
+            >
+              <Icon className="h-4 w-4" />
+              <span className="hidden md:inline">{item.label}</span>
+            </Link>
+          );
+        })}
       </div>
-      <div className="nav-links">
-        {navItems.map((item) => (
-          <Link
-            key={item.href}
-            href={item.href}
-            className={`nav-link ${pathname === item.href ? "active" : ""}`}
-          >
-            <span className="nav-icon">{item.icon}</span>
-            <span className="nav-label">{item.label}</span>
-          </Link>
-        ))}
-      </div>
-      <div className="nav-user">
+
+      <div className="flex items-center gap-3">
         {status === "loading" ? (
-          <span className="loading">Loading...</span>
+          <span className="text-white/70 text-sm">Loading...</span>
         ) : session?.user ? (
           <>
-            <div className="user-info">
-              <span className="user-name">{session.user.firstName} {session.user.lastName}</span>
-              <span className="agency-name">{session.user.agencyName}</span>
+            <div className="hidden sm:flex flex-col items-end text-white">
+              <span className="text-sm font-medium">
+                {session.user.firstName} {session.user.lastName}
+              </span>
+              <Badge variant="secondary" className="text-xs px-2 py-0">
+                {session.user.agencyName}
+              </Badge>
             </div>
-            <button onClick={() => signOut({ callbackUrl: "/auth/signin" })} className="logout-btn">
-              Sign Out
-            </button>
+            <Button 
+              variant="ghost" 
+              size="sm"
+              onClick={() => signOut({ callbackUrl: "/auth/signin" })}
+              className="text-white/80 hover:text-white hover:bg-white/10"
+            >
+              <LogOut className="h-4 w-4 mr-1" />
+              <span className="hidden sm:inline">Sign Out</span>
+            </Button>
           </>
         ) : (
-          <Link href="/auth/signin" className="login-btn">Sign In</Link>
+          <Button asChild variant="ghost" size="sm" className="text-white/80 hover:text-white hover:bg-white/10">
+            <Link href="/auth/signin">
+              <LogIn className="h-4 w-4 mr-1" />
+              Sign In
+            </Link>
+          </Button>
         )}
       </div>
-
-      <style jsx>{`
-        .navbar {
-          display: flex;
-          align-items: center;
-          justify-content: space-between;
-          padding: 0 2rem;
-          height: 60px;
-          background: linear-gradient(135deg, #1e3a8a 0%, #3b82f6 100%);
-          box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
-        }
-
-        .nav-brand a {
-          color: #ffffff;
-          text-decoration: none;
-          font-size: 1.25rem;
-          font-weight: 700;
-          text-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
-        }
-
-        .nav-links {
-          display: flex;
-          gap: 0.5rem;
-        }
-
-        .nav-link {
-          display: flex;
-          align-items: center;
-          gap: 0.5rem;
-          padding: 0.5rem 1rem;
-          color: #ffffff;
-          text-decoration: none;
-          border-radius: 6px;
-          transition: all 0.2s;
-          font-size: 0.9rem;
-          background: rgba(255, 255, 255, 0.1);
-          text-shadow: 0 1px 2px rgba(0, 0, 0, 0.15);
-        }
-
-        .nav-link:hover {
-          background: rgba(255, 255, 255, 0.25);
-          color: #ffffff;
-        }
-
-        .nav-link.active {
-          background: rgba(255, 255, 255, 0.35);
-          color: #ffffff;
-          font-weight: 600;
-          box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-        }
-
-        .nav-icon {
-          font-size: 1.1rem;
-        }
-
-        .nav-user {
-          display: flex;
-          align-items: center;
-          gap: 1rem;
-        }
-
-        .user-info {
-          display: flex;
-          flex-direction: column;
-          align-items: flex-end;
-          color: #ffffff;
-        }
-
-        .user-name {
-          font-size: 0.9rem;
-          font-weight: 600;
-        }
-
-        .agency-name {
-          font-size: 0.75rem;
-          opacity: 0.85;
-        }
-
-        .logout-btn, .login-btn {
-          background: rgba(255, 255, 255, 0.2);
-          color: #ffffff;
-          border: 1px solid rgba(255, 255, 255, 0.3);
-          padding: 0.5rem 1rem;
-          border-radius: 6px;
-          font-size: 0.85rem;
-          cursor: pointer;
-          text-decoration: none;
-          transition: all 0.2s;
-        }
-
-        .logout-btn:hover, .login-btn:hover {
-          background: rgba(255, 255, 255, 0.3);
-        }
-
-        .loading {
-          color: rgba(255, 255, 255, 0.7);
-          font-size: 0.85rem;
-        }
-
-        @media (max-width: 768px) {
-          .navbar {
-            padding: 0 1rem;
-          }
-          .nav-label {
-            display: none;
-          }
-          .nav-link {
-            padding: 0.5rem;
-          }
-          .nav-icon {
-            font-size: 1.3rem;
-          }
-          .user-info {
-            display: none;
-          }
-        }
-      `}</style>
     </nav>
   );
 }

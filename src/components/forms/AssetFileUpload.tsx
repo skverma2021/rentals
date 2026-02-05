@@ -1,6 +1,18 @@
 "use client";
 
 import { useState, useRef } from "react";
+import { Button } from "@/components/ui/button";
+import { Label } from "@/components/ui/label";
+import { 
+  Upload, 
+  FileImage, 
+  FileVideo, 
+  FileText, 
+  File, 
+  Trash2,
+  ExternalLink,
+  Loader2
+} from "lucide-react";
 
 interface AssetFile {
   id: string;
@@ -38,12 +50,10 @@ export default function AssetFileUpload({
   };
 
   const getFileIcon = (fileType: string) => {
-    if (fileType.startsWith("image/")) return "🖼️";
-    if (fileType.startsWith("video/")) return "🎬";
-    if (fileType.includes("pdf")) return "📄";
-    if (fileType.includes("word") || fileType.includes("document")) return "📝";
-    if (fileType.includes("excel") || fileType.includes("spreadsheet")) return "📊";
-    return "📎";
+    if (fileType.startsWith("image/")) return <FileImage className="h-10 w-10 text-blue-500" />;
+    if (fileType.startsWith("video/")) return <FileVideo className="h-10 w-10 text-purple-500" />;
+    if (fileType.includes("pdf")) return <FileText className="h-10 w-10 text-red-500" />;
+    return <File className="h-10 w-10 text-muted-foreground" />;
   };
 
   const handleFileSelect = async (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -107,241 +117,118 @@ export default function AssetFileUpload({
   const isImageFile = (fileType: string) => fileType.startsWith("image/");
 
   return (
-    <div className="file-upload-container">
-      <div className="upload-section">
-        <label className="upload-label">Attachments</label>
-        <div className="upload-area">
+    <div className="space-y-4">
+      <div className="space-y-2">
+        <Label className="text-sm font-semibold">Attachments</Label>
+        <div className="flex flex-col items-center p-6 border-2 border-dashed border-border rounded-lg bg-muted/30 hover:border-primary/50 transition-colors">
           <input
             ref={fileInputRef}
             type="file"
             multiple
             onChange={handleFileSelect}
             disabled={disabled || isUploading}
-            className="file-input"
-            id="asset-file-input"
+            className="hidden"
+            id={`asset-file-input-${assetId}`}
           />
-          <label htmlFor="asset-file-input" className="upload-button">
-            {isUploading ? uploadProgress : "📁 Choose Files"}
+          <label 
+            htmlFor={`asset-file-input-${assetId}`} 
+            className="cursor-pointer"
+          >
+            <Button 
+              type="button" 
+              variant="default" 
+              disabled={disabled || isUploading}
+              asChild
+            >
+              <span>
+                {isUploading ? (
+                  <>
+                    <Loader2 className="h-4 w-4 mr-2 animate-spin" />
+                    {uploadProgress}
+                  </>
+                ) : (
+                  <>
+                    <Upload className="h-4 w-4 mr-2" />
+                    Choose Files
+                  </>
+                )}
+              </span>
+            </Button>
           </label>
-          <span className="upload-hint">Click to select files (multiple allowed)</span>
+          <span className="mt-2 text-xs text-muted-foreground">
+            Click to select files (multiple allowed)
+          </span>
         </div>
-        {error && <span className="error-message">{error}</span>}
+        {error && (
+          <p className="text-sm text-destructive">{error}</p>
+        )}
       </div>
 
       {existingFiles.length > 0 && (
-        <div className="files-list">
-          <h4>Attached Files ({existingFiles.length})</h4>
-          <div className="files-grid">
+        <div className="space-y-3">
+          <h4 className="text-sm font-medium text-muted-foreground">
+            Attached Files ({existingFiles.length})
+          </h4>
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
             {existingFiles.map((file) => (
-              <div key={file.id} className="file-item">
+              <div 
+                key={file.id} 
+                className="group relative flex flex-col p-3 bg-card border border-border rounded-lg hover:shadow-md transition-shadow"
+              >
                 {isImageFile(file.fileType) ? (
-                  <div className="file-preview">
-                    <img src={file.fileUrl} alt={file.fileName} />
+                  <div className="w-full h-24 flex items-center justify-center overflow-hidden rounded bg-muted mb-2">
+                    <img 
+                      src={file.fileUrl} 
+                      alt={file.fileName}
+                      className="max-w-full max-h-full object-contain"
+                    />
                   </div>
                 ) : (
-                  <div className="file-icon">{getFileIcon(file.fileType)}</div>
+                  <div className="flex items-center justify-center py-4 mb-2">
+                    {getFileIcon(file.fileType)}
+                  </div>
                 )}
-                <div className="file-info">
+                <div className="flex-1 min-w-0">
                   <a
                     href={file.fileUrl}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="file-name"
+                    className="text-sm text-primary hover:underline truncate block"
                     title={file.fileName}
                   >
-                    {file.fileName.length > 20
-                      ? file.fileName.substring(0, 20) + "..."
+                    {file.fileName.length > 25
+                      ? file.fileName.substring(0, 25) + "..."
                       : file.fileName}
                   </a>
-                  <span className="file-size">{formatFileSize(file.fileSize)}</span>
+                  <span className="text-xs text-muted-foreground">
+                    {formatFileSize(file.fileSize)}
+                  </span>
                 </div>
-                <button
-                  type="button"
-                  onClick={() => handleDeleteFile(file.id)}
-                  className="delete-btn"
-                  title="Delete file"
-                  disabled={disabled}
-                >
-                  ✕
-                </button>
+                <div className="absolute top-2 right-2 flex gap-1 opacity-0 group-hover:opacity-100 transition-opacity">
+                  <a
+                    href={file.fileUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="p-1.5 rounded bg-muted hover:bg-accent"
+                    title="Open file"
+                  >
+                    <ExternalLink className="h-3.5 w-3.5" />
+                  </a>
+                  <button
+                    type="button"
+                    onClick={() => handleDeleteFile(file.id)}
+                    className="p-1.5 rounded bg-destructive/10 hover:bg-destructive/20 text-destructive"
+                    title="Delete file"
+                    disabled={disabled}
+                  >
+                    <Trash2 className="h-3.5 w-3.5" />
+                  </button>
+                </div>
               </div>
             ))}
           </div>
         </div>
       )}
-
-      <style jsx>{`
-        .file-upload-container {
-          margin-top: 16px;
-        }
-
-        .upload-section {
-          margin-bottom: 16px;
-        }
-
-        .upload-label {
-          display: block;
-          margin-bottom: 6px;
-          font-weight: 600;
-          color: #333;
-        }
-
-        .upload-area {
-          display: flex;
-          flex-direction: column;
-          align-items: center;
-          padding: 20px;
-          border: 2px dashed #ddd;
-          border-radius: 8px;
-          background: #fafafa;
-          transition: border-color 0.2s;
-        }
-
-        .upload-area:hover {
-          border-color: #0070f3;
-        }
-
-        .file-input {
-          display: none;
-        }
-
-        .upload-button {
-          padding: 10px 20px;
-          background-color: #0070f3;
-          color: white;
-          border-radius: 4px;
-          cursor: pointer;
-          font-weight: 500;
-          transition: background-color 0.2s;
-        }
-
-        .upload-button:hover {
-          background-color: #0060df;
-        }
-
-        .upload-hint {
-          margin-top: 8px;
-          font-size: 12px;
-          color: #888;
-        }
-
-        .error-message {
-          display: block;
-          margin-top: 8px;
-          font-size: 12px;
-          color: #e53e3e;
-        }
-
-        .files-list {
-          margin-top: 16px;
-        }
-
-        .files-list h4 {
-          margin: 0 0 12px 0;
-          font-size: 14px;
-          color: #555;
-        }
-
-        .files-grid {
-          display: grid;
-          grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
-          gap: 12px;
-        }
-
-        .file-item {
-          display: flex;
-          flex-direction: column;
-          padding: 12px;
-          background: #fff;
-          border: 1px solid #eee;
-          border-radius: 8px;
-          position: relative;
-          transition: box-shadow 0.2s;
-        }
-
-        .file-item:hover {
-          box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-        }
-
-        .file-preview {
-          width: 100%;
-          height: 100px;
-          display: flex;
-          align-items: center;
-          justify-content: center;
-          overflow: hidden;
-          border-radius: 4px;
-          background: #f5f5f5;
-          margin-bottom: 8px;
-        }
-
-        .file-preview img {
-          max-width: 100%;
-          max-height: 100%;
-          object-fit: contain;
-        }
-
-        .file-icon {
-          font-size: 48px;
-          text-align: center;
-          margin-bottom: 8px;
-        }
-
-        .file-info {
-          flex: 1;
-        }
-
-        .file-name {
-          display: block;
-          font-size: 13px;
-          color: #0070f3;
-          text-decoration: none;
-          word-break: break-word;
-        }
-
-        .file-name:hover {
-          text-decoration: underline;
-        }
-
-        .file-size {
-          display: block;
-          font-size: 11px;
-          color: #888;
-          margin-top: 4px;
-        }
-
-        .delete-btn {
-          position: absolute;
-          top: 8px;
-          right: 8px;
-          width: 24px;
-          height: 24px;
-          border: none;
-          background: #ff4444;
-          color: white;
-          border-radius: 50%;
-          cursor: pointer;
-          font-size: 12px;
-          display: flex;
-          align-items: center;
-          justify-content: center;
-          opacity: 0;
-          transition: opacity 0.2s;
-        }
-
-        .file-item:hover .delete-btn {
-          opacity: 1;
-        }
-
-        .delete-btn:hover {
-          background: #cc0000;
-        }
-
-        .delete-btn:disabled {
-          opacity: 0.5;
-          cursor: not-allowed;
-        }
-      `}</style>
     </div>
   );
 }

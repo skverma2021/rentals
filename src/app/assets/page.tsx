@@ -3,6 +3,24 @@
 import { useState, useEffect } from "react";
 import AssetForm from "@/components/forms/AssetForm";
 import AssetFileUpload from "@/components/forms/AssetFileUpload";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Button } from "@/components/ui/button";
+import { Badge } from "@/components/ui/badge";
+import { Alert, AlertDescription } from "@/components/ui/alert";
+import { 
+  Package, 
+  Paperclip, 
+  ChevronDown, 
+  ChevronUp, 
+  Calendar, 
+  DollarSign,
+  CheckCircle2,
+  AlertCircle,
+  FileImage,
+  FileVideo,
+  FileText,
+  File
+} from "lucide-react";
 
 interface AssetFile {
   id: string;
@@ -125,354 +143,170 @@ export default function AssetsPage() {
   };
 
   const getFileIcon = (fileType: string) => {
-    if (fileType.startsWith("image/")) return "🖼️";
-    if (fileType.startsWith("video/")) return "🎬";
-    if (fileType.includes("pdf")) return "📄";
-    return "📎";
+    if (fileType.startsWith("image/")) return <FileImage className="h-5 w-5 text-blue-500" />;
+    if (fileType.startsWith("video/")) return <FileVideo className="h-5 w-5 text-purple-500" />;
+    if (fileType.includes("pdf")) return <FileText className="h-5 w-5 text-red-500" />;
+    return <File className="h-5 w-5 text-muted-foreground" />;
   };
 
   return (
-    <div className="assets-page">
-      <header className="page-header">
-        <h1>Asset Management</h1>
-        <p>Create and manage your rental assets</p>
+    <div className="min-h-screen bg-muted/30 p-6">
+      <header className="text-center mb-8">
+        <div className="flex items-center justify-center gap-2 mb-2">
+          <Package className="h-8 w-8 text-primary" />
+          <h1 className="text-3xl font-bold text-foreground">Asset Management</h1>
+        </div>
+        <p className="text-muted-foreground">Create and manage your rental assets</p>
       </header>
 
-      <div className="content-grid">
-        <section className="form-section">
-          <h2>Add New Asset</h2>
-          {message && (
-            <div className={`message ${message.type}`}>
-              {message.text}
-            </div>
-          )}
-          <AssetForm
-            assetSpecs={assetSpecs}
-            onSubmit={handleSubmit}
-            isLoading={isLoading}
-          />
-        </section>
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 max-w-6xl mx-auto">
+        <Card>
+          <CardHeader>
+            <CardTitle className="text-lg border-b-2 border-primary pb-2">
+              Add New Asset
+            </CardTitle>
+          </CardHeader>
+          <CardContent>
+            {message && (
+              <Alert 
+                variant={message.type === "error" ? "destructive" : "default"} 
+                className={`mb-4 ${message.type === "success" ? "border-green-500 text-green-700 bg-green-50" : ""}`}
+              >
+                {message.type === "success" ? (
+                  <CheckCircle2 className="h-4 w-4" />
+                ) : (
+                  <AlertCircle className="h-4 w-4" />
+                )}
+                <AlertDescription>{message.text}</AlertDescription>
+              </Alert>
+            )}
+            <AssetForm
+              assetSpecs={assetSpecs}
+              onSubmit={handleSubmit}
+              isLoading={isLoading}
+            />
+          </CardContent>
+        </Card>
 
-        <section className="list-section">
-          <h2>Existing Assets</h2>
-          {assets.length === 0 ? (
-            <p className="no-data">No assets found. Create your first asset using the form.</p>
-          ) : (
-            <div className="assets-list">
-              {assets.map((asset) => (
-                <div key={asset.id} className="asset-card">
-                  <div className="asset-header">
-                    <span className="asset-id">#{asset.id}</span>
-                    <span className="asset-category">
-                      {asset.assetSpec.assetCategory?.description}
-                    </span>
-                  </div>
-                  <h3>{asset.assetSpec.description}</h3>
-                  <p className="asset-model">
-                    {asset.assetSpec.manufacturer?.description} - {asset.assetSpec.model}
-                  </p>
-                  <div className="asset-details">
-                    <div>
-                      <span className="label">Acquired:</span>
-                      <span>{formatDate(asset.acquiredDate)}</span>
+        <Card>
+          <CardHeader>
+            <CardTitle className="text-lg border-b-2 border-primary pb-2">
+              Existing Assets
+            </CardTitle>
+          </CardHeader>
+          <CardContent>
+            {assets.length === 0 ? (
+              <div className="text-center py-10 text-muted-foreground">
+                <Package className="h-12 w-12 mx-auto mb-3 opacity-50" />
+                <p>No assets found. Create your first asset using the form.</p>
+              </div>
+            ) : (
+              <div className="space-y-4 max-h-[700px] overflow-y-auto pr-2">
+                {assets.map((asset) => (
+                  <div 
+                    key={asset.id} 
+                    className="bg-muted/50 border border-border rounded-lg p-4 hover:shadow-md transition-shadow"
+                  >
+                    <div className="flex justify-between items-center mb-2">
+                      <span className="text-xs font-semibold text-muted-foreground">#{asset.id}</span>
+                      <Badge variant="secondary" className="text-xs">
+                        {asset.assetSpec.assetCategory?.description}
+                      </Badge>
                     </div>
-                    <div>
-                      <span className="label">Price:</span>
-                      <span className="price">{formatCurrency(asset.purchasePrice)}</span>
-                    </div>
-                  </div>
-                  
-                  {/* Attachments Section */}
-                  <div className="attachments-section">
-                    <div className="attachments-header">
-                      <span className="attachments-label">
-                        📎 Attachments ({asset.attachments?.length || 0})
-                      </span>
-                      <button
-                        type="button"
-                        onClick={() => setSelectedAsset(selectedAsset?.id === asset.id ? null : asset)}
-                        className="toggle-attachments-btn"
-                      >
-                        {selectedAsset?.id === asset.id ? "Hide" : "Manage"}
-                      </button>
+                    <h3 className="font-semibold text-foreground mb-1">
+                      {asset.assetSpec.description}
+                    </h3>
+                    <p className="text-sm text-muted-foreground mb-3">
+                      {asset.assetSpec.manufacturer?.description} - {asset.assetSpec.model}
+                    </p>
+                    <div className="flex justify-between text-sm pt-3 border-t border-border">
+                      <div className="flex items-center gap-1 text-muted-foreground">
+                        <Calendar className="h-3.5 w-3.5" />
+                        <span>{formatDate(asset.acquiredDate)}</span>
+                      </div>
+                      <div className="flex items-center gap-1 text-green-600 font-semibold">
+                        <DollarSign className="h-3.5 w-3.5" />
+                        <span>{formatCurrency(asset.purchasePrice).replace("$", "")}</span>
+                      </div>
                     </div>
                     
-                    {/* Thumbnail previews */}
-                    {asset.attachments && asset.attachments.length > 0 && (
-                      <div className="attachments-preview">
-                        {asset.attachments.slice(0, 4).map((file) => (
-                          <a
-                            key={file.id}
-                            href={file.fileUrl}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            className="attachment-thumb"
-                            title={file.fileName}
-                          >
-                            {file.fileType.startsWith("image/") ? (
-                              <img src={file.fileUrl} alt={file.fileName} />
-                            ) : (
-                              <span className="file-icon">{getFileIcon(file.fileType)}</span>
-                            )}
-                          </a>
-                        ))}
-                        {asset.attachments.length > 4 && (
-                          <span className="more-files">+{asset.attachments.length - 4}</span>
-                        )}
+                    {/* Attachments Section */}
+                    <div className="mt-3 pt-3 border-t border-border">
+                      <div className="flex justify-between items-center mb-2">
+                        <span className="text-sm text-muted-foreground flex items-center gap-1">
+                          <Paperclip className="h-3.5 w-3.5" />
+                          Attachments ({asset.attachments?.length || 0})
+                        </span>
+                        <Button
+                          type="button"
+                          variant="ghost"
+                          size="sm"
+                          onClick={() => setSelectedAsset(selectedAsset?.id === asset.id ? null : asset)}
+                          className="text-xs h-7 px-2"
+                        >
+                          {selectedAsset?.id === asset.id ? (
+                            <>
+                              <ChevronUp className="h-3 w-3 mr-1" />
+                              Hide
+                            </>
+                          ) : (
+                            <>
+                              <ChevronDown className="h-3 w-3 mr-1" />
+                              Manage
+                            </>
+                          )}
+                        </Button>
                       </div>
-                    )}
-                    
-                    {/* File upload section when expanded */}
-                    {selectedAsset?.id === asset.id && (
-                      <div className="attachment-upload-panel">
-                        <AssetFileUpload
-                          assetId={asset.id}
-                          existingFiles={asset.attachments || []}
-                          onFilesChange={(files) => handleAssetFilesChange(asset.id, files)}
-                        />
-                      </div>
-                    )}
+                      
+                      {/* Thumbnail previews */}
+                      {asset.attachments && asset.attachments.length > 0 && (
+                        <div className="flex gap-2 flex-wrap items-center">
+                          {asset.attachments.slice(0, 4).map((file) => (
+                            <a
+                              key={file.id}
+                              href={file.fileUrl}
+                              target="_blank"
+                              rel="noopener noreferrer"
+                              className="w-12 h-12 rounded border border-border bg-background flex items-center justify-center overflow-hidden hover:scale-105 transition-transform"
+                              title={file.fileName}
+                            >
+                              {file.fileType.startsWith("image/") ? (
+                                <img 
+                                  src={file.fileUrl} 
+                                  alt={file.fileName}
+                                  className="w-full h-full object-cover"
+                                />
+                              ) : (
+                                getFileIcon(file.fileType)
+                              )}
+                            </a>
+                          ))}
+                          {asset.attachments.length > 4 && (
+                            <span className="text-xs text-muted-foreground px-2 py-1 bg-muted rounded">
+                              +{asset.attachments.length - 4}
+                            </span>
+                          )}
+                        </div>
+                      )}
+                      
+                      {/* File upload section when expanded */}
+                      {selectedAsset?.id === asset.id && (
+                        <div className="mt-3 p-3 bg-background rounded-lg border border-border">
+                          <AssetFileUpload
+                            assetId={asset.id}
+                            existingFiles={asset.attachments || []}
+                            onFilesChange={(files) => handleAssetFilesChange(asset.id, files)}
+                          />
+                        </div>
+                      )}
+                    </div>
                   </div>
-                </div>
-              ))}
-            </div>
-          )}
-        </section>
+                ))}
+              </div>
+            )}
+          </CardContent>
+        </Card>
       </div>
-
-      <style jsx>{`
-        .assets-page {
-          min-height: 100vh;
-          background-color: #f5f5f5;
-          padding: 24px;
-        }
-
-        .page-header {
-          text-align: center;
-          margin-bottom: 32px;
-        }
-
-        .page-header h1 {
-          font-size: 2rem;
-          color: #333;
-          margin: 0 0 8px 0;
-        }
-
-        .page-header p {
-          color: #666;
-          margin: 0;
-        }
-
-        .content-grid {
-          display: grid;
-          grid-template-columns: 1fr 1fr;
-          gap: 32px;
-          max-width: 1200px;
-          margin: 0 auto;
-        }
-
-        @media (max-width: 900px) {
-          .content-grid {
-            grid-template-columns: 1fr;
-          }
-        }
-
-        .form-section,
-        .list-section {
-          background: #fff;
-          border-radius: 8px;
-          padding: 24px;
-          box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-        }
-
-        .form-section h2,
-        .list-section h2 {
-          margin: 0 0 20px 0;
-          font-size: 1.25rem;
-          color: #333;
-          border-bottom: 2px solid #0070f3;
-          padding-bottom: 8px;
-        }
-
-        .message {
-          padding: 12px 16px;
-          border-radius: 4px;
-          margin-bottom: 16px;
-          font-weight: 500;
-        }
-
-        .message.success {
-          background-color: #d4edda;
-          color: #155724;
-          border: 1px solid #c3e6cb;
-        }
-
-        .message.error {
-          background-color: #f8d7da;
-          color: #721c24;
-          border: 1px solid #f5c6cb;
-        }
-
-        .no-data {
-          text-align: center;
-          color: #666;
-          padding: 40px 20px;
-        }
-
-        .assets-list {
-          display: flex;
-          flex-direction: column;
-          gap: 16px;
-          max-height: 800px;
-          overflow-y: auto;
-        }
-
-        .asset-card {
-          background: #fafafa;
-          border: 1px solid #eee;
-          border-radius: 6px;
-          padding: 16px;
-          transition: box-shadow 0.2s;
-        }
-
-        .asset-card:hover {
-          box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-        }
-
-        .asset-header {
-          display: flex;
-          justify-content: space-between;
-          align-items: center;
-          margin-bottom: 8px;
-        }
-
-        .asset-id {
-          font-size: 12px;
-          color: #999;
-          font-weight: 600;
-        }
-
-        .asset-category {
-          font-size: 11px;
-          background: #e3f2fd;
-          color: #1976d2;
-          padding: 2px 8px;
-          border-radius: 12px;
-        }
-
-        .asset-card h3 {
-          margin: 0 0 4px 0;
-          font-size: 1rem;
-          color: #333;
-        }
-
-        .asset-model {
-          margin: 0 0 12px 0;
-          font-size: 13px;
-          color: #666;
-        }
-
-        .asset-details {
-          display: flex;
-          justify-content: space-between;
-          font-size: 13px;
-          padding-top: 12px;
-          border-top: 1px solid #eee;
-        }
-
-        .asset-details .label {
-          color: #999;
-          margin-right: 4px;
-        }
-
-        .asset-details .price {
-          font-weight: 600;
-          color: #2e7d32;
-        }
-
-        .attachments-section {
-          margin-top: 12px;
-          padding-top: 12px;
-          border-top: 1px solid #eee;
-        }
-
-        .attachments-header {
-          display: flex;
-          justify-content: space-between;
-          align-items: center;
-          margin-bottom: 8px;
-        }
-
-        .attachments-label {
-          font-size: 13px;
-          color: #666;
-        }
-
-        .toggle-attachments-btn {
-          padding: 4px 12px;
-          font-size: 12px;
-          background: #e3f2fd;
-          color: #1976d2;
-          border: none;
-          border-radius: 4px;
-          cursor: pointer;
-          transition: background-color 0.2s;
-        }
-
-        .toggle-attachments-btn:hover {
-          background: #bbdefb;
-        }
-
-        .attachments-preview {
-          display: flex;
-          gap: 8px;
-          flex-wrap: wrap;
-          align-items: center;
-        }
-
-        .attachment-thumb {
-          width: 48px;
-          height: 48px;
-          border-radius: 4px;
-          overflow: hidden;
-          background: #f5f5f5;
-          display: flex;
-          align-items: center;
-          justify-content: center;
-          border: 1px solid #ddd;
-          transition: transform 0.2s;
-        }
-
-        .attachment-thumb:hover {
-          transform: scale(1.1);
-        }
-
-        .attachment-thumb img {
-          width: 100%;
-          height: 100%;
-          object-fit: cover;
-        }
-
-        .attachment-thumb .file-icon {
-          font-size: 24px;
-        }
-
-        .more-files {
-          font-size: 12px;
-          color: #666;
-          padding: 4px 8px;
-          background: #f0f0f0;
-          border-radius: 4px;
-        }
-
-        .attachment-upload-panel {
-          margin-top: 12px;
-          padding: 12px;
-          background: #f9f9f9;
-          border-radius: 8px;
-          border: 1px solid #eee;
-        }
-      `}</style>
     </div>
   );
 }

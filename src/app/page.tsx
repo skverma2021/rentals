@@ -1,112 +1,91 @@
 "use client";
 
 import Link from "next/link";
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import { 
+  Package, 
+  Users, 
+  BarChart3, 
+  Settings, 
+  Tag,
+  Building2
+} from "lucide-react";
+
+const cards = [
+  {
+    href: "/assets",
+    title: "Assets",
+    description: "Manage rental assets, specifications, and attachments",
+    icon: Package,
+    color: "text-blue-500",
+  },
+  {
+    href: "/customers",
+    title: "Customers",
+    description: "Manage customers, documents, and rental assignments",
+    icon: Users,
+    color: "text-green-500",
+  },
+  {
+    href: "/asset-conditions",
+    title: "Conditions & Values",
+    description: "Track asset conditions and current market values",
+    icon: BarChart3,
+    color: "text-purple-500",
+  },
+  {
+    href: "/setup",
+    title: "Setup",
+    description: "Configure categories, manufacturers, and specifications",
+    icon: Settings,
+    color: "text-orange-500",
+  },
+  {
+    href: "/setup/defined-conditions",
+    title: "Defined Conditions",
+    description: "Manage condition types like New, Under Repair, etc.",
+    icon: Tag,
+    color: "text-pink-500",
+  },
+];
 
 export default function HomePage() {
   return (
-    <div className="home-page">
-      <div className="hero">
-        <h1>Asset Rental System</h1>
-        <p>Manage your rental assets, customers, and transactions efficiently</p>
+    <div className="max-w-6xl mx-auto p-6">
+      {/* Hero */}
+      <div className="text-center py-12">
+        <div className="flex justify-center mb-4">
+          <div className="p-4 rounded-full bg-primary/10">
+            <Building2 className="h-12 w-12 text-primary" />
+          </div>
+        </div>
+        <h1 className="text-4xl font-bold tracking-tight text-foreground">
+          Asset Rental System
+        </h1>
+        <p className="mt-3 text-lg text-muted-foreground max-w-2xl mx-auto">
+          Manage your rental assets, customers, and transactions efficiently
+        </p>
       </div>
 
-      <div className="cards-grid">
-        <Link href="/assets" className="card">
-          <span className="card-icon">📦</span>
-          <h2>Assets</h2>
-          <p>Manage rental assets, specifications, and attachments</p>
-        </Link>
-
-        <Link href="/customers" className="card">
-          <span className="card-icon">👥</span>
-          <h2>Customers</h2>
-          <p>Manage customers, documents, and rental assignments</p>
-        </Link>
-
-        <Link href="/asset-conditions" className="card">
-          <span className="card-icon">📊</span>
-          <h2>Conditions & Values</h2>
-          <p>Track asset conditions and current market values</p>
-        </Link>
-
-        <Link href="/setup" className="card">
-          <span className="card-icon">⚙️</span>
-          <h2>Setup</h2>
-          <p>Configure categories, manufacturers, and specifications</p>
-        </Link>
-
-        <Link href="/setup/defined-conditions" className="card">
-          <span className="card-icon">🏷️</span>
-          <h2>Defined Conditions</h2>
-          <p>Manage condition types like New, Under Repair, etc.</p>
-        </Link>
+      {/* Cards Grid */}
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mt-8">
+        {cards.map((card) => {
+          const Icon = card.icon;
+          return (
+            <Link key={card.href} href={card.href} className="group">
+              <Card className="h-full transition-all duration-200 hover:shadow-lg hover:border-primary/50 group-hover:-translate-y-1">
+                <CardHeader>
+                  <div className={`p-3 rounded-lg bg-muted w-fit ${card.color}`}>
+                    <Icon className="h-6 w-6" />
+                  </div>
+                  <CardTitle className="mt-4">{card.title}</CardTitle>
+                  <CardDescription>{card.description}</CardDescription>
+                </CardHeader>
+              </Card>
+            </Link>
+          );
+        })}
       </div>
-
-      <style jsx>{`
-        .home-page {
-          padding: 2rem;
-          max-width: 1200px;
-          margin: 0 auto;
-        }
-
-        .hero {
-          text-align: center;
-          padding: 3rem 0;
-        }
-
-        .hero h1 {
-          font-size: 2.5rem;
-          color: #1e3a8a;
-          margin-bottom: 0.5rem;
-        }
-
-        .hero p {
-          color: #64748b;
-          font-size: 1.1rem;
-        }
-
-        .cards-grid {
-          display: grid;
-          grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-          gap: 1.5rem;
-          margin-top: 2rem;
-        }
-
-        .card {
-          background: white;
-          border-radius: 12px;
-          padding: 1.5rem;
-          text-decoration: none;
-          box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
-          transition: all 0.2s;
-          border: 2px solid transparent;
-        }
-
-        .card:hover {
-          transform: translateY(-4px);
-          box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
-          border-color: #3b82f6;
-        }
-
-        .card-icon {
-          font-size: 2.5rem;
-          display: block;
-          margin-bottom: 0.75rem;
-        }
-
-        .card h2 {
-          color: #1a1a1a;
-          font-size: 1.25rem;
-          margin: 0 0 0.5rem 0;
-        }
-
-        .card p {
-          color: #64748b;
-          font-size: 0.9rem;
-          margin: 0;
-          line-height: 1.4;
-        }
-      `}</style>
     </div>
   );
 }

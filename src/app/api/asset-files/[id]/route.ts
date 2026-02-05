@@ -20,10 +20,10 @@ export async function DELETE(
     // Find the file record with asset to check ownership
     const assetFile = await prisma.assetFile.findUnique({
       where: { id },
-      include: { assets: true },
+      include: { asset: true },
     });
 
-    if (!assetFile || assetFile.assets.agencyId !== session.user.agencyId) {
+    if (!assetFile || assetFile.asset.agencyId !== session.user.agencyId) {
       return NextResponse.json(
         { error: "File not found" },
         { status: 404 }
