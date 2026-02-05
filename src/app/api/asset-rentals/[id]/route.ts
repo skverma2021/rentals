@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import prisma from "@/lib/prisma";
 import { auth } from "@/lib/auth";
+import { checkRentalOverlap, formatDateRange } from "@/lib/rental-validation";
 
 type RouteContext = {
   params: Promise<{ id: string }>;
@@ -72,13 +73,44 @@ export async function PUT(request: NextRequest, context: RouteContext) {
     }
 
     const body = await request.json();
-    const { ratePerMonth, fromDate } = body;
+    const { ratePerMonth, fromDate, toDate } = body;
+
+    const parsedFromDate = new Date(fromDate);
+    const parsedToDate = toDate ? new Date(toDate) : null;
+
+    // Validate toDate is not before fromDate
+    if (parsedToDate && parsedToDate < parsedFromDate) {
+      return NextResponse.json(
+        { error: "Return date cannot be before rental start date" },
+        { status: 400 }
+      );
+    }
+
+    // Check for overlapping rentals (exclude current rental)
+    const overlapCheck = await checkRentalOverlap(
+      existing.assetId,
+      parsedFromDate,
+      parsedToDate,
+      rentalId // Exclude this rental from overlap check
+    );
+
+    if (overlapCheck.hasOverlap && overlapCheck.overlappingRental) {
+      const overlap = overlapCheck.overlappingRental;
+      return NextResponse.json(
+        {
+          error: `This asset is already rented during the requested period. Conflicting rental: ${formatDateRange(overlap.fromDate, overlap.toDate)}`,
+          conflictingRentalId: overlap.id,
+        },
+        { status: 409 }
+      );
+    }
 
     const rental = await prisma.assetWithCustomer.update({
       where: { id: rentalId },
       data: {
         ratePerMonth: parseFloat(ratePerMonth),
-        fromDate: new Date(fromDate),
+        fromDate: parsedFromDate,
+        toDate: parsedToDate,
       },
       include: {
         assets: {

@@ -33,6 +33,7 @@ interface AssetRental {
   customerId: number;
   ratePerMonth: number;
   fromDate: string;
+  toDate: string | null;
   assets: Asset;
 }
 
@@ -277,6 +278,27 @@ export default function CustomersPage() {
       }
     } catch (error) {
       setMessage({ type: "error", text: "Failed to remove rental" });
+    }
+  };
+
+  const handleReturnAsset = async (rentalId: number) => {
+    if (!confirm("Mark this asset as returned?")) return;
+
+    try {
+      const response = await fetch(`/api/asset-rentals/${rentalId}/return`, { 
+        method: "PATCH",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ returnDate: new Date().toISOString() }),
+      });
+      if (response.ok) {
+        fetchCustomers();
+        setMessage({ type: "success", text: "Asset marked as returned!" });
+      } else {
+        const error = await response.json();
+        setMessage({ type: "error", text: error.error || "Failed to mark as returned" });
+      }
+    } catch (error) {
+      setMessage({ type: "error", text: "Failed to mark asset as returned" });
     }
   };
 
@@ -525,7 +547,7 @@ export default function CustomersPage() {
               ) : (
                 <div className="rental-list">
                   {selectedCustomer.assetWithCustomer.map((rental) => (
-                    <div key={rental.id} className="rental-item">
+                    <div key={rental.id} className={`rental-item ${rental.toDate ? 'returned' : 'active'}`}>
                       <div className="rental-info">
                         <strong>
                           {rental.assets.assetSpec.manufacturer.description} {rental.assets.assetSpec.model}
@@ -533,12 +555,23 @@ export default function CustomersPage() {
                         <span className="rental-category">
                           {rental.assets.assetSpec.assetCategory.description}
                         </span>
+                        {rental.toDate ? (
+                          <span className="rental-status returned">✓ Returned</span>
+                        ) : (
+                          <span className="rental-status active">● Active</span>
+                        )}
                       </div>
                       <div className="rental-meta">
                         <span>{formatCurrency(rental.ratePerMonth)}/mo</span>
                         <span>From: {formatDate(rental.fromDate)}</span>
+                        {rental.toDate && <span>To: {formatDate(rental.toDate)}</span>}
                       </div>
-                      <button onClick={() => handleDeleteRental(rental.id)} className="delete-rental-btn">×</button>
+                      <div className="rental-actions">
+                        {!rental.toDate && (
+                          <button onClick={() => handleReturnAsset(rental.id)} className="return-btn" title="Mark as returned">↩</button>
+                        )}
+                        <button onClick={() => handleDeleteRental(rental.id)} className="delete-rental-btn" title="Delete rental">×</button>
+                      </div>
                     </div>
                   ))}
                 </div>
@@ -795,9 +828,22 @@ export default function CustomersPage() {
           border-radius: 6px;
           border-left: 4px solid #22c55e;
         }
+        .rental-item.returned {
+          border-left-color: #94a3b8;
+          background: #f8fafc;
+        }
         .rental-info { flex: 1; }
         .rental-info strong { display: block; font-size: 0.9rem; }
         .rental-category { font-size: 0.75rem; color: #64748b; }
+        .rental-status {
+          display: inline-block;
+          font-size: 0.7rem;
+          padding: 0.15rem 0.4rem;
+          border-radius: 4px;
+          margin-left: 0.5rem;
+        }
+        .rental-status.active { background: #dcfce7; color: #16a34a; }
+        .rental-status.returned { background: #e2e8f0; color: #64748b; }
         .rental-meta {
           display: flex;
           flex-direction: column;
@@ -805,6 +851,21 @@ export default function CustomersPage() {
           font-size: 0.8rem;
           color: #475569;
         }
+        .rental-actions {
+          display: flex;
+          gap: 0.25rem;
+        }
+        .return-btn {
+          background: #dbeafe;
+          color: #2563eb;
+          border: none;
+          width: 28px;
+          height: 28px;
+          border-radius: 4px;
+          cursor: pointer;
+          font-size: 1rem;
+        }
+        .return-btn:hover { background: #bfdbfe; }
         .delete-rental-btn {
           background: #fee2e2;
           color: #dc2626;

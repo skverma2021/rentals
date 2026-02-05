@@ -198,7 +198,8 @@ export const AssetWithCustomerScalarFieldEnum = {
   assetId: 'assetId',
   customerId: 'customerId',
   ratePerMonth: 'ratePerMonth',
-  fromDate: 'fromDate'
+  fromDate: 'fromDate',
+  toDate: 'toDate'
 } as const
 
 export type AssetWithCustomerScalarFieldEnum = (typeof AssetWithCustomerScalarFieldEnum)[keyof typeof AssetWithCustomerScalarFieldEnum]

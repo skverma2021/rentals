@@ -46,6 +46,7 @@ export type AssetWithCustomerMinAggregateOutputType = {
   customerId: number | null
   ratePerMonth: number | null
   fromDate: Date | null
+  toDate: Date | null
 }
 
 export type AssetWithCustomerMaxAggregateOutputType = {
@@ -54,6 +55,7 @@ export type AssetWithCustomerMaxAggregateOutputType = {
   customerId: number | null
   ratePerMonth: number | null
   fromDate: Date | null
+  toDate: Date | null
 }
 
 export type AssetWithCustomerCountAggregateOutputType = {
@@ -62,6 +64,7 @@ export type AssetWithCustomerCountAggregateOutputType = {
   customerId: number
   ratePerMonth: number
   fromDate: number
+  toDate: number
   _all: number
 }
 
@@ -86,6 +89,7 @@ export type AssetWithCustomerMinAggregateInputType = {
   customerId?: true
   ratePerMonth?: true
   fromDate?: true
+  toDate?: true
 }
 
 export type AssetWithCustomerMaxAggregateInputType = {
@@ -94,6 +98,7 @@ export type AssetWithCustomerMaxAggregateInputType = {
   customerId?: true
   ratePerMonth?: true
   fromDate?: true
+  toDate?: true
 }
 
 export type AssetWithCustomerCountAggregateInputType = {
@@ -102,6 +107,7 @@ export type AssetWithCustomerCountAggregateInputType = {
   customerId?: true
   ratePerMonth?: true
   fromDate?: true
+  toDate?: true
   _all?: true
 }
 
@@ -197,6 +203,7 @@ export type AssetWithCustomerGroupByOutputType = {
   customerId: number
   ratePerMonth: number
   fromDate: Date
+  toDate: Date | null
   _count: AssetWithCustomerCountAggregateOutputType | null
   _avg: AssetWithCustomerAvgAggregateOutputType | null
   _sum: AssetWithCustomerSumAggregateOutputType | null
@@ -228,6 +235,7 @@ export type assetWithCustomerWhereInput = {
   customerId?: Prisma.IntFilter<"assetWithCustomer"> | number
   ratePerMonth?: Prisma.FloatFilter<"assetWithCustomer"> | number
   fromDate?: Prisma.DateTimeFilter<"assetWithCustomer"> | Date | string
+  toDate?: Prisma.DateTimeNullableFilter<"assetWithCustomer"> | Date | string | null
   assets?: Prisma.XOR<Prisma.AssetsScalarRelationFilter, Prisma.assetsWhereInput>
   customer?: Prisma.XOR<Prisma.CustomersScalarRelationFilter, Prisma.customersWhereInput>
 }
@@ -238,6 +246,7 @@ export type assetWithCustomerOrderByWithRelationInput = {
   customerId?: Prisma.SortOrder
   ratePerMonth?: Prisma.SortOrder
   fromDate?: Prisma.SortOrder
+  toDate?: Prisma.SortOrderInput | Prisma.SortOrder
   assets?: Prisma.assetsOrderByWithRelationInput
   customer?: Prisma.customersOrderByWithRelationInput
 }
@@ -251,6 +260,7 @@ export type assetWithCustomerWhereUniqueInput = Prisma.AtLeast<{
   customerId?: Prisma.IntFilter<"assetWithCustomer"> | number
   ratePerMonth?: Prisma.FloatFilter<"assetWithCustomer"> | number
   fromDate?: Prisma.DateTimeFilter<"assetWithCustomer"> | Date | string
+  toDate?: Prisma.DateTimeNullableFilter<"assetWithCustomer"> | Date | string | null
   assets?: Prisma.XOR<Prisma.AssetsScalarRelationFilter, Prisma.assetsWhereInput>
   customer?: Prisma.XOR<Prisma.CustomersScalarRelationFilter, Prisma.customersWhereInput>
 }, "id">
@@ -261,6 +271,7 @@ export type assetWithCustomerOrderByWithAggregationInput = {
   customerId?: Prisma.SortOrder
   ratePerMonth?: Prisma.SortOrder
   fromDate?: Prisma.SortOrder
+  toDate?: Prisma.SortOrderInput | Prisma.SortOrder
   _count?: Prisma.assetWithCustomerCountOrderByAggregateInput
   _avg?: Prisma.assetWithCustomerAvgOrderByAggregateInput
   _max?: Prisma.assetWithCustomerMaxOrderByAggregateInput
@@ -277,11 +288,13 @@ export type assetWithCustomerScalarWhereWithAggregatesInput = {
   customerId?: Prisma.IntWithAggregatesFilter<"assetWithCustomer"> | number
   ratePerMonth?: Prisma.FloatWithAggregatesFilter<"assetWithCustomer"> | number
   fromDate?: Prisma.DateTimeWithAggregatesFilter<"assetWithCustomer"> | Date | string
+  toDate?: Prisma.DateTimeNullableWithAggregatesFilter<"assetWithCustomer"> | Date | string | null
 }
 
 export type assetWithCustomerCreateInput = {
   ratePerMonth: number
   fromDate: Date | string
+  toDate?: Date | string | null
   assets: Prisma.assetsCreateNestedOneWithoutAssetWithCustomerInput
   customer: Prisma.customersCreateNestedOneWithoutAssetWithCustomerInput
 }
@@ -292,11 +305,13 @@ export type assetWithCustomerUncheckedCreateInput = {
   customerId: number
   ratePerMonth: number
   fromDate: Date | string
+  toDate?: Date | string | null
 }
 
 export type assetWithCustomerUpdateInput = {
   ratePerMonth?: Prisma.FloatFieldUpdateOperationsInput | number
   fromDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  toDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   assets?: Prisma.assetsUpdateOneRequiredWithoutAssetWithCustomerNestedInput
   customer?: Prisma.customersUpdateOneRequiredWithoutAssetWithCustomerNestedInput
 }
@@ -307,6 +322,7 @@ export type assetWithCustomerUncheckedUpdateInput = {
   customerId?: Prisma.IntFieldUpdateOperationsInput | number
   ratePerMonth?: Prisma.FloatFieldUpdateOperationsInput | number
   fromDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  toDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
 }
 
 export type assetWithCustomerCreateManyInput = {
@@ -315,11 +331,13 @@ export type assetWithCustomerCreateManyInput = {
   customerId: number
   ratePerMonth: number
   fromDate: Date | string
+  toDate?: Date | string | null
 }
 
 export type assetWithCustomerUpdateManyMutationInput = {
   ratePerMonth?: Prisma.FloatFieldUpdateOperationsInput | number
   fromDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  toDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
 }
 
 export type assetWithCustomerUncheckedUpdateManyInput = {
@@ -328,6 +346,7 @@ export type assetWithCustomerUncheckedUpdateManyInput = {
   customerId?: Prisma.IntFieldUpdateOperationsInput | number
   ratePerMonth?: Prisma.FloatFieldUpdateOperationsInput | number
   fromDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  toDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
 }
 
 export type AssetWithCustomerListRelationFilter = {
@@ -346,6 +365,7 @@ export type assetWithCustomerCountOrderByAggregateInput = {
   customerId?: Prisma.SortOrder
   ratePerMonth?: Prisma.SortOrder
   fromDate?: Prisma.SortOrder
+  toDate?: Prisma.SortOrder
 }
 
 export type assetWithCustomerAvgOrderByAggregateInput = {
@@ -361,6 +381,7 @@ export type assetWithCustomerMaxOrderByAggregateInput = {
   customerId?: Prisma.SortOrder
   ratePerMonth?: Prisma.SortOrder
   fromDate?: Prisma.SortOrder
+  toDate?: Prisma.SortOrder
 }
 
 export type assetWithCustomerMinOrderByAggregateInput = {
@@ -369,6 +390,7 @@ export type assetWithCustomerMinOrderByAggregateInput = {
   customerId?: Prisma.SortOrder
   ratePerMonth?: Prisma.SortOrder
   fromDate?: Prisma.SortOrder
+  toDate?: Prisma.SortOrder
 }
 
 export type assetWithCustomerSumOrderByAggregateInput = {
@@ -465,6 +487,7 @@ export type assetWithCustomerUncheckedUpdateManyWithoutCustomerNestedInput = {
 export type assetWithCustomerCreateWithoutAssetsInput = {
   ratePerMonth: number
   fromDate: Date | string
+  toDate?: Date | string | null
   customer: Prisma.customersCreateNestedOneWithoutAssetWithCustomerInput
 }
 
@@ -473,6 +496,7 @@ export type assetWithCustomerUncheckedCreateWithoutAssetsInput = {
   customerId: number
   ratePerMonth: number
   fromDate: Date | string
+  toDate?: Date | string | null
 }
 
 export type assetWithCustomerCreateOrConnectWithoutAssetsInput = {
@@ -509,11 +533,13 @@ export type assetWithCustomerScalarWhereInput = {
   customerId?: Prisma.IntFilter<"assetWithCustomer"> | number
   ratePerMonth?: Prisma.FloatFilter<"assetWithCustomer"> | number
   fromDate?: Prisma.DateTimeFilter<"assetWithCustomer"> | Date | string
+  toDate?: Prisma.DateTimeNullableFilter<"assetWithCustomer"> | Date | string | null
 }
 
 export type assetWithCustomerCreateWithoutCustomerInput = {
   ratePerMonth: number
   fromDate: Date | string
+  toDate?: Date | string | null
   assets: Prisma.assetsCreateNestedOneWithoutAssetWithCustomerInput
 }
 
@@ -522,6 +548,7 @@ export type assetWithCustomerUncheckedCreateWithoutCustomerInput = {
   assetId: number
   ratePerMonth: number
   fromDate: Date | string
+  toDate?: Date | string | null
 }
 
 export type assetWithCustomerCreateOrConnectWithoutCustomerInput = {
@@ -554,11 +581,13 @@ export type assetWithCustomerCreateManyAssetsInput = {
   customerId: number
   ratePerMonth: number
   fromDate: Date | string
+  toDate?: Date | string | null
 }
 
 export type assetWithCustomerUpdateWithoutAssetsInput = {
   ratePerMonth?: Prisma.FloatFieldUpdateOperationsInput | number
   fromDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  toDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   customer?: Prisma.customersUpdateOneRequiredWithoutAssetWithCustomerNestedInput
 }
 
@@ -567,6 +596,7 @@ export type assetWithCustomerUncheckedUpdateWithoutAssetsInput = {
   customerId?: Prisma.IntFieldUpdateOperationsInput | number
   ratePerMonth?: Prisma.FloatFieldUpdateOperationsInput | number
   fromDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  toDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
 }
 
 export type assetWithCustomerUncheckedUpdateManyWithoutAssetsInput = {
@@ -574,6 +604,7 @@ export type assetWithCustomerUncheckedUpdateManyWithoutAssetsInput = {
   customerId?: Prisma.IntFieldUpdateOperationsInput | number
   ratePerMonth?: Prisma.FloatFieldUpdateOperationsInput | number
   fromDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  toDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
 }
 
 export type assetWithCustomerCreateManyCustomerInput = {
@@ -581,11 +612,13 @@ export type assetWithCustomerCreateManyCustomerInput = {
   assetId: number
   ratePerMonth: number
   fromDate: Date | string
+  toDate?: Date | string | null
 }
 
 export type assetWithCustomerUpdateWithoutCustomerInput = {
   ratePerMonth?: Prisma.FloatFieldUpdateOperationsInput | number
   fromDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  toDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   assets?: Prisma.assetsUpdateOneRequiredWithoutAssetWithCustomerNestedInput
 }
 
@@ -594,6 +627,7 @@ export type assetWithCustomerUncheckedUpdateWithoutCustomerInput = {
   assetId?: Prisma.IntFieldUpdateOperationsInput | number
   ratePerMonth?: Prisma.FloatFieldUpdateOperationsInput | number
   fromDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  toDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
 }
 
 export type assetWithCustomerUncheckedUpdateManyWithoutCustomerInput = {
@@ -601,6 +635,7 @@ export type assetWithCustomerUncheckedUpdateManyWithoutCustomerInput = {
   assetId?: Prisma.IntFieldUpdateOperationsInput | number
   ratePerMonth?: Prisma.FloatFieldUpdateOperationsInput | number
   fromDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  toDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
 }
 
 
@@ -611,6 +646,7 @@ export type assetWithCustomerSelect<ExtArgs extends runtime.Types.Extensions.Int
   customerId?: boolean
   ratePerMonth?: boolean
   fromDate?: boolean
+  toDate?: boolean
   assets?: boolean | Prisma.assetsDefaultArgs<ExtArgs>
   customer?: boolean | Prisma.customersDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["assetWithCustomer"]>
@@ -621,6 +657,7 @@ export type assetWithCustomerSelectCreateManyAndReturn<ExtArgs extends runtime.T
   customerId?: boolean
   ratePerMonth?: boolean
   fromDate?: boolean
+  toDate?: boolean
   assets?: boolean | Prisma.assetsDefaultArgs<ExtArgs>
   customer?: boolean | Prisma.customersDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["assetWithCustomer"]>
@@ -631,6 +668,7 @@ export type assetWithCustomerSelectUpdateManyAndReturn<ExtArgs extends runtime.T
   customerId?: boolean
   ratePerMonth?: boolean
   fromDate?: boolean
+  toDate?: boolean
   assets?: boolean | Prisma.assetsDefaultArgs<ExtArgs>
   customer?: boolean | Prisma.customersDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["assetWithCustomer"]>
@@ -641,9 +679,10 @@ export type assetWithCustomerSelectScalar = {
   customerId?: boolean
   ratePerMonth?: boolean
   fromDate?: boolean
+  toDate?: boolean
 }
 
-export type assetWithCustomerOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "assetId" | "customerId" | "ratePerMonth" | "fromDate", ExtArgs["result"]["assetWithCustomer"]>
+export type assetWithCustomerOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "assetId" | "customerId" | "ratePerMonth" | "fromDate" | "toDate", ExtArgs["result"]["assetWithCustomer"]>
 export type assetWithCustomerInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   assets?: boolean | Prisma.assetsDefaultArgs<ExtArgs>
   customer?: boolean | Prisma.customersDefaultArgs<ExtArgs>
@@ -669,6 +708,7 @@ export type $assetWithCustomerPayload<ExtArgs extends runtime.Types.Extensions.I
     customerId: number
     ratePerMonth: number
     fromDate: Date
+    toDate: Date | null
   }, ExtArgs["result"]["assetWithCustomer"]>
   composites: {}
 }
@@ -1099,6 +1139,7 @@ export interface assetWithCustomerFieldRefs {
   readonly customerId: Prisma.FieldRef<"assetWithCustomer", 'Int'>
   readonly ratePerMonth: Prisma.FieldRef<"assetWithCustomer", 'Float'>
   readonly fromDate: Prisma.FieldRef<"assetWithCustomer", 'DateTime'>
+  readonly toDate: Prisma.FieldRef<"assetWithCustomer", 'DateTime'>
 }
     
 

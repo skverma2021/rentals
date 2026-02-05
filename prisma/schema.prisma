@@ -164,6 +164,7 @@ model assetWithCustomer {
   customerId   Int
   ratePerMonth Float
   fromDate     DateTime
+  toDate       DateTime? // null means rental is ongoing (asset not yet returned)
   assets       assets    @relation(fields: [assetId], references: [id])
   customer     customers @relation(fields: [customerId], references: [id])
 }
