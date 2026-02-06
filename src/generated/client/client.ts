@@ -104,3 +104,8 @@ export type customerFile = Prisma.customerFileModel
  * 
  */
 export type assetFile = Prisma.assetFileModel
+/**
+ * Model agencySettings
+ * 
+ */
+export type agencySettings = Prisma.agencySettingsModel

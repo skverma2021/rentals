@@ -322,7 +322,7 @@ export default function SetupPage() {
           </CardContent>
         </Card>
 
-        {/* Asset Specifications */}
+        {/* Asset Specifications - Full width */}
         <Card className="lg:col-span-2">
           <CardHeader className="pb-3">
             <CardTitle className="text-lg flex items-center gap-2 border-b-2 border-primary pb-2">
@@ -331,8 +331,8 @@ export default function SetupPage() {
             </CardTitle>
           </CardHeader>
           <CardContent>
-            <form onSubmit={addAssetSpec} className="mb-6 space-y-4">
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <form onSubmit={addAssetSpec} className="space-y-4 mb-6">
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-4">
                 <div className="space-y-2">
                   <Label htmlFor="assetCategoryId" className="text-sm font-semibold">Category *</Label>
                   <select
@@ -340,10 +340,8 @@ export default function SetupPage() {
                     name="assetCategoryId"
                     value={specForm.assetCategoryId}
                     onChange={handleSpecChange}
+                    className="w-full h-9 rounded-md border border-input bg-background px-3 text-sm"
                     disabled={specLoading}
-                    className="w-full h-10 px-3 rounded-md border border-border bg-background text-sm
-                      focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary
-                      disabled:cursor-not-allowed disabled:opacity-50"
                   >
                     <option value="">Select category</option>
                     {categories.map((cat) => (
@@ -360,10 +358,8 @@ export default function SetupPage() {
                     name="manufacturerId"
                     value={specForm.manufacturerId}
                     onChange={handleSpecChange}
+                    className="w-full h-9 rounded-md border border-input bg-background px-3 text-sm"
                     disabled={specLoading}
-                    className="w-full h-10 px-3 rounded-md border border-border bg-background text-sm
-                      focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary
-                      disabled:cursor-not-allowed disabled:opacity-50"
                   >
                     <option value="">Select manufacturer</option>
                     {manufacturers.map((mfr) => (
@@ -373,8 +369,6 @@ export default function SetupPage() {
                     ))}
                   </select>
                 </div>
-              </div>
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <div className="space-y-2">
                   <Label htmlFor="yearMake" className="text-sm font-semibold">Year *</Label>
                   <Input
@@ -384,8 +378,6 @@ export default function SetupPage() {
                     value={specForm.yearMake}
                     onChange={handleSpecChange}
                     placeholder="e.g., 2024"
-                    min="1900"
-                    max="2100"
                     disabled={specLoading}
                   />
                 </div>

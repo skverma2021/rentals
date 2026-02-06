@@ -63,7 +63,8 @@ export const ModelName = {
   assetWithCustomer: 'assetWithCustomer',
   customers: 'customers',
   customerFile: 'customerFile',
-  assetFile: 'assetFile'
+  assetFile: 'assetFile',
+  agencySettings: 'agencySettings'
 } as const
 
 export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -252,6 +253,23 @@ export const AssetFileScalarFieldEnum = {
 } as const
 
 export type AssetFileScalarFieldEnum = (typeof AssetFileScalarFieldEnum)[keyof typeof AssetFileScalarFieldEnum]
+
+
+export const AgencySettingsScalarFieldEnum = {
+  id: 'id',
+  agencyId: 'agencyId',
+  currencyCode: 'currencyCode',
+  currencySymbol: 'currencySymbol',
+  currencyName: 'currencyName',
+  defaultTaxRate: 'defaultTaxRate',
+  invoicePrefix: 'invoicePrefix',
+  agencyDisplayName: 'agencyDisplayName',
+  agencyTagline: 'agencyTagline',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type AgencySettingsScalarFieldEnum = (typeof AgencySettingsScalarFieldEnum)[keyof typeof AgencySettingsScalarFieldEnum]
 
 
 export const SortOrder = {

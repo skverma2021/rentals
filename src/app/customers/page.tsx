@@ -7,6 +7,7 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Badge } from "@/components/ui/badge";
 import { Alert, AlertDescription } from "@/components/ui/alert";
+import InvoiceButton, { SingleRentalInvoiceButton } from "@/components/InvoiceButton";
 import { 
   Users, 
   Plus, 
@@ -104,8 +105,7 @@ export default function CustomersPage() {
   const [editingId, setEditingId] = useState<number | null>(null);
   const [selectedCustomer, setSelectedCustomer] = useState<Customer | null>(null);
   const [isLoading, setIsLoading] = useState(false);
-  const [message, setMessage] = useState<{ type: "success" | "error"; text: string } | null>(null);
-  
+  const [message, setMessage] = useState<{ type: "success" | "error"; text: string } | null>(null);  const [currencyCode, setCurrencyCode] = useState("USD");  
   const [selectedFiles, setSelectedFiles] = useState<FileList | null>(null);
   const [isUploading, setIsUploading] = useState(false);
   
@@ -117,7 +117,20 @@ export default function CustomersPage() {
   useEffect(() => {
     fetchCustomers();
     fetchAssets();
+    fetchCurrency();
   }, []);
+
+  const fetchCurrency = async () => {
+    try {
+      const response = await fetch("/api/agency-settings");
+      if (response.ok) {
+        const data = await response.json();
+        setCurrencyCode(data.currency?.code || "USD");
+      }
+    } catch (error) {
+      console.error("Failed to fetch currency:", error);
+    }
+  };
 
   const fetchCustomers = async () => {
     try {
@@ -324,7 +337,7 @@ export default function CustomersPage() {
 
   const formatDate = (dateString: string) => new Date(dateString).toLocaleDateString();
   const formatCurrency = (amount: number) =>
-    new Intl.NumberFormat("en-US", { style: "currency", currency: "USD" }).format(amount);
+    new Intl.NumberFormat("en-IN", { style: "currency", currency: currencyCode }).format(amount);
   const formatFileSize = (bytes: number) => {
     if (bytes < 1024) return bytes + " B";
     if (bytes < 1024 * 1024) return (bytes / 1024).toFixed(1) + " KB";
@@ -611,13 +624,39 @@ export default function CustomersPage() {
                     <Home className="h-4 w-4" />
                     Rented Assets ({selectedCustomer.assetWithCustomer.length})
                   </h4>
-                  <Button
-                    variant={showRentalForm ? "outline" : "default"}
-                    size="sm"
-                    onClick={() => setShowRentalForm(!showRentalForm)}
-                  >
-                    {showRentalForm ? "Cancel" : <><Plus className="h-4 w-4 mr-1" /> Add Rental</>}
-                  </Button>
+                  <div className="flex gap-2">
+                    <InvoiceButton
+                      customer={{
+                        id: selectedCustomer.id,
+                        firstName: selectedCustomer.firstName,
+                        lastName: selectedCustomer.lastName,
+                        email: selectedCustomer.emailId,
+                        phone: selectedCustomer.mobilePhone,
+                      }}
+                      rentals={selectedCustomer.assetWithCustomer.map((r) => ({
+                        id: r.id,
+                        fromDate: r.fromDate,
+                        toDate: r.toDate || new Date().toISOString(),
+                        returnedDate: r.toDate || undefined,
+                        dailyRate: r.ratePerMonth / 30,
+                        asset: {
+                          id: r.assets.id,
+                          assetSpec: {
+                            description: r.assets.assetSpec.description,
+                            model: r.assets.assetSpec.model,
+                            manufacturer: r.assets.assetSpec.manufacturer,
+                          },
+                        },
+                      }))}
+                    />
+                    <Button
+                      variant={showRentalForm ? "outline" : "default"}
+                      size="sm"
+                      onClick={() => setShowRentalForm(!showRentalForm)}
+                    >
+                      {showRentalForm ? "Cancel" : <><Plus className="h-4 w-4 mr-1" /> Add Rental</>}
+                    </Button>
+                  </div>
                 </div>
 
                 {showRentalForm && (
@@ -692,6 +731,30 @@ export default function CustomersPage() {
                           {rental.toDate && <span>To: {formatDate(rental.toDate)}</span>}
                         </div>
                         <div className="flex gap-1 mt-2">
+                          <SingleRentalInvoiceButton
+                            rental={{
+                              id: rental.id,
+                              fromDate: rental.fromDate,
+                              toDate: rental.toDate || new Date().toISOString(),
+                              returnedDate: rental.toDate || undefined,
+                              dailyRate: rental.ratePerMonth / 30,
+                              asset: {
+                                id: rental.assets.id,
+                                assetSpec: {
+                                  description: rental.assets.assetSpec.description,
+                                  model: rental.assets.assetSpec.model,
+                                  manufacturer: rental.assets.assetSpec.manufacturer,
+                                },
+                              },
+                            }}
+                            customer={{
+                              id: selectedCustomer.id,
+                              firstName: selectedCustomer.firstName,
+                              lastName: selectedCustomer.lastName,
+                              email: selectedCustomer.emailId,
+                              phone: selectedCustomer.mobilePhone,
+                            }}
+                          />
                           {!rental.toDate && (
                             <Button
                               variant="outline"

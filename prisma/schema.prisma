@@ -33,6 +33,7 @@ model agencies {
   manufacturer     manufacturer[]
   assetSpec        assetSpec[]
   definedCondition definedCondition[]
+  settings         agencySettings?
 }
 
 model authUsers {
@@ -216,4 +217,30 @@ model assetFile {
   fileSize  Int
   fileUrl   String
   createdAt DateTime @default(now())
+}
+
+// ============================================
+// AGENCY SETTINGS
+// ============================================
+
+model agencySettings {
+  id              Int      @id @default(autoincrement())
+  agencyId        Int      @unique
+  agency          agencies @relation(fields: [agencyId], references: [id])
+  
+  // Currency Settings
+  currencyCode    String   @default("USD")  // ISO 4217 code: USD, EUR, GBP, INR, etc.
+  currencySymbol  String   @default("$")    // $, €, £, ₹, etc.
+  currencyName    String   @default("US Dollar")
+  
+  // Invoice Settings
+  defaultTaxRate  Float    @default(8.25)   // Default tax percentage
+  invoicePrefix   String   @default("INV")  // Invoice number prefix
+  
+  // Agency Branding
+  agencyDisplayName String?                 // Override for invoice header
+  agencyTagline     String?                 // Tagline for invoices
+  
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
 }

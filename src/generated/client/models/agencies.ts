@@ -279,6 +279,7 @@ export type agenciesWhereInput = {
   manufacturer?: Prisma.ManufacturerListRelationFilter
   assetSpec?: Prisma.AssetSpecListRelationFilter
   definedCondition?: Prisma.DefinedConditionListRelationFilter
+  settings?: Prisma.XOR<Prisma.AgencySettingsNullableScalarRelationFilter, Prisma.agencySettingsWhereInput> | null
 }
 
 export type agenciesOrderByWithRelationInput = {
@@ -301,6 +302,7 @@ export type agenciesOrderByWithRelationInput = {
   manufacturer?: Prisma.manufacturerOrderByRelationAggregateInput
   assetSpec?: Prisma.assetSpecOrderByRelationAggregateInput
   definedCondition?: Prisma.definedConditionOrderByRelationAggregateInput
+  settings?: Prisma.agencySettingsOrderByWithRelationInput
 }
 
 export type agenciesWhereUniqueInput = Prisma.AtLeast<{
@@ -326,6 +328,7 @@ export type agenciesWhereUniqueInput = Prisma.AtLeast<{
   manufacturer?: Prisma.ManufacturerListRelationFilter
   assetSpec?: Prisma.AssetSpecListRelationFilter
   definedCondition?: Prisma.DefinedConditionListRelationFilter
+  settings?: Prisma.XOR<Prisma.AgencySettingsNullableScalarRelationFilter, Prisma.agencySettingsWhereInput> | null
 }, "id" | "name" | "contactEmail">
 
 export type agenciesOrderByWithAggregationInput = {
@@ -385,6 +388,7 @@ export type agenciesCreateInput = {
   manufacturer?: Prisma.manufacturerCreateNestedManyWithoutAgencyInput
   assetSpec?: Prisma.assetSpecCreateNestedManyWithoutAgencyInput
   definedCondition?: Prisma.definedConditionCreateNestedManyWithoutAgencyInput
+  settings?: Prisma.agencySettingsCreateNestedOneWithoutAgencyInput
 }
 
 export type agenciesUncheckedCreateInput = {
@@ -407,6 +411,7 @@ export type agenciesUncheckedCreateInput = {
   manufacturer?: Prisma.manufacturerUncheckedCreateNestedManyWithoutAgencyInput
   assetSpec?: Prisma.assetSpecUncheckedCreateNestedManyWithoutAgencyInput
   definedCondition?: Prisma.definedConditionUncheckedCreateNestedManyWithoutAgencyInput
+  settings?: Prisma.agencySettingsUncheckedCreateNestedOneWithoutAgencyInput
 }
 
 export type agenciesUpdateInput = {
@@ -428,6 +433,7 @@ export type agenciesUpdateInput = {
   manufacturer?: Prisma.manufacturerUpdateManyWithoutAgencyNestedInput
   assetSpec?: Prisma.assetSpecUpdateManyWithoutAgencyNestedInput
   definedCondition?: Prisma.definedConditionUpdateManyWithoutAgencyNestedInput
+  settings?: Prisma.agencySettingsUpdateOneWithoutAgencyNestedInput
 }
 
 export type agenciesUncheckedUpdateInput = {
@@ -450,6 +456,7 @@ export type agenciesUncheckedUpdateInput = {
   manufacturer?: Prisma.manufacturerUncheckedUpdateManyWithoutAgencyNestedInput
   assetSpec?: Prisma.assetSpecUncheckedUpdateManyWithoutAgencyNestedInput
   definedCondition?: Prisma.definedConditionUncheckedUpdateManyWithoutAgencyNestedInput
+  settings?: Prisma.agencySettingsUncheckedUpdateOneWithoutAgencyNestedInput
 }
 
 export type agenciesCreateManyInput = {
@@ -676,6 +683,20 @@ export type agenciesUpdateOneRequiredWithoutCustomersNestedInput = {
   update?: Prisma.XOR<Prisma.XOR<Prisma.agenciesUpdateToOneWithWhereWithoutCustomersInput, Prisma.agenciesUpdateWithoutCustomersInput>, Prisma.agenciesUncheckedUpdateWithoutCustomersInput>
 }
 
+export type agenciesCreateNestedOneWithoutSettingsInput = {
+  create?: Prisma.XOR<Prisma.agenciesCreateWithoutSettingsInput, Prisma.agenciesUncheckedCreateWithoutSettingsInput>
+  connectOrCreate?: Prisma.agenciesCreateOrConnectWithoutSettingsInput
+  connect?: Prisma.agenciesWhereUniqueInput
+}
+
+export type agenciesUpdateOneRequiredWithoutSettingsNestedInput = {
+  create?: Prisma.XOR<Prisma.agenciesCreateWithoutSettingsInput, Prisma.agenciesUncheckedCreateWithoutSettingsInput>
+  connectOrCreate?: Prisma.agenciesCreateOrConnectWithoutSettingsInput
+  upsert?: Prisma.agenciesUpsertWithoutSettingsInput
+  connect?: Prisma.agenciesWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.agenciesUpdateToOneWithWhereWithoutSettingsInput, Prisma.agenciesUpdateWithoutSettingsInput>, Prisma.agenciesUncheckedUpdateWithoutSettingsInput>
+}
+
 export type agenciesCreateWithoutAuthUsersInput = {
   name: string
   contactEmail: string
@@ -694,6 +715,7 @@ export type agenciesCreateWithoutAuthUsersInput = {
   manufacturer?: Prisma.manufacturerCreateNestedManyWithoutAgencyInput
   assetSpec?: Prisma.assetSpecCreateNestedManyWithoutAgencyInput
   definedCondition?: Prisma.definedConditionCreateNestedManyWithoutAgencyInput
+  settings?: Prisma.agencySettingsCreateNestedOneWithoutAgencyInput
 }
 
 export type agenciesUncheckedCreateWithoutAuthUsersInput = {
@@ -715,6 +737,7 @@ export type agenciesUncheckedCreateWithoutAuthUsersInput = {
   manufacturer?: Prisma.manufacturerUncheckedCreateNestedManyWithoutAgencyInput
   assetSpec?: Prisma.assetSpecUncheckedCreateNestedManyWithoutAgencyInput
   definedCondition?: Prisma.definedConditionUncheckedCreateNestedManyWithoutAgencyInput
+  settings?: Prisma.agencySettingsUncheckedCreateNestedOneWithoutAgencyInput
 }
 
 export type agenciesCreateOrConnectWithoutAuthUsersInput = {
@@ -751,6 +774,7 @@ export type agenciesUpdateWithoutAuthUsersInput = {
   manufacturer?: Prisma.manufacturerUpdateManyWithoutAgencyNestedInput
   assetSpec?: Prisma.assetSpecUpdateManyWithoutAgencyNestedInput
   definedCondition?: Prisma.definedConditionUpdateManyWithoutAgencyNestedInput
+  settings?: Prisma.agencySettingsUpdateOneWithoutAgencyNestedInput
 }
 
 export type agenciesUncheckedUpdateWithoutAuthUsersInput = {
@@ -772,6 +796,7 @@ export type agenciesUncheckedUpdateWithoutAuthUsersInput = {
   manufacturer?: Prisma.manufacturerUncheckedUpdateManyWithoutAgencyNestedInput
   assetSpec?: Prisma.assetSpecUncheckedUpdateManyWithoutAgencyNestedInput
   definedCondition?: Prisma.definedConditionUncheckedUpdateManyWithoutAgencyNestedInput
+  settings?: Prisma.agencySettingsUncheckedUpdateOneWithoutAgencyNestedInput
 }
 
 export type agenciesCreateWithoutAssetsInput = {
@@ -792,6 +817,7 @@ export type agenciesCreateWithoutAssetsInput = {
   manufacturer?: Prisma.manufacturerCreateNestedManyWithoutAgencyInput
   assetSpec?: Prisma.assetSpecCreateNestedManyWithoutAgencyInput
   definedCondition?: Prisma.definedConditionCreateNestedManyWithoutAgencyInput
+  settings?: Prisma.agencySettingsCreateNestedOneWithoutAgencyInput
 }
 
 export type agenciesUncheckedCreateWithoutAssetsInput = {
@@ -813,6 +839,7 @@ export type agenciesUncheckedCreateWithoutAssetsInput = {
   manufacturer?: Prisma.manufacturerUncheckedCreateNestedManyWithoutAgencyInput
   assetSpec?: Prisma.assetSpecUncheckedCreateNestedManyWithoutAgencyInput
   definedCondition?: Prisma.definedConditionUncheckedCreateNestedManyWithoutAgencyInput
+  settings?: Prisma.agencySettingsUncheckedCreateNestedOneWithoutAgencyInput
 }
 
 export type agenciesCreateOrConnectWithoutAssetsInput = {
@@ -849,6 +876,7 @@ export type agenciesUpdateWithoutAssetsInput = {
   manufacturer?: Prisma.manufacturerUpdateManyWithoutAgencyNestedInput
   assetSpec?: Prisma.assetSpecUpdateManyWithoutAgencyNestedInput
   definedCondition?: Prisma.definedConditionUpdateManyWithoutAgencyNestedInput
+  settings?: Prisma.agencySettingsUpdateOneWithoutAgencyNestedInput
 }
 
 export type agenciesUncheckedUpdateWithoutAssetsInput = {
@@ -870,6 +898,7 @@ export type agenciesUncheckedUpdateWithoutAssetsInput = {
   manufacturer?: Prisma.manufacturerUncheckedUpdateManyWithoutAgencyNestedInput
   assetSpec?: Prisma.assetSpecUncheckedUpdateManyWithoutAgencyNestedInput
   definedCondition?: Prisma.definedConditionUncheckedUpdateManyWithoutAgencyNestedInput
+  settings?: Prisma.agencySettingsUncheckedUpdateOneWithoutAgencyNestedInput
 }
 
 export type agenciesCreateWithoutAssetCategoryInput = {
@@ -890,6 +919,7 @@ export type agenciesCreateWithoutAssetCategoryInput = {
   manufacturer?: Prisma.manufacturerCreateNestedManyWithoutAgencyInput
   assetSpec?: Prisma.assetSpecCreateNestedManyWithoutAgencyInput
   definedCondition?: Prisma.definedConditionCreateNestedManyWithoutAgencyInput
+  settings?: Prisma.agencySettingsCreateNestedOneWithoutAgencyInput
 }
 
 export type agenciesUncheckedCreateWithoutAssetCategoryInput = {
@@ -911,6 +941,7 @@ export type agenciesUncheckedCreateWithoutAssetCategoryInput = {
   manufacturer?: Prisma.manufacturerUncheckedCreateNestedManyWithoutAgencyInput
   assetSpec?: Prisma.assetSpecUncheckedCreateNestedManyWithoutAgencyInput
   definedCondition?: Prisma.definedConditionUncheckedCreateNestedManyWithoutAgencyInput
+  settings?: Prisma.agencySettingsUncheckedCreateNestedOneWithoutAgencyInput
 }
 
 export type agenciesCreateOrConnectWithoutAssetCategoryInput = {
@@ -947,6 +978,7 @@ export type agenciesUpdateWithoutAssetCategoryInput = {
   manufacturer?: Prisma.manufacturerUpdateManyWithoutAgencyNestedInput
   assetSpec?: Prisma.assetSpecUpdateManyWithoutAgencyNestedInput
   definedCondition?: Prisma.definedConditionUpdateManyWithoutAgencyNestedInput
+  settings?: Prisma.agencySettingsUpdateOneWithoutAgencyNestedInput
 }
 
 export type agenciesUncheckedUpdateWithoutAssetCategoryInput = {
@@ -968,6 +1000,7 @@ export type agenciesUncheckedUpdateWithoutAssetCategoryInput = {
   manufacturer?: Prisma.manufacturerUncheckedUpdateManyWithoutAgencyNestedInput
   assetSpec?: Prisma.assetSpecUncheckedUpdateManyWithoutAgencyNestedInput
   definedCondition?: Prisma.definedConditionUncheckedUpdateManyWithoutAgencyNestedInput
+  settings?: Prisma.agencySettingsUncheckedUpdateOneWithoutAgencyNestedInput
 }
 
 export type agenciesCreateWithoutManufacturerInput = {
@@ -988,6 +1021,7 @@ export type agenciesCreateWithoutManufacturerInput = {
   assetCategory?: Prisma.assetCategoryCreateNestedManyWithoutAgencyInput
   assetSpec?: Prisma.assetSpecCreateNestedManyWithoutAgencyInput
   definedCondition?: Prisma.definedConditionCreateNestedManyWithoutAgencyInput
+  settings?: Prisma.agencySettingsCreateNestedOneWithoutAgencyInput
 }
 
 export type agenciesUncheckedCreateWithoutManufacturerInput = {
@@ -1009,6 +1043,7 @@ export type agenciesUncheckedCreateWithoutManufacturerInput = {
   assetCategory?: Prisma.assetCategoryUncheckedCreateNestedManyWithoutAgencyInput
   assetSpec?: Prisma.assetSpecUncheckedCreateNestedManyWithoutAgencyInput
   definedCondition?: Prisma.definedConditionUncheckedCreateNestedManyWithoutAgencyInput
+  settings?: Prisma.agencySettingsUncheckedCreateNestedOneWithoutAgencyInput
 }
 
 export type agenciesCreateOrConnectWithoutManufacturerInput = {
@@ -1045,6 +1080,7 @@ export type agenciesUpdateWithoutManufacturerInput = {
   assetCategory?: Prisma.assetCategoryUpdateManyWithoutAgencyNestedInput
   assetSpec?: Prisma.assetSpecUpdateManyWithoutAgencyNestedInput
   definedCondition?: Prisma.definedConditionUpdateManyWithoutAgencyNestedInput
+  settings?: Prisma.agencySettingsUpdateOneWithoutAgencyNestedInput
 }
 
 export type agenciesUncheckedUpdateWithoutManufacturerInput = {
@@ -1066,6 +1102,7 @@ export type agenciesUncheckedUpdateWithoutManufacturerInput = {
   assetCategory?: Prisma.assetCategoryUncheckedUpdateManyWithoutAgencyNestedInput
   assetSpec?: Prisma.assetSpecUncheckedUpdateManyWithoutAgencyNestedInput
   definedCondition?: Prisma.definedConditionUncheckedUpdateManyWithoutAgencyNestedInput
+  settings?: Prisma.agencySettingsUncheckedUpdateOneWithoutAgencyNestedInput
 }
 
 export type agenciesCreateWithoutAssetSpecInput = {
@@ -1086,6 +1123,7 @@ export type agenciesCreateWithoutAssetSpecInput = {
   assetCategory?: Prisma.assetCategoryCreateNestedManyWithoutAgencyInput
   manufacturer?: Prisma.manufacturerCreateNestedManyWithoutAgencyInput
   definedCondition?: Prisma.definedConditionCreateNestedManyWithoutAgencyInput
+  settings?: Prisma.agencySettingsCreateNestedOneWithoutAgencyInput
 }
 
 export type agenciesUncheckedCreateWithoutAssetSpecInput = {
@@ -1107,6 +1145,7 @@ export type agenciesUncheckedCreateWithoutAssetSpecInput = {
   assetCategory?: Prisma.assetCategoryUncheckedCreateNestedManyWithoutAgencyInput
   manufacturer?: Prisma.manufacturerUncheckedCreateNestedManyWithoutAgencyInput
   definedCondition?: Prisma.definedConditionUncheckedCreateNestedManyWithoutAgencyInput
+  settings?: Prisma.agencySettingsUncheckedCreateNestedOneWithoutAgencyInput
 }
 
 export type agenciesCreateOrConnectWithoutAssetSpecInput = {
@@ -1143,6 +1182,7 @@ export type agenciesUpdateWithoutAssetSpecInput = {
   assetCategory?: Prisma.assetCategoryUpdateManyWithoutAgencyNestedInput
   manufacturer?: Prisma.manufacturerUpdateManyWithoutAgencyNestedInput
   definedCondition?: Prisma.definedConditionUpdateManyWithoutAgencyNestedInput
+  settings?: Prisma.agencySettingsUpdateOneWithoutAgencyNestedInput
 }
 
 export type agenciesUncheckedUpdateWithoutAssetSpecInput = {
@@ -1164,6 +1204,7 @@ export type agenciesUncheckedUpdateWithoutAssetSpecInput = {
   assetCategory?: Prisma.assetCategoryUncheckedUpdateManyWithoutAgencyNestedInput
   manufacturer?: Prisma.manufacturerUncheckedUpdateManyWithoutAgencyNestedInput
   definedCondition?: Prisma.definedConditionUncheckedUpdateManyWithoutAgencyNestedInput
+  settings?: Prisma.agencySettingsUncheckedUpdateOneWithoutAgencyNestedInput
 }
 
 export type agenciesCreateWithoutDefinedConditionInput = {
@@ -1184,6 +1225,7 @@ export type agenciesCreateWithoutDefinedConditionInput = {
   assetCategory?: Prisma.assetCategoryCreateNestedManyWithoutAgencyInput
   manufacturer?: Prisma.manufacturerCreateNestedManyWithoutAgencyInput
   assetSpec?: Prisma.assetSpecCreateNestedManyWithoutAgencyInput
+  settings?: Prisma.agencySettingsCreateNestedOneWithoutAgencyInput
 }
 
 export type agenciesUncheckedCreateWithoutDefinedConditionInput = {
@@ -1205,6 +1247,7 @@ export type agenciesUncheckedCreateWithoutDefinedConditionInput = {
   assetCategory?: Prisma.assetCategoryUncheckedCreateNestedManyWithoutAgencyInput
   manufacturer?: Prisma.manufacturerUncheckedCreateNestedManyWithoutAgencyInput
   assetSpec?: Prisma.assetSpecUncheckedCreateNestedManyWithoutAgencyInput
+  settings?: Prisma.agencySettingsUncheckedCreateNestedOneWithoutAgencyInput
 }
 
 export type agenciesCreateOrConnectWithoutDefinedConditionInput = {
@@ -1241,6 +1284,7 @@ export type agenciesUpdateWithoutDefinedConditionInput = {
   assetCategory?: Prisma.assetCategoryUpdateManyWithoutAgencyNestedInput
   manufacturer?: Prisma.manufacturerUpdateManyWithoutAgencyNestedInput
   assetSpec?: Prisma.assetSpecUpdateManyWithoutAgencyNestedInput
+  settings?: Prisma.agencySettingsUpdateOneWithoutAgencyNestedInput
 }
 
 export type agenciesUncheckedUpdateWithoutDefinedConditionInput = {
@@ -1262,6 +1306,7 @@ export type agenciesUncheckedUpdateWithoutDefinedConditionInput = {
   assetCategory?: Prisma.assetCategoryUncheckedUpdateManyWithoutAgencyNestedInput
   manufacturer?: Prisma.manufacturerUncheckedUpdateManyWithoutAgencyNestedInput
   assetSpec?: Prisma.assetSpecUncheckedUpdateManyWithoutAgencyNestedInput
+  settings?: Prisma.agencySettingsUncheckedUpdateOneWithoutAgencyNestedInput
 }
 
 export type agenciesCreateWithoutCustomersInput = {
@@ -1282,6 +1327,7 @@ export type agenciesCreateWithoutCustomersInput = {
   manufacturer?: Prisma.manufacturerCreateNestedManyWithoutAgencyInput
   assetSpec?: Prisma.assetSpecCreateNestedManyWithoutAgencyInput
   definedCondition?: Prisma.definedConditionCreateNestedManyWithoutAgencyInput
+  settings?: Prisma.agencySettingsCreateNestedOneWithoutAgencyInput
 }
 
 export type agenciesUncheckedCreateWithoutCustomersInput = {
@@ -1303,6 +1349,7 @@ export type agenciesUncheckedCreateWithoutCustomersInput = {
   manufacturer?: Prisma.manufacturerUncheckedCreateNestedManyWithoutAgencyInput
   assetSpec?: Prisma.assetSpecUncheckedCreateNestedManyWithoutAgencyInput
   definedCondition?: Prisma.definedConditionUncheckedCreateNestedManyWithoutAgencyInput
+  settings?: Prisma.agencySettingsUncheckedCreateNestedOneWithoutAgencyInput
 }
 
 export type agenciesCreateOrConnectWithoutCustomersInput = {
@@ -1339,6 +1386,7 @@ export type agenciesUpdateWithoutCustomersInput = {
   manufacturer?: Prisma.manufacturerUpdateManyWithoutAgencyNestedInput
   assetSpec?: Prisma.assetSpecUpdateManyWithoutAgencyNestedInput
   definedCondition?: Prisma.definedConditionUpdateManyWithoutAgencyNestedInput
+  settings?: Prisma.agencySettingsUpdateOneWithoutAgencyNestedInput
 }
 
 export type agenciesUncheckedUpdateWithoutCustomersInput = {
@@ -1356,6 +1404,109 @@ export type agenciesUncheckedUpdateWithoutCustomersInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   authUsers?: Prisma.authUsersUncheckedUpdateManyWithoutAgencyNestedInput
   assets?: Prisma.assetsUncheckedUpdateManyWithoutAgencyNestedInput
+  assetCategory?: Prisma.assetCategoryUncheckedUpdateManyWithoutAgencyNestedInput
+  manufacturer?: Prisma.manufacturerUncheckedUpdateManyWithoutAgencyNestedInput
+  assetSpec?: Prisma.assetSpecUncheckedUpdateManyWithoutAgencyNestedInput
+  definedCondition?: Prisma.definedConditionUncheckedUpdateManyWithoutAgencyNestedInput
+  settings?: Prisma.agencySettingsUncheckedUpdateOneWithoutAgencyNestedInput
+}
+
+export type agenciesCreateWithoutSettingsInput = {
+  name: string
+  contactEmail: string
+  contactPhone?: string | null
+  address?: string | null
+  city?: string | null
+  stateProvince?: string | null
+  zipPostalCode?: string | null
+  countryRegion?: string | null
+  isActive?: boolean
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  authUsers?: Prisma.authUsersCreateNestedManyWithoutAgencyInput
+  assets?: Prisma.assetsCreateNestedManyWithoutAgencyInput
+  customers?: Prisma.customersCreateNestedManyWithoutAgencyInput
+  assetCategory?: Prisma.assetCategoryCreateNestedManyWithoutAgencyInput
+  manufacturer?: Prisma.manufacturerCreateNestedManyWithoutAgencyInput
+  assetSpec?: Prisma.assetSpecCreateNestedManyWithoutAgencyInput
+  definedCondition?: Prisma.definedConditionCreateNestedManyWithoutAgencyInput
+}
+
+export type agenciesUncheckedCreateWithoutSettingsInput = {
+  id?: number
+  name: string
+  contactEmail: string
+  contactPhone?: string | null
+  address?: string | null
+  city?: string | null
+  stateProvince?: string | null
+  zipPostalCode?: string | null
+  countryRegion?: string | null
+  isActive?: boolean
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  authUsers?: Prisma.authUsersUncheckedCreateNestedManyWithoutAgencyInput
+  assets?: Prisma.assetsUncheckedCreateNestedManyWithoutAgencyInput
+  customers?: Prisma.customersUncheckedCreateNestedManyWithoutAgencyInput
+  assetCategory?: Prisma.assetCategoryUncheckedCreateNestedManyWithoutAgencyInput
+  manufacturer?: Prisma.manufacturerUncheckedCreateNestedManyWithoutAgencyInput
+  assetSpec?: Prisma.assetSpecUncheckedCreateNestedManyWithoutAgencyInput
+  definedCondition?: Prisma.definedConditionUncheckedCreateNestedManyWithoutAgencyInput
+}
+
+export type agenciesCreateOrConnectWithoutSettingsInput = {
+  where: Prisma.agenciesWhereUniqueInput
+  create: Prisma.XOR<Prisma.agenciesCreateWithoutSettingsInput, Prisma.agenciesUncheckedCreateWithoutSettingsInput>
+}
+
+export type agenciesUpsertWithoutSettingsInput = {
+  update: Prisma.XOR<Prisma.agenciesUpdateWithoutSettingsInput, Prisma.agenciesUncheckedUpdateWithoutSettingsInput>
+  create: Prisma.XOR<Prisma.agenciesCreateWithoutSettingsInput, Prisma.agenciesUncheckedCreateWithoutSettingsInput>
+  where?: Prisma.agenciesWhereInput
+}
+
+export type agenciesUpdateToOneWithWhereWithoutSettingsInput = {
+  where?: Prisma.agenciesWhereInput
+  data: Prisma.XOR<Prisma.agenciesUpdateWithoutSettingsInput, Prisma.agenciesUncheckedUpdateWithoutSettingsInput>
+}
+
+export type agenciesUpdateWithoutSettingsInput = {
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  contactEmail?: Prisma.StringFieldUpdateOperationsInput | string
+  contactPhone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  address?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  city?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  stateProvince?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  zipPostalCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  countryRegion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  authUsers?: Prisma.authUsersUpdateManyWithoutAgencyNestedInput
+  assets?: Prisma.assetsUpdateManyWithoutAgencyNestedInput
+  customers?: Prisma.customersUpdateManyWithoutAgencyNestedInput
+  assetCategory?: Prisma.assetCategoryUpdateManyWithoutAgencyNestedInput
+  manufacturer?: Prisma.manufacturerUpdateManyWithoutAgencyNestedInput
+  assetSpec?: Prisma.assetSpecUpdateManyWithoutAgencyNestedInput
+  definedCondition?: Prisma.definedConditionUpdateManyWithoutAgencyNestedInput
+}
+
+export type agenciesUncheckedUpdateWithoutSettingsInput = {
+  id?: Prisma.IntFieldUpdateOperationsInput | number
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  contactEmail?: Prisma.StringFieldUpdateOperationsInput | string
+  contactPhone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  address?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  city?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  stateProvince?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  zipPostalCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  countryRegion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  authUsers?: Prisma.authUsersUncheckedUpdateManyWithoutAgencyNestedInput
+  assets?: Prisma.assetsUncheckedUpdateManyWithoutAgencyNestedInput
+  customers?: Prisma.customersUncheckedUpdateManyWithoutAgencyNestedInput
   assetCategory?: Prisma.assetCategoryUncheckedUpdateManyWithoutAgencyNestedInput
   manufacturer?: Prisma.manufacturerUncheckedUpdateManyWithoutAgencyNestedInput
   assetSpec?: Prisma.assetSpecUncheckedUpdateManyWithoutAgencyNestedInput
@@ -1467,6 +1618,7 @@ export type agenciesSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs
   manufacturer?: boolean | Prisma.agencies$manufacturerArgs<ExtArgs>
   assetSpec?: boolean | Prisma.agencies$assetSpecArgs<ExtArgs>
   definedCondition?: boolean | Prisma.agencies$definedConditionArgs<ExtArgs>
+  settings?: boolean | Prisma.agencies$settingsArgs<ExtArgs>
   _count?: boolean | Prisma.AgenciesCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["agencies"]>
 
@@ -1524,6 +1676,7 @@ export type agenciesInclude<ExtArgs extends runtime.Types.Extensions.InternalArg
   manufacturer?: boolean | Prisma.agencies$manufacturerArgs<ExtArgs>
   assetSpec?: boolean | Prisma.agencies$assetSpecArgs<ExtArgs>
   definedCondition?: boolean | Prisma.agencies$definedConditionArgs<ExtArgs>
+  settings?: boolean | Prisma.agencies$settingsArgs<ExtArgs>
   _count?: boolean | Prisma.AgenciesCountOutputTypeDefaultArgs<ExtArgs>
 }
 export type agenciesIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {}
@@ -1539,6 +1692,7 @@ export type $agenciesPayload<ExtArgs extends runtime.Types.Extensions.InternalAr
     manufacturer: Prisma.$manufacturerPayload<ExtArgs>[]
     assetSpec: Prisma.$assetSpecPayload<ExtArgs>[]
     definedCondition: Prisma.$definedConditionPayload<ExtArgs>[]
+    settings: Prisma.$agencySettingsPayload<ExtArgs> | null
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: number
@@ -1954,6 +2108,7 @@ export interface Prisma__agenciesClient<T, Null = never, ExtArgs extends runtime
   manufacturer<T extends Prisma.agencies$manufacturerArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.agencies$manufacturerArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$manufacturerPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   assetSpec<T extends Prisma.agencies$assetSpecArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.agencies$assetSpecArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$assetSpecPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   definedCondition<T extends Prisma.agencies$definedConditionArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.agencies$definedConditionArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$definedConditionPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  settings<T extends Prisma.agencies$settingsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.agencies$settingsArgs<ExtArgs>>): Prisma.Prisma__agencySettingsClient<runtime.Types.Result.GetResult<Prisma.$agencySettingsPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -2546,6 +2701,25 @@ export type agencies$definedConditionArgs<ExtArgs extends runtime.Types.Extensio
   take?: number
   skip?: number
   distinct?: Prisma.DefinedConditionScalarFieldEnum | Prisma.DefinedConditionScalarFieldEnum[]
+}
+
+/**
+ * agencies.settings
+ */
+export type agencies$settingsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the agencySettings
+   */
+  select?: Prisma.agencySettingsSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the agencySettings
+   */
+  omit?: Prisma.agencySettingsOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.agencySettingsInclude<ExtArgs> | null
+  where?: Prisma.agencySettingsWhereInput
 }
 
 /**

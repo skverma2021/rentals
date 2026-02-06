@@ -396,7 +396,8 @@ export const ModelName = {
   assetWithCustomer: 'assetWithCustomer',
   customers: 'customers',
   customerFile: 'customerFile',
-  assetFile: 'assetFile'
+  assetFile: 'assetFile',
+  agencySettings: 'agencySettings'
 } as const
 
 export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -412,7 +413,7 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
     omit: GlobalOmitOptions
   }
   meta: {
-    modelProps: "agencies" | "authUsers" | "assets" | "assetCategory" | "manufacturer" | "assetSpec" | "definedCondition" | "assetCurrentCondition" | "assetCurrentValue" | "assetWithCustomer" | "customers" | "customerFile" | "assetFile"
+    modelProps: "agencies" | "authUsers" | "assets" | "assetCategory" | "manufacturer" | "assetSpec" | "definedCondition" | "assetCurrentCondition" | "assetCurrentValue" | "assetWithCustomer" | "customers" | "customerFile" | "assetFile" | "agencySettings"
     txIsolationLevel: TransactionIsolationLevel
   }
   model: {
@@ -1378,6 +1379,80 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
         }
       }
     }
+    agencySettings: {
+      payload: Prisma.$agencySettingsPayload<ExtArgs>
+      fields: Prisma.agencySettingsFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.agencySettingsFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$agencySettingsPayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.agencySettingsFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$agencySettingsPayload>
+        }
+        findFirst: {
+          args: Prisma.agencySettingsFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$agencySettingsPayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.agencySettingsFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$agencySettingsPayload>
+        }
+        findMany: {
+          args: Prisma.agencySettingsFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$agencySettingsPayload>[]
+        }
+        create: {
+          args: Prisma.agencySettingsCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$agencySettingsPayload>
+        }
+        createMany: {
+          args: Prisma.agencySettingsCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.agencySettingsCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$agencySettingsPayload>[]
+        }
+        delete: {
+          args: Prisma.agencySettingsDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$agencySettingsPayload>
+        }
+        update: {
+          args: Prisma.agencySettingsUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$agencySettingsPayload>
+        }
+        deleteMany: {
+          args: Prisma.agencySettingsDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.agencySettingsUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.agencySettingsUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$agencySettingsPayload>[]
+        }
+        upsert: {
+          args: Prisma.agencySettingsUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$agencySettingsPayload>
+        }
+        aggregate: {
+          args: Prisma.AgencySettingsAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateAgencySettings>
+        }
+        groupBy: {
+          args: Prisma.agencySettingsGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AgencySettingsGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.agencySettingsCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AgencySettingsCountAggregateOutputType> | number
+        }
+      }
+    }
   }
 } & {
   other: {
@@ -1589,6 +1664,23 @@ export const AssetFileScalarFieldEnum = {
 export type AssetFileScalarFieldEnum = (typeof AssetFileScalarFieldEnum)[keyof typeof AssetFileScalarFieldEnum]
 
 
+export const AgencySettingsScalarFieldEnum = {
+  id: 'id',
+  agencyId: 'agencyId',
+  currencyCode: 'currencyCode',
+  currencySymbol: 'currencySymbol',
+  currencyName: 'currencyName',
+  defaultTaxRate: 'defaultTaxRate',
+  invoicePrefix: 'invoicePrefix',
+  agencyDisplayName: 'agencyDisplayName',
+  agencyTagline: 'agencyTagline',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type AgencySettingsScalarFieldEnum = (typeof AgencySettingsScalarFieldEnum)[keyof typeof AgencySettingsScalarFieldEnum]
+
+
 export const SortOrder = {
   asc: 'asc',
   desc: 'desc'
@@ -1753,6 +1845,7 @@ export type GlobalOmitConfig = {
   customers?: Prisma.customersOmit
   customerFile?: Prisma.customerFileOmit
   assetFile?: Prisma.assetFileOmit
+  agencySettings?: Prisma.agencySettingsOmit
 }
 
 /* Types for Logging */
